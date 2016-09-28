@@ -13,7 +13,7 @@
                 url: '/',
                 views: {
                     'navbar': {
-                        templateUrl: ''
+                        templateUrl: 'js/view/navi/navi.template.html'
                     },
                     'main': {
                         templateUrl: 'js/view/main/main.template.html'

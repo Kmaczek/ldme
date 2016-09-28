@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B7BD494B-152A-4F8C-8723-08E7B393EA30}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+		WebEssentials2015-Settings.json = WebEssentials2015-Settings.json
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Ldme.API.host", "src\Ldme.API.host\Ldme.API.host.xproj", "{57A03549-76E6-416C-BAE9-CA50CE94B17C}"

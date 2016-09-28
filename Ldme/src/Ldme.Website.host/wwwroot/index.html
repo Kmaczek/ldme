@@ -3,11 +3,12 @@
 <head>
     <title>index</title>
 
-    <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-    <link href="lib/bootstrap/dist/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="lib/bootstrap-css/css/bootstrap.css" rel="stylesheet">
+<!--    <link href="lib/bootstrap-css/css/bootstrap-theme.css" rel="stylesheet">-->
     <link href="lib/angular/angular-csp.css" rel="stylesheet">
     <link href="lib/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet">
     <link href="lib/angular-toastr/dist/angular-toastr.css" rel="stylesheet">
+    <link href="styles/ldme.css" rel="stylesheet">
 
     <!--<script src="lib/jquery/dist/jquery.js"></script>
     <script src="lib/bootstrap/dist/js/bootstrap.js"></script>-->
@@ -26,21 +27,27 @@
     <script src="lib/angular-toastr/dist/angular-toastr.tpls.js"></script>
 
     <script src="js/app.js"></script>
+    <script src="js/view/navi/navi.ctrl.js"></script>
     <script src="js/view/main/main.ctrl.js"></script>
     <script src="js/view/footer/footer.ctrl.js"></script>
 
 </head>
 <body ng-app="ldme">
-    <div ui-view="navbar" class="navbar navbar-inverse navbar-fixed-top"></div>
-    <div class="fluid-content">
+    <nav ui-view="navbar" class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            ...
+        </div>
+    </nav>
+    <div class="jumbotron"></div>
+    <div class="container container-fluid">
         <div ui-view="lpanel">
             asd
         </div>
-        <div ui-view="main" class="container-fluid">
+        <div ui-view="main" class="">
             <br /><br /><br /><br /><br /><br />container
         </div>
     </div>
 
-    <div ui-view="footer" class="navbar navbar-inverse navbar-fixed-bottom"></div>
+    <div ui-view="footer" class="navbar navbar-inverse navbar-fixed-bottom status-bar"></div>
 </body>
 </html>
