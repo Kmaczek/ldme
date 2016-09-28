@@ -1,0 +1,71 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{41C212C0-8C06-41A1-B8BE-ED55AFCA402E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B7BD494B-152A-4F8C-8723-08E7B393EA30}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Ldme.API.host", "src\Ldme.API.host\Ldme.API.host.xproj", "{57A03549-76E6-416C-BAE9-CA50CE94B17C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F26CA060-E6D5-46B8-BFCE-7D288463D9EB} = {F26CA060-E6D5-46B8-BFCE-7D288463D9EB}
+		{3D0ED6C2-5BDE-4DDF-BE96-A40D87FA58A5} = {3D0ED6C2-5BDE-4DDF-BE96-A40D87FA58A5}
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Ldme.Website.host", "src\Ldme.Website.host\Ldme.Website.host.xproj", "{A2142F7B-02C2-478F-BFB4-D1962DEC8583}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Ldme.Abstract", "src\Ldme.Abstract\Ldme.Abstract.xproj", "{3D0ED6C2-5BDE-4DDF-BE96-A40D87FA58A5}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Ldme.Models", "src\Ldme.Models\Ldme.Models.xproj", "{2F39923F-5541-495D-935C-1AA05CBCF09A}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Ldme.DB", "src\Ldme.DB\Ldme.DB.xproj", "{157796C5-E0E8-4B70-8978-441B585100DF}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Ldme.Persistence", "src\Ldme.Persistence\Ldme.Persistence.xproj", "{F26CA060-E6D5-46B8-BFCE-7D288463D9EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57A03549-76E6-416C-BAE9-CA50CE94B17C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57A03549-76E6-416C-BAE9-CA50CE94B17C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57A03549-76E6-416C-BAE9-CA50CE94B17C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57A03549-76E6-416C-BAE9-CA50CE94B17C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2142F7B-02C2-478F-BFB4-D1962DEC8583}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2142F7B-02C2-478F-BFB4-D1962DEC8583}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2142F7B-02C2-478F-BFB4-D1962DEC8583}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2142F7B-02C2-478F-BFB4-D1962DEC8583}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D0ED6C2-5BDE-4DDF-BE96-A40D87FA58A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D0ED6C2-5BDE-4DDF-BE96-A40D87FA58A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D0ED6C2-5BDE-4DDF-BE96-A40D87FA58A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D0ED6C2-5BDE-4DDF-BE96-A40D87FA58A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F39923F-5541-495D-935C-1AA05CBCF09A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F39923F-5541-495D-935C-1AA05CBCF09A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F39923F-5541-495D-935C-1AA05CBCF09A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F39923F-5541-495D-935C-1AA05CBCF09A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{157796C5-E0E8-4B70-8978-441B585100DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{157796C5-E0E8-4B70-8978-441B585100DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{157796C5-E0E8-4B70-8978-441B585100DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{157796C5-E0E8-4B70-8978-441B585100DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F26CA060-E6D5-46B8-BFCE-7D288463D9EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F26CA060-E6D5-46B8-BFCE-7D288463D9EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F26CA060-E6D5-46B8-BFCE-7D288463D9EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F26CA060-E6D5-46B8-BFCE-7D288463D9EB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{57A03549-76E6-416C-BAE9-CA50CE94B17C} = {41C212C0-8C06-41A1-B8BE-ED55AFCA402E}
+		{A2142F7B-02C2-478F-BFB4-D1962DEC8583} = {41C212C0-8C06-41A1-B8BE-ED55AFCA402E}
+		{3D0ED6C2-5BDE-4DDF-BE96-A40D87FA58A5} = {41C212C0-8C06-41A1-B8BE-ED55AFCA402E}
+		{2F39923F-5541-495D-935C-1AA05CBCF09A} = {41C212C0-8C06-41A1-B8BE-ED55AFCA402E}
+		{157796C5-E0E8-4B70-8978-441B585100DF} = {41C212C0-8C06-41A1-B8BE-ED55AFCA402E}
+		{F26CA060-E6D5-46B8-BFCE-7D288463D9EB} = {41C212C0-8C06-41A1-B8BE-ED55AFCA402E}
+	EndGlobalSection
+EndGlobal
