@@ -12,10 +12,10 @@ namespace Ldme.API.host.Controllers
         private readonly IPlayerRepository playerRepository;
         private readonly ILogger<PlayerController> _logger;
 
-        public PlayerController(IPlayerRepository playerRepository, ILogger<PlayerController> logger)
+        public PlayerController(IPlayerRepository playerRepository, ILogger<PlayerController> log)
         {
             this.playerRepository = playerRepository;
-            this._logger = logger;
+            this._logger = log;
         }
 
         [HttpGet]

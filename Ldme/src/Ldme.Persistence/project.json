@@ -4,7 +4,6 @@
   "dependencies": {
     "Ldme.Abstract": "1.0.0-*",
     "Ldme.DB": "1.0.0-*",
-    "Ldme.EF": "1.0.0-*",
     "Ldme.Models": "1.0.0-*",
     "NETStandard.Library": "1.6.0"
   },

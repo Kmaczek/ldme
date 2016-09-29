@@ -15,10 +15,11 @@
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
     "Microsoft.EntityFrameworkCore": "1.0.1",
-    "Microsoft.EntityFrameworkCore.Design": "1.0.0-preview2-final" ,
+    "Microsoft.EntityFrameworkCore.Design": "1.0.0-preview2-final",
     "Ldme.DB": "1.0.0-*",
     "Ldme.Abstract": "1.0.0-*",
     "Ldme.Persistence": "1.0.0-*",
+    "Ldme.Models": "1.0.0-*",
     "Newtonsoft.Json": "9.0.1"
   },
 

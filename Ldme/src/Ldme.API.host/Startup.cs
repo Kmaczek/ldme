@@ -1,11 +1,13 @@
 ﻿using Ldme.Abstract.Interfaces;
 using Ldme.DB.Setup;
+using Ldme.Models.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Ldme.Persistence.Repositories;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
 
@@ -41,6 +43,13 @@ namespace Ldme.API.host
                     config.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
 
+            services.AddIdentity<LdmeUser, IdentityRole>(config =>
+            {
+                config.User.RequireUniqueEmail = true;
+                //config.Cookies.ApplicationCookie
+            })
+            .AddEntityFrameworkStores<LdmeContext>();
+
             services.AddDbContext<LdmeContext>(config =>
             {
                 var connection = Configuration["ConnectionStrings:EfContexConnection"];
@@ -56,7 +65,7 @@ namespace Ldme.API.host
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
                 loggerFactory.AddConsole(Configuration.GetSection("Logging"));
                 loggerFactory.AddDebug(LogLevel.Information);
             }
@@ -64,7 +73,7 @@ namespace Ldme.API.host
             {
                 loggerFactory.AddDebug(LogLevel.Error);
             }
-
+            app.UseIdentity();
             app.UseMvc();
 
             seed.EnsureSeedData().Wait();
