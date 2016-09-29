@@ -1,4 +1,21 @@
-﻿.status-bar {
+﻿.navi {
+  color: whitesmoke;
+  padding-top: 10px;
+}
+.navi .pull-left {
+  margin-left: 20px;
+}
+.navi .pull-right {
+  margin-right: 20px;
+}
+.left-panel {
+  position: absolute;
+  padding: 10px;
+  width: 150px;
+  min-height: 300px;
+  border: solid 1px black;
+}
+.status-bar {
   height: 25px !important;
   min-height: 25px !important;
   color: antiquewhite;

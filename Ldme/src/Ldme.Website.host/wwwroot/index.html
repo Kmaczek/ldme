@@ -4,7 +4,7 @@
     <title>index</title>
 
     <link href="lib/bootstrap-css/css/bootstrap.css" rel="stylesheet">
-<!--    <link href="lib/bootstrap-css/css/bootstrap-theme.css" rel="stylesheet">-->
+    <!--    <link href="lib/bootstrap-css/css/bootstrap-theme.css" rel="stylesheet">-->
     <link href="lib/angular/angular-csp.css" rel="stylesheet">
     <link href="lib/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet">
     <link href="lib/angular-toastr/dist/angular-toastr.css" rel="stylesheet">
@@ -33,18 +33,27 @@
 
 </head>
 <body ng-app="ldme">
-    <nav ui-view="navbar" class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            ...
-        </div>
-    </nav>
-    <div class="jumbotron"></div>
-    <div class="container container-fluid">
+    <nav ui-view="navbar" class="navbar navbar-inverse navbar-fixed-top navi"></nav>
+<div class="jumbotron"></div>
+    <div class="left-panel">
         <div ui-view="lpanel">
             asd
         </div>
-        <div ui-view="main" class="">
-            <br /><br /><br /><br /><br /><br />container
+    </div>
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-lg-8">
+                <div class="row">
+                    <!--<div class="col-lg-1"></div>-->
+                    <div class="col-lg-10">
+                        <div ui-view="main" class="">
+                            <br /><br /><br /><br /><br /><br />container
+                        </div>
+                    </div>
+                    <!--<div class="col-lg-1"></div>-->
+                </div>
+            </div>
         </div>
     </div>
 
