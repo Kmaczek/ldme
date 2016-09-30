@@ -1,4 +1,5 @@
-﻿using Ldme.Abstract.Interfaces;
+﻿using System.IO;
+using Ldme.Abstract.Interfaces;
 using Ldme.DB.Setup;
 using Ldme.Models.Models;
 using Microsoft.AspNetCore.Builder;
@@ -26,8 +27,10 @@ namespace Ldme.API.host
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
-            Configuration = builder.Build();
             _config = builder.Build();
+            Configuration = _config;
+
+            
         }
 
         public IConfigurationRoot Configuration { get; }

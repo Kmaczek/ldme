@@ -9,21 +9,38 @@
         $qProvider.errorOnUnhandledRejections(false);
 
         $stateProvider
-            .state('main', {
-                url: '/',
-                views: {
-                    'navbar': {
-                        templateUrl: 'js/view/navi/navi.template.html'
-                    },
-                    'main': {
-                        templateUrl: 'js/view/main/main.template.html'
-                    },
-                    'footer': {
-                        templateUrl: 'js/view/footer/footer.template.html'
+            .state('root',
+                {
+                    abstract: true,
+                    views: {
+                        '': { templateUrl: 'layout.html' },
+
+                        'navbar@root': {
+                            templateUrl: 'js/view/navi/navi.template.html'
+                        },
+                        'main@root': {
+                            templateUrl: 'js/view/main/main.template.html'
+                        },
+                        'footer@root': {
+                            templateUrl: 'js/view/footer/footer.template.html'
+                        }
                     }
-                }
-            });
-        //.state()
+                })
+            .state('main',
+                {
+                    parent: 'root',
+                    url: '/'
+                })
+            .state('player',
+                {
+                    parent: 'root',
+                    url: '/player',
+                    views: {
+                        'main': {
+                            templateUrl: 'js/view/player/player.template.html'
+                        }
+                    }
+                });
 
         angular.extend(toastrConfig, {
             preventOpenDuplicates: true,
