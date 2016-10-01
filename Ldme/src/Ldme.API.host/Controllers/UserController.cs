@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ldme.Abstract.Interfaces;
+using Ldme.Models.Dtos;
+using Ldme.Models.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -32,6 +35,18 @@ namespace Ldme.API.host.Controllers
                 _logger.LogError($"Cannot get user from database. {e.Message}");
                 return BadRequest();
             }
+        }
+
+        [HttpPost("login")]
+        public IActionResult Post([FromBody]LoginDto loginDto)
+        {
+            if (ModelState.IsValid)
+            {
+                _userRepository.LoginAsync(loginDto);
+                return Ok();
+            }
+
+            return Unauthorized();
         }
     }
 }

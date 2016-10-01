@@ -5,10 +5,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Ldme.Website.host
 {
@@ -18,6 +21,7 @@ namespace Ldme.Website.host
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("webConfig.json", false, true)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
@@ -49,19 +53,35 @@ namespace Ldme.Website.host
             {
                 await next();
 
+                if (context.Request.Path.ToString().Contains("index.html") ||
+                    SinglePageAppRequestCheck(context))
+                {
+                    // add config cookie
+                    var webConfig = new WebConfigModel();
+                    Configuration.Bind(webConfig);
+                    var jsonSettings = new JsonSerializerSettings()
+                    {
+                        ContractResolver = new CamelCasePropertyNamesContractResolver()
+                    };
+                    context.Response.Cookies.Append("ldmeConfig", JsonConvert.SerializeObject(webConfig,Formatting.None, jsonSettings));
+                }
+
                 // If there's no available file and the request doesn't contain an extension, we're probably trying to access a page.
                 // Rewrite request to use app root
-                if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+                if (SinglePageAppRequestCheck(context))
                 {
-                    context.Request.Path = "/index.html"; // Put your Angular root page here 
+                    context.Request.Path = "/index.html";
                     await next();
                 }
             });
 
-            //app.UseFileServer();
-            
             app.UseDefaultFiles();
             app.UseStaticFiles();
+        }
+
+        private static bool SinglePageAppRequestCheck(HttpContext context)
+        {
+            return context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value);
         }
     }
 }

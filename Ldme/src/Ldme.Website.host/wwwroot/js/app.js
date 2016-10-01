@@ -51,13 +51,13 @@
     }
 
     var run = [
-//        'appInfo', function () {
-//
-//        }
+        '$cookies', function ($cookies) {
+            angular.module('ldme').constant('ldmeConfig', $cookies.getObject('ldmeConfig'));
+        }
     ];
 
     angular.module('ldme', ['ui.router', 'ngResource', 'ngAnimate', 'ngMessages', 'ngCookies', 'toastr'])
-        .constant('ldmeConst', {})
-        .config(config);
-    //.run(run);
+        //.constant('ldmeConst', {})
+        .config(config)
+        .run(run);
 })()
