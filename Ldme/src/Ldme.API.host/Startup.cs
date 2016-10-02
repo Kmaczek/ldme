@@ -16,8 +16,7 @@ namespace Ldme.API.host
 {
     public class Startup
     {
-        private IConfigurationRoot _config;
-        private IHostingEnvironment _env;
+        private readonly IHostingEnvironment _env;
 
         public Startup(IHostingEnvironment env)
         {
@@ -27,10 +26,7 @@ namespace Ldme.API.host
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
-            _config = builder.Build();
-            Configuration = _config;
-
-            
+            Configuration = builder.Build();
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -38,7 +34,14 @@ namespace Ldme.API.host
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton(_config);
+            services.AddSingleton(Configuration);
+            services.AddCors(options =>
+            { // don not put slashes to WithOrigins
+                options.AddPolicy("AllowAll", 
+                    p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+                options.AddPolicy("AllowLocal", 
+                    p => p.WithOrigins(Configuration["WebsiteUrl"]).AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+            });
             // Add framework services.
             services.AddMvc()
                 .AddJsonOptions(config =>
@@ -60,6 +63,7 @@ namespace Ldme.API.host
             });
             services.AddTransient<LdmeContextSeed>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddLogging();
         }
 
@@ -68,7 +72,6 @@ namespace Ldme.API.host
         {
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();
                 loggerFactory.AddConsole(Configuration.GetSection("Logging"));
                 loggerFactory.AddDebug(LogLevel.Information);
             }
@@ -76,6 +79,7 @@ namespace Ldme.API.host
             {
                 loggerFactory.AddDebug(LogLevel.Error);
             }
+            app.UseCors("AllowLocal");
             app.UseIdentity();
             app.UseMvc();
 

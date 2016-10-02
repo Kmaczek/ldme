@@ -1,5 +1,9 @@
 ﻿(function () {
-
+    // pre load
+//    var injector = angular.injector(['ng, ngCookies']);
+//    var cookies = injector.get('$cookies');
+//    var webConfig = cookies.getObject('ldmeConfig');
+    // load appp
     function config($stateProvider, $locationProvider, $urlRouterProvider, $qProvider, toastrConfig) {
         $locationProvider.html5Mode({
             enabled: true,
@@ -52,12 +56,12 @@
 
     var run = [
         '$cookies', function ($cookies) {
-            angular.module('ldme').constant('ldmeConfig', $cookies.getObject('ldmeConfig'));
+            
         }
     ];
 
     angular.module('ldme', ['ui.router', 'ngResource', 'ngAnimate', 'ngMessages', 'ngCookies', 'toastr'])
-        //.constant('ldmeConst', {})
+//        .constant('ldmeConfig', webConfig)
         .config(config)
         .run(run);
 })()

@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Ldme.API.host.Controllers
 {
-    [Route("api/user")]
+    [Route("api/[controller]")]
     public class UserController : Controller
     {
         private readonly ILogger<UserController> _logger;
@@ -24,6 +24,20 @@ namespace Ldme.API.host.Controllers
         }
 
         [HttpGet]
+        public IActionResult Get()
+        {
+            try
+            {
+                return new JsonResult(_userRepository.GetUsers());
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Cannot get user from database. {e.Message}");
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("{email}")]
         public IActionResult Get(string email)
         {
             try

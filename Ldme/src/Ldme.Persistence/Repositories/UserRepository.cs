@@ -28,6 +28,11 @@ namespace Ldme.Persistence.Repositories
             throw new NotImplementedException();
         }
 
+        public IEnumerable<LdmeUser> GetUsers()
+        {
+            return _context.Users;
+        }
+
         public LdmeUser GetUserByEmail(string email)
         {
             throw new NotImplementedException();

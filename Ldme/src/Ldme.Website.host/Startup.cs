@@ -48,7 +48,7 @@ namespace Ldme.Website.host
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.Use(async (context, next) =>
             {
                 await next();
@@ -63,7 +63,7 @@ namespace Ldme.Website.host
                     {
                         ContractResolver = new CamelCasePropertyNamesContractResolver()
                     };
-                    context.Response.Cookies.Append("ldmeConfig", JsonConvert.SerializeObject(webConfig,Formatting.None, jsonSettings));
+                    context.Response.Cookies.Append("ldmeConfig", JsonConvert.SerializeObject(webConfig, Formatting.None, jsonSettings));
                 }
 
                 // If there's no available file and the request doesn't contain an extension, we're probably trying to access a page.
@@ -75,7 +75,6 @@ namespace Ldme.Website.host
                 }
             });
 
-            app.UseDefaultFiles();
             app.UseStaticFiles();
         }
 
