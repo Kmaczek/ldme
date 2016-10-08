@@ -1,13 +1,15 @@
-﻿<div ng-controller="naviCtrl">
+﻿<div ng-controller="naviCtrl as navc">
     <div class="pull-left">
-        Hello
-        <button class="btn btn-default btn-sm">Some button</button>
+        LDME
     </div>
-    <div class="pull-right">
-        Yo yo {{hello}}
-        <input class="input-sm nav-input" type="email" placeholder="email" ng-model="email">
-        <input class="input-sm nav-input" type="password" placeholder="password" ng-model="password"/>
-        <button class="btn btn-success btn-sm" ng-click="login()">Login</button>
+    <div class="pull-right" ng-if="navc.isLoggedIn()">
+        <label>Hello {{navc.playerName}}!</label>
+        <button class="btn btn-default btn-sm" ng-click="navc.logOut()">LogOut</button>
+    </div>
+    <div class="pull-right" ng-if="!navc.isLoggedIn()">
+        <input class="input-sm nav-input" type="email" placeholder="email" ng-model="navc.email">
+        <input class="input-sm nav-input" type="password" placeholder="password" ng-model="navc.password"/>
+        <button class="btn btn-success btn-sm" ng-click="navc.logIn()">Login</button>
         <button class="btn btn-info btn-sm" ui-sref="register">Register</button>
     </div>
 </div>
