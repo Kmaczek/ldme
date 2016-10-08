@@ -20,13 +20,13 @@
                         '': { templateUrl: 'layout.html' },
 
                         'navbar@root': {
-                            templateUrl: 'js/view/navi/navi.template.html'
+                            templateUrl: 'js/view/navi/navi.tmpl.html'
                         },
                         'main@root': {
-                            templateUrl: 'js/view/main/main.template.html'
+                            templateUrl: 'js/view/main/main.tmpl.html'
                         },
                         'footer@root': {
-                            templateUrl: 'js/view/footer/footer.template.html'
+                            templateUrl: 'js/view/footer/footer.tmpl.html'
                         }
                     }
                 })
@@ -41,10 +41,20 @@
                     url: '/player',
                     views: {
                         'main': {
-                            templateUrl: 'js/view/player/player.template.html'
+                            templateUrl: 'js/view/player/player.tmpl.html'
                         }
                     }
-                });
+                })
+            .state('register',
+            {
+                parent: 'root',
+                url: '/user/registration',
+                views: {
+                    'main': {
+                        templateUrl: 'js/view/register/register.tmpl.html'
+                    }
+                }
+            });
 
         angular.extend(toastrConfig, {
             preventOpenDuplicates: true,
