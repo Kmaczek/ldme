@@ -52,6 +52,11 @@ namespace Ldme.API.host
             services.AddIdentity<LdmeUser, IdentityRole>(config =>
             {
                 config.User.RequireUniqueEmail = true;
+                config.Password.RequireDigit = false;
+                config.Password.RequireLowercase = false;
+                config.Password.RequireNonAlphanumeric = false;
+                config.Password.RequireUppercase = false;
+                config.Password.RequiredLength = 3;
                 //config.Cookies.ApplicationCookie
             })
             .AddEntityFrameworkStores<LdmeContext>();

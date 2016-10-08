@@ -57,6 +57,7 @@
             });
 
         angular.extend(toastrConfig, {
+            allowHtml:true,
             preventOpenDuplicates: true,
             progressBar: true,
             timeOut: 1200,

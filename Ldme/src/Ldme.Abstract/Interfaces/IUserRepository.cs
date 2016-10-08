@@ -16,6 +16,6 @@ namespace Ldme.Abstract.Interfaces
         LdmeUser GetUserByEmail(string email);
         void SaveUser(LdmeUser user);
         Task<SignInResult> LoginAsync(LoginDto loginData);
-        void RegisterAsync(RegistrationDto registrationData);
+        Task<IdentityResult> RegisterAsync(RegistrationDto registrationData);
     }
 }

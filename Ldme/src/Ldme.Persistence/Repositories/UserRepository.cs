@@ -48,9 +48,14 @@ namespace Ldme.Persistence.Repositories
             return await _signInManager.PasswordSignInAsync(loginData.Email, loginData.Password, true, false);
         }
 
-        public async void RegisterAsync(RegistrationDto registrationData)
+        public async Task<IdentityResult> RegisterAsync(RegistrationDto registrationData)
         {
-            await _userManager.CreateAsync(new LdmeUser()
+//            if (_context.Users.Any(x => x.Email == registrationData.Email))
+//            {
+//                return IdentityResult.Failed();
+//            }
+
+            return await _userManager.CreateAsync(new LdmeUser()
             {
                 UserName = registrationData.Email,
                 Email = registrationData.Email

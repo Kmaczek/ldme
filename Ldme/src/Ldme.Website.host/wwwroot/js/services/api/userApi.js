@@ -3,11 +3,16 @@
 
         var apiUrl = ldmeConfig.apiUrl + "/user";
 
-        var player = $resource(apiUrl, null,
+        var user = $resource(apiUrl, null,
         {
             login: {
                 method: 'POST',
                 url: apiUrl + '/login',
+                withCredentials: true
+            },
+            register: {
+                method: 'POST',
+                url: apiUrl + '/register',
                 withCredentials: true
             }
         });
@@ -17,10 +22,15 @@
         }
 
         function defaultOnFail(response) {
-            toastr.error('Cannot log in');
+            var errors = '';
+                angular.forEach(response.data,
+                function(value, key) {
+                    errors += '- ' + value.code + "<br>";
+                });
+            toastr.error('Request failed: <br>' + errors);
         }
 
-        function login(email, password, onSuccess, onFail) {
+        function callWrapper(action, params, onSuccess, onFail) {
             var success = defaultOnSuccess;
             var fail = defaultOnFail;
             if (onSuccess) {
@@ -29,11 +39,20 @@
             if (onFail) {
                 fail = onFail;
             }
-            player.login({ email: email, password: password }, success, fail);
+            action(params, success, fail);
+        }
+
+        function login(email, password, onSuccess, onFail) {
+            callWrapper(user.login, { email: email, password: password }, onSuccess, onFail);
+        }
+
+        function register(email, password, onSuccess, onFail) {
+            callWrapper(user.register, { email: email, password: password }, onSuccess, onFail);
         }
 
         return {
-            Login: login
+            Login: login,
+            Register: register
         }
     }]);
 
