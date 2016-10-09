@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('ldme').factory('userApi', ['$resource', 'toastr', 'ldmeConfig', function ($resource, toastr, ldmeConfig) {
+    angular.module('ldme').factory('userApi', ['$resource', 'toastr', 'ldmeConfig', 'apiHelper', function ($resource, toastr, ldmeConfig, apiHelper) {
 
         var apiUrl = ldmeConfig.apiUrl + "/user";
 
@@ -17,37 +17,12 @@
             }
         });
 
-        function defaultOnSuccess(response) {
-
-        }
-
-        function defaultOnFail(response) {
-            var errors = '';
-                angular.forEach(response.data,
-                function(value, key) {
-                    errors += '- ' + value.code + "<br>";
-                });
-            toastr.error('Request failed: <br>' + errors);
-        }
-
-        function callWrapper(action, params, onSuccess, onFail) {
-            var success = defaultOnSuccess;
-            var fail = defaultOnFail;
-            if (onSuccess) {
-                success = onSuccess;
-            }
-            if (onFail) {
-                fail = onFail;
-            }
-            action(params, success, fail);
-        }
-
         function login(email, password, onSuccess, onFail) {
-            callWrapper(user.login, { email: email, password: password }, onSuccess, onFail);
+            apiHelper.requestWrapper(user.login, { email: email, password: password }, onSuccess, onFail);
         }
 
         function register(email, password, onSuccess, onFail) {
-            callWrapper(user.register, { email: email, password: password }, onSuccess, onFail);
+            apiHelper.requestWrapper(user.register, { email: email, password: password }, onSuccess, onFail);
         }
 
         return {

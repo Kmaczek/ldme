@@ -18,6 +18,20 @@ namespace Ldme.API.host.Controllers
             this._logger = log;
         }
 
+        [HttpGet("{id}")]
+        public JsonResult Get(int id)
+        {
+            var player = playerRepository.GetPlayer(id);
+            return Json(player);
+        }
+
+        [HttpGet("{email}")]
+        public JsonResult Get([FromQuery]string email)
+        {
+            var player = playerRepository.GetPlayerByEmail(email);
+            return Json(player);
+        }
+
         [HttpGet]
         public IActionResult Get()
         {
@@ -30,13 +44,6 @@ namespace Ldme.API.host.Controllers
                 _logger.LogError($"Cannot get players from database. {e.Message}");
                 return BadRequest();
             }
-        }
-
-        [HttpGet("{id}")]
-        public JsonResult Get(int id)
-        {
-            var player = playerRepository.GetPlayer(id);
-            return Json(player);
         }
 
         [HttpPost]

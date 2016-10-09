@@ -8,8 +8,8 @@ using Ldme.DB.Setup;
 namespace Ldme.DB.Migrations
 {
     [DbContext(typeof(LdmeContext))]
-    [Migration("20160927220400_IdentityUser")]
-    partial class IdentityUser
+    [Migration("20161009162940_AddHonorFieldToPlayer")]
+    partial class AddHonorFieldToPlayer
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -67,7 +67,7 @@ namespace Ldme.DB.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<int?>("PlayerId");
+                    b.Property<int>("PlayerId");
 
                     b.Property<string>("SecurityStamp");
 
@@ -96,6 +96,8 @@ namespace Ldme.DB.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<double>("Gold");
+
+                    b.Property<double>("Honor");
 
                     b.Property<string>("Name");
 
@@ -260,7 +262,8 @@ namespace Ldme.DB.Migrations
                 {
                     b.HasOne("Ldme.Models.Models.Player", "Player")
                         .WithMany()
-                        .HasForeignKey("PlayerId");
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Ldme.Models.Models.Quest", b =>

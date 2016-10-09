@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Ldme.Abstract.Interfaces;
 using Ldme.Models.Dtos;
 using Ldme.Models.Models;
+using Ldme.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -17,6 +20,7 @@ namespace Ldme.API.host.Controllers
     {
         private readonly ILogger<UserController> _logger;
         private readonly IUserRepository _userRepository;
+
         public UserController(ILogger<UserController> logger, IUserRepository userRepository)
         {
             _logger = logger;
@@ -37,6 +41,7 @@ namespace Ldme.API.host.Controllers
             }
         }
 
+        // api/user/damokles
         [HttpGet("{email}")]
         public IActionResult Get(string email)
         {
@@ -52,14 +57,25 @@ namespace Ldme.API.host.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Post([FromBody]LoginDto loginData)
+        public IActionResult Post([FromBody] LoginDto loginData)
         {
             if (ModelState.IsValid)
             {
-                var result = _userRepository.LoginAsync(loginData).Result;
-                if (result.Succeeded)
+                try
                 {
-                    return Ok();
+                    var result = _userRepository.LoginAsync(loginData).Result;
+                    if (result.Succeeded)
+                    {
+                        var user = _userRepository.GetUserByEmail(loginData.Email);
+                        var userVM = Mapper.Map<UserVM>(user);
+
+                        return Ok(userVM);
+                    }
+                }
+                catch (Exception e)
+                {
+                    _logger.LogInformation(e.ToString());
+                    return NotFound();
                 }
             }
 
@@ -67,17 +83,24 @@ namespace Ldme.API.host.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Post([FromBody]RegistrationDto registrationData)
+        public IActionResult Post([FromBody] RegistrationDto registrationData)
         {
             if (ModelState.IsValid)
             {
-                var result = _userRepository.RegisterAsync(registrationData).Result;
-                if (result.Succeeded)
+                IdentityResult result = null;
+                try
                 {
-                    return Ok();
+                    result = _userRepository.RegisterAsync(registrationData).Result;
+                    if (result.Succeeded)
+                    {
+                        return Ok();
+                    }
                 }
-
-                return BadRequest(result.Errors);
+                catch (Exception e)
+                {
+                    _logger.LogInformation(e.ToString());
+                    return BadRequest(result.Errors);
+                }
             }
 
             return BadRequest(ModelState);

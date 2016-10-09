@@ -1,7 +1,10 @@
 ﻿using System.IO;
+using AutoMapper;
 using Ldme.Abstract.Interfaces;
+using Ldme.Common.Factories;
 using Ldme.DB.Setup;
 using Ldme.Models.Models;
+using Ldme.Models.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -67,6 +70,7 @@ namespace Ldme.API.host
                 config.UseSqlServer(connection);
             });
             services.AddTransient<LdmeContextSeed>();
+            services.AddTransient<PlayerFactory>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddLogging();
@@ -87,6 +91,10 @@ namespace Ldme.API.host
             app.UseCors("AllowLocal");
             app.UseIdentity();
             app.UseMvc();
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<LdmeUser, UserVM>().ReverseMap();
+            });
 
             seed.EnsureSeedData().Wait();
         }

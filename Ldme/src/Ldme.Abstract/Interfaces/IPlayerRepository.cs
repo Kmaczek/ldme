@@ -6,6 +6,7 @@ namespace Ldme.Abstract.Interfaces
     public interface IPlayerRepository
     {
         Player GetPlayer(int id);
+        Player GetPlayerByEmail(string email);
 
         void AddPlayer(Player player);
 

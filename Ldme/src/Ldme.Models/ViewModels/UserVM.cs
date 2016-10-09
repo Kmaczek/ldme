@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-namespace Ldme.Models.Models
+namespace Ldme.Models.ViewModels
 {
-    public class LdmeUser : IdentityUser
+    public class UserVM
     {
+        public string Id { get; set; }
+        public string Email { get; set; }
         public int PlayerId { get; set; }
-        public virtual Player Player { get; set; }
     }
 }

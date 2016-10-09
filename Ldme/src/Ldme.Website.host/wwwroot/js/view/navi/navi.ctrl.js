@@ -3,15 +3,16 @@
 
     angular.module('ldme').controller('naviCtrl', ['$state', 'userApi', 'appState', function ($state, userApi, appState) {
         this.isLoggedIn = appState.isLoggedIn;
-        var self = this;
+        var ctrl = this;
 
         this.logIn = function() {
-            function goToPlayerPage() {
+            function onSuccesffullLogin(response) {
                 appState.logIn();
+                appState.setEmail(ctrl.email);
                 $state.go('player');
             }
 
-            userApi.Login(this.email, this.password, goToPlayerPage);
+            userApi.Login(this.email, this.password, onSuccesffullLogin);
         }
 
         this.logOut = function() {

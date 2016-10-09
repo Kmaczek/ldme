@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ldme.Abstract.Interfaces;
+using Ldme.Common.Factories;
 using Ldme.DB.Setup;
 using Ldme.Models.Dtos;
 using Ldme.Models.Models;
@@ -16,11 +17,18 @@ namespace Ldme.Persistence.Repositories
         private readonly LdmeContext _context;
         private readonly SignInManager<LdmeUser> _signInManager;
         private readonly UserManager<LdmeUser> _userManager;
-        public UserRepository(LdmeContext context, SignInManager<LdmeUser> signInManager, UserManager<LdmeUser> userManager)
+        private readonly PlayerFactory _playerFactory;
+
+        public UserRepository(
+            LdmeContext context, 
+            SignInManager<LdmeUser> signInManager, 
+            UserManager<LdmeUser> userManager,
+            PlayerFactory playerFactory)
         {
             _context = context;
             _signInManager = signInManager;
             _userManager = userManager;
+            _playerFactory = playerFactory;
         }
 
         public LdmeUser GetUserById(int id)
@@ -35,7 +43,7 @@ namespace Ldme.Persistence.Repositories
 
         public LdmeUser GetUserByEmail(string email)
         {
-            throw new NotImplementedException();
+            return _context.Users.First(x => x.Email == email);
         }
 
         public void SaveUser(LdmeUser user)
@@ -58,7 +66,8 @@ namespace Ldme.Persistence.Repositories
             return await _userManager.CreateAsync(new LdmeUser()
             {
                 UserName = registrationData.Email,
-                Email = registrationData.Email
+                Email = registrationData.Email,
+                Player = _playerFactory.GetInitialPlayer(registrationData.Email)
             }, registrationData.Password);
         }
     }

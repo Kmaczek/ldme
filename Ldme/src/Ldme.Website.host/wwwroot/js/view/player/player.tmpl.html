@@ -1,3 +1,25 @@
-﻿<div ng-controller="playerCtrl">
-    <h1>Player Page</h1>
+﻿<div ng-controller="playerCtrl as pc">
+    <div ng-if="pc.isLoggedIn()">
+        <div class="row">
+            <div class="col-lg-3">
+                <label>Player name: </label>
+            </div>
+            <div class="col-lg-9">{{pc.playerName}}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <label>Player gold: </label>
+            </div>
+            <div class="col-lg-9">{{pc.playerGold}}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <label>Player honor: </label>
+            </div>
+            <div class="col-lg-9">{{pc.playerHonor}}</div>
+        </div>
+    </div>
+    <div ng-if="!pc.isLoggedIn()">
+        Please first log in to see your page...
+    </div>
 </div>

@@ -8,9 +8,10 @@ using Ldme.DB.Setup;
 namespace Ldme.DB.Migrations
 {
     [DbContext(typeof(LdmeContext))]
-    partial class LdmeContextModelSnapshot : ModelSnapshot
+    [Migration("20161009154630_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -95,8 +96,6 @@ namespace Ldme.DB.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<double>("Gold");
-
-                    b.Property<double>("Honor");
 
                     b.Property<string>("Name");
 

@@ -22,6 +22,15 @@
             $cookies.putObject(cName, state);
         }
 
+        function getEmail() {
+            return state.email;
+        }
+
+        function setEmail(email) {
+            state.email = email;
+            $cookies.putObject(cName, state);
+        }
+
         //------------------------------------
         function setCookie() {
             function getDefaultState() {
@@ -43,7 +52,13 @@
             isLoggedIn: isLoggedIn,
 
             logIn: logIn,
-            logOut: logOut
+            logOut: logOut,
+            getEmail: getEmail,
+            setEmail: setEmail,
+
+            onLoggedIn: function() {
+                // implement
+            }
         }
     }]);
 }())

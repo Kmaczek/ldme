@@ -1,12 +1,14 @@
 ﻿(function () {
-    angular.module('ldme').controller('playerCtrl', ['$scope', 'appState', function ($scope, appState) {
-        $scope.isLoggedIn = appState.isLoggedIn();
+    "use strict";
 
-        function initialize() {
-            
-        }
+    angular.module('ldme').controller('playerCtrl', ['appState', 'playerInstance', function (appState, playerInstance) {
+        this.isLoggedIn = appState.isLoggedIn;
 
-        initialize();
+        (function initialize() {
+            if (appState.isLoggedIn) {
+                playerInstance.fetchPlayerData(appState.getEmail());
+            }
+        })();
+
     }]);
-
 }())

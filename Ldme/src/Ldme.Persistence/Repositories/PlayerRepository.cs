@@ -20,6 +20,11 @@ namespace Ldme.Persistence.Repositories
             return ldmeContext.Players.First(x => x.Id == id);
         }
 
+        public Player GetPlayerByEmail(string email)
+        {
+            return ldmeContext.Players.First(p => ldmeContext.Users.First(u => u.Email == email).Player == p);
+        }
+
         public void AddPlayer(Player player)
         {
             ldmeContext.Players.Add(player);
