@@ -1,23 +1,23 @@
 ﻿(function () {
     angular.module('ldme').factory('playerApi', ['$resource', 'ldmeConfig', 'apiHelper', function ($resource, ldmeConfig, apiHelper) {
 
-        var apiUrl = ldmeConfig.apiUrl + "/players";
+        var apiUrl = ldmeConfig.apiUrl + '/player';
 
         var player = $resource(apiUrl, null,
         {
             get: {
                 method: 'GET',
                 withCredentials: true,
-                isArray: true
+                url: apiUrl + '/:id'
             }
         });
 
-        function getPlayerByEmail(email, onSuccess, onFail) {
-            apiHelper.requestWrapper(player.get, { email: email }, onSuccess, onFail);
+        function getPlayerData(id, onSuccess, onFail) {
+            return apiHelper.requestWrapper(player.get, { id: id }, onSuccess, onFail);
         }
 
         return {
-            GetPlayer: getPlayerByEmail
+            GetPlayer: getPlayerData
         }
     }]);
 

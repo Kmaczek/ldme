@@ -23,7 +23,7 @@
             if (onFail) {
                 fail = onFail;
             }
-            action(params, success, fail);
+            return action(params, success, fail).$promise;
         }
 
         return {

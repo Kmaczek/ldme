@@ -8,7 +8,7 @@
         this.logIn = function() {
             function onSuccesffullLogin(response) {
                 appState.logIn();
-                appState.setEmail(ctrl.email);
+                appState.setPlayerData(response);
                 $state.go('player');
             }
 

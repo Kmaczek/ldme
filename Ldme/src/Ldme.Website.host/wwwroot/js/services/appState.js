@@ -26,8 +26,14 @@
             return state.email;
         }
 
-        function setEmail(email) {
-            state.email = email;
+        function getPlayerId() {
+            return state.playerId;
+        }
+
+        function setPlayerData(response) {
+            state.email = response.email;
+            state.userId = response.id;
+            state.playerId = response.playerId;
             $cookies.putObject(cName, state);
         }
 
@@ -54,7 +60,8 @@
             logIn: logIn,
             logOut: logOut,
             getEmail: getEmail,
-            setEmail: setEmail,
+            getPlayerId: getPlayerId,
+            setPlayerData: setPlayerData,
 
             onLoggedIn: function() {
                 // implement

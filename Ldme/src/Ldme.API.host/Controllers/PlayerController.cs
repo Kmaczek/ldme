@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Ldme.API.host.Controllers
 {
-    [Route("api/players")]
+    [Route("api/[controller]")]
     public class PlayerController : Controller
     {
         private readonly IPlayerRepository playerRepository;
@@ -18,18 +18,20 @@ namespace Ldme.API.host.Controllers
             this._logger = log;
         }
 
+        // api/player/[id]
         [HttpGet("{id}")]
-        public JsonResult Get(int id)
+        public IActionResult Get(int id)
         {
-            var player = playerRepository.GetPlayer(id);
-            return Json(player);
-        }
-
-        [HttpGet("{email}")]
-        public JsonResult Get([FromQuery]string email)
-        {
-            var player = playerRepository.GetPlayerByEmail(email);
-            return Json(player);
+            try
+            {
+                var player = playerRepository.GetPlayer(id);
+                return Json(player);
+            }
+            catch (Exception e)
+            {
+                _logger.LogInformation(e.ToString());
+                return Json(new {Message = "Server error, couldnt find player.", Error = e.Message});
+            }
         }
 
         [HttpGet]

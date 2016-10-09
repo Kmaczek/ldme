@@ -4,18 +4,25 @@
     angular.module('ldme').factory('playerInstance', ['$resource', 'ldmeConfig', 'playerApi', function ($resource, ldmeConfig, playerApi) {
         var playerData = {};
 
-        function fetchPlayerData(email) {
+        function fetchPlayerData(id) {
             function onSuccess(result) {
-                playerData.nickname = result.nickname;
+                playerData.name = result.name;
                 playerData.honor = result.honor;
                 playerData.gold = result.gold;
+                playerData.id = result.id;
+                playerData.quests = result.quests;
             }
 
-            playerApi.GetPlayer(email, onSuccess);
+            return playerApi.GetPlayer(id, onSuccess);
+        }
+
+        function getPlayerData() {
+            return playerData;
         }
 
         return {
-            fetchPlayerData: fetchPlayerData
+            fetchPlayerData: fetchPlayerData,
+            getPlayerData: getPlayerData
         }
     }]);
 }())
