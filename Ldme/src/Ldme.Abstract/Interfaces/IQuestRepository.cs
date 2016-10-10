@@ -5,7 +5,7 @@ namespace Ldme.Abstract.Interfaces
     public interface IQuestRepository
     {
         void CreateQuest(Quest quest);
-
         void DeleteQuest(int id);
+        void SaveChanges();
     }
 }

@@ -24,17 +24,44 @@ namespace Ldme.DB.Setup
                 {
                     Gold = 1000,
                     Name = "Test1",
-                    Quests = new List<Quest>
-                    {
-                        new Quest() { Name = "Do things 1", RewardedHonor = 100 },
-                        new Quest() { Name = "Do things 2", RewardedHonor = 20 },
-                        new Quest() { Name = "Do things 3", RewardedHonor = 30 },
-                        new Quest() { Name = "Do things 4", RewardedHonor = 44 }
-                    }
                 };
 
                 _context.Players.Add(mainPlayer);
-                _context.Quests.AddRange(mainPlayer.Quests);
+                _context.SaveChanges();
+
+                mainPlayer.QuestsOwned = new List<Quest>
+                {
+                    new Quest()
+                    {
+                        Name = "Do things 1",
+                        RewardedHonor = 100,
+                        QuestGiverId = mainPlayer.Id,
+                        QuestRevceiverId = mainPlayer.Id
+                    },
+                    new Quest()
+                    {
+                        Name = "Do things 2",
+                        RewardedHonor = 20,
+                        QuestGiverId = mainPlayer.Id,
+                        QuestRevceiverId = mainPlayer.Id
+                    },
+                    new Quest()
+                    {
+                        Name = "Do things 3",
+                        RewardedHonor = 30,
+                        QuestGiverId = mainPlayer.Id,
+                        QuestRevceiverId = mainPlayer.Id
+                    },
+                    new Quest()
+                    {
+                        Name = "Do things 4",
+                        RewardedHonor = 44,
+                        QuestGiverId = mainPlayer.Id,
+                        QuestRevceiverId = mainPlayer.Id
+                    }
+                };
+
+                _context.Quests.AddRange(mainPlayer.QuestsOwned);
 
                 await _context.SaveChangesAsync();
             }

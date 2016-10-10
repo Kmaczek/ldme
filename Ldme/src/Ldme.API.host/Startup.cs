@@ -3,6 +3,7 @@ using AutoMapper;
 using Ldme.Abstract.Interfaces;
 using Ldme.Common.Factories;
 using Ldme.DB.Setup;
+using Ldme.Models.Dtos;
 using Ldme.Models.Models;
 using Ldme.Models.ViewModels;
 using Microsoft.AspNetCore.Builder;
@@ -94,6 +95,7 @@ namespace Ldme.API.host
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<LdmeUser, UserVM>().ReverseMap();
+                cfg.CreateMap<Quest, QuestDto>().ReverseMap();
             });
 
             seed.EnsureSeedData().Wait();

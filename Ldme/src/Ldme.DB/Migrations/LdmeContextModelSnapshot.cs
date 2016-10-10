@@ -21,15 +21,17 @@ namespace Ldme.DB.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("ActivityDate");
+                    b.Property<int>("ActivityCreatorId");
 
-                    b.Property<int?>("PlayerId");
+                    b.Property<DateTime>("CompletionDate");
 
-                    b.Property<int?>("ReferencedQuestId");
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<int>("ReferencedQuestId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlayerId");
+                    b.HasIndex("ActivityCreatorId");
 
                     b.HasIndex("ReferencedQuestId");
 
@@ -110,6 +112,8 @@ namespace Ldme.DB.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Accepted");
+
                     b.Property<DateTime>("CreatedDate");
 
                     b.Property<DateTime>("DeadlineDate");
@@ -118,13 +122,16 @@ namespace Ldme.DB.Migrations
 
                     b.Property<DateTime>("FinishedDate");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<double>("PenaltyGold");
 
                     b.Property<double>("PenaltyHonor");
 
-                    b.Property<int?>("QuestGiverId");
+                    b.Property<int>("QuestGiverId");
+
+                    b.Property<int>("QuestRevceiverId");
 
                     b.Property<string>("QuestType");
 
@@ -135,6 +142,8 @@ namespace Ldme.DB.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("QuestGiverId");
+
+                    b.HasIndex("QuestRevceiverId");
 
                     b.ToTable("Quests");
                 });
@@ -248,13 +257,15 @@ namespace Ldme.DB.Migrations
 
             modelBuilder.Entity("Ldme.Models.Models.Activity", b =>
                 {
-                    b.HasOne("Ldme.Models.Models.Player", "Player")
+                    b.HasOne("Ldme.Models.Models.Player", "ActivityCreator")
                         .WithMany()
-                        .HasForeignKey("PlayerId");
+                        .HasForeignKey("ActivityCreatorId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Ldme.Models.Models.Quest", "ReferencedQuest")
                         .WithMany()
-                        .HasForeignKey("ReferencedQuestId");
+                        .HasForeignKey("ReferencedQuestId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Ldme.Models.Models.LdmeUser", b =>
@@ -268,8 +279,12 @@ namespace Ldme.DB.Migrations
             modelBuilder.Entity("Ldme.Models.Models.Quest", b =>
                 {
                     b.HasOne("Ldme.Models.Models.Player", "QuestGiver")
-                        .WithMany("Quests")
+                        .WithMany("QuestsCreated")
                         .HasForeignKey("QuestGiverId");
+
+                    b.HasOne("Ldme.Models.Models.Player", "QuestRevceiver")
+                        .WithMany("QuestsOwned")
+                        .HasForeignKey("QuestRevceiverId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

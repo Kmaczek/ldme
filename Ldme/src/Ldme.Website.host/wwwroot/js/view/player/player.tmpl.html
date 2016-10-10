@@ -1,22 +1,32 @@
 ﻿<div ng-controller="playerCtrl as pc">
     <div ng-if="pc.isLoggedIn()">
         <div class="row">
-            <div class="col-lg-3">
-                <label>Player name: </label>
+            <div class="col-lg-2">
+                <label>Name: </label>
             </div>
-            <div class="col-lg-9">{{pc.playerName}}</div>
+            <div class="col-lg-10">{{pc.name}}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+                <label>Gold: </label>
+            </div>
+            <div class="col-lg-10">{{pc.gold}}</div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2">
+                <label>Honor: </label>
+            </div>
+            <div class="col-lg-10">{{pc.honor}}</div>
         </div>
         <div class="row">
             <div class="col-lg-3">
-                <label>Player gold: </label>
+                <label>Quests</label>
+                <button class="btn btn-default btn-xs" ng-click="addQuest()">Add Quest</button>
+                <div class="pre-scrollable">
+                    <div ng-repeat="item in pc.quests"></div>
+                </div>
             </div>
-            <div class="col-lg-9">{{pc.playerGold}}</div>
-        </div>
-        <div class="row">
-            <div class="col-lg-3">
-                <label>Player honor: </label>
-            </div>
-            <div class="col-lg-9">{{pc.playerHonor}}</div>
+            <div class="col-lg-9"></div>
         </div>
     </div>
     <div ng-if="!pc.isLoggedIn()">

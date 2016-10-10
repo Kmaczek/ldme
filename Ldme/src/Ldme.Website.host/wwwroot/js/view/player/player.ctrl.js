@@ -9,9 +9,10 @@
             if (appState.isLoggedIn) {
                 playerInstance.fetchPlayerData(appState.getPlayerId()).then(function () {
                     var playerData = playerInstance.getPlayerData();
-                    ctrl.playerName = playerData.name;
-                    ctrl.playerGold = playerData.gold;
-                    ctrl.playerHonor = playerData.honor;
+                    ctrl.name = playerData.name;
+                    ctrl.gold = playerData.gold;
+                    ctrl.honor = playerData.honor;
+                    ctrl.quests = playerData.quests;
                 });
             }
         })();

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ldme.Models.Models
 {
@@ -9,6 +10,9 @@ namespace Ldme.Models.Models
         public double Gold { get; set; }
         public double Honor { get; set; }
 
-        public ICollection<Quest> Quests { get; set; }
+        [InverseProperty("QuestGiver")]
+        public virtual ICollection<Quest> QuestsCreated { get; set; }
+        [InverseProperty("QuestRevceiver")]
+        public virtual ICollection<Quest> QuestsOwned { get; set; }
     }
 }
