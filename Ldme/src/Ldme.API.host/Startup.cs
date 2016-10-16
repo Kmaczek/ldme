@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using AutoMapper;
+using ldme.Persistence.Repositories;
 using Ldme.Abstract.Interfaces;
 using Ldme.Common.Factories;
 using Ldme.DB.Setup;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Ldme.Persistence.Repositories;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace Ldme.API.host
@@ -51,6 +53,8 @@ namespace Ldme.API.host
                 .AddJsonOptions(config =>
                 {
                     config.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    config.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; // if this is not eought unlock ReferenceHandling
+                    //config.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.All;
                 });
 
             services.AddIdentity<LdmeUser, IdentityRole>(config =>
@@ -74,6 +78,7 @@ namespace Ldme.API.host
             services.AddTransient<PlayerFactory>();
             services.AddScoped<IPlayerRepository, PlayerRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IQuestRepository, QuestRepository>();
             services.AddLogging();
         }
 
@@ -95,7 +100,12 @@ namespace Ldme.API.host
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<LdmeUser, UserVM>().ReverseMap();
-                cfg.CreateMap<Quest, QuestDto>().ReverseMap();
+                cfg.CreateMap<QuestDto, Quest>()
+                .ForMember(q => q.CreatedDate, m => m.MapFrom(qd => qd.StartTime))
+                .ForMember(q => q.QuestCreatorId, m => m.MapFrom(qd => qd.FromPlayer))
+                .ForMember(q => q.QuestOwnerId, m => m.MapFrom(qd => qd.ToPlayer))
+                .ForMember(q => q.DeadlineDate, m => m.MapFrom(qd => qd.EndTime))
+                .ReverseMap();
             });
 
             seed.EnsureSeedData().Wait();

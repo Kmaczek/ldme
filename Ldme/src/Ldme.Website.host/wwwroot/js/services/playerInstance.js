@@ -6,11 +6,13 @@
 
         function fetchPlayerData(id) {
             function onSuccess(result) {
+                //JsonNetDecycle.retrocycle(result);
                 playerData.name = result.name;
                 playerData.honor = result.honor;
                 playerData.gold = result.gold;
                 playerData.id = result.id;
-                playerData.quests = result.quests;
+                playerData.questsCreated = result.questsCreated;
+                playerData.questsOwned = result.questsOwned;
             }
 
             return playerApi.GetPlayer(id, onSuccess);

@@ -4,6 +4,7 @@ using System.Linq;
 using Ldme.Abstract.Interfaces;
 using Ldme.DB.Setup;
 using Ldme.Models.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ldme.Persistence.Repositories
 {
@@ -17,7 +18,10 @@ namespace Ldme.Persistence.Repositories
 
         public Player GetPlayer(int id)
         {
-            return ldmeContext.Players.First(x => x.Id == id);
+            return ldmeContext.Players
+                .Include(q => q.QuestsCreated)
+                .Include(q => q.QuestsOwned)
+                .First(x => x.Id == id);
         }
 
         public Player GetPlayerByEmail(string email)

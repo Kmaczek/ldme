@@ -22,14 +22,14 @@ namespace Ldme.DB.Setup
 
             modelBuilder.Entity<Player>();
             modelBuilder.Entity<Quest>()
-                .HasOne(q => q.QuestGiver)
+                .HasOne(q => q.QuestCreator)
                 .WithMany(p => p.QuestsCreated)
-                .HasForeignKey(p => p.QuestGiverId)
+                .HasForeignKey(p => p.QuestCreatorId)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Quest>()
-                .HasOne(q => q.QuestRevceiver)
+                .HasOne(q => q.QuestOwner)
                 .WithMany(p => p.QuestsOwned)
-                .HasForeignKey(p => p.QuestRevceiverId)
+                .HasForeignKey(p => p.QuestOwnerId)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Activity>();
         }

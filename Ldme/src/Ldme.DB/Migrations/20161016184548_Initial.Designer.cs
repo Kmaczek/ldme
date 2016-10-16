@@ -8,8 +8,8 @@ using Ldme.DB.Setup;
 namespace Ldme.DB.Migrations
 {
     [DbContext(typeof(LdmeContext))]
-    [Migration("20161010220335_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20161016184548_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -117,34 +117,36 @@ namespace Ldme.DB.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<DateTime>("DeadlineDate");
+                    b.Property<DateTime?>("DeadlineDate");
 
                     b.Property<string>("Description");
 
-                    b.Property<DateTime>("FinishedDate");
+                    b.Property<DateTime?>("FinishedDate");
+
+                    b.Property<double>("GoldPenalty");
+
+                    b.Property<double>("GoldReward");
+
+                    b.Property<double>("HonorPenalty");
+
+                    b.Property<double>("HonorReward");
 
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<double>("PenaltyGold");
+                    b.Property<int>("QuestCreatorId");
 
-                    b.Property<double>("PenaltyHonor");
-
-                    b.Property<int>("QuestGiverId");
-
-                    b.Property<int>("QuestRevceiverId");
+                    b.Property<int>("QuestOwnerId");
 
                     b.Property<string>("QuestType");
 
-                    b.Property<double>("RewardedGold");
-
-                    b.Property<double>("RewardedHonor");
+                    b.Property<DateTime?>("StartedDate");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("QuestGiverId");
+                    b.HasIndex("QuestCreatorId");
 
-                    b.HasIndex("QuestRevceiverId");
+                    b.HasIndex("QuestOwnerId");
 
                     b.ToTable("Quests");
                 });
@@ -279,13 +281,13 @@ namespace Ldme.DB.Migrations
 
             modelBuilder.Entity("Ldme.Models.Models.Quest", b =>
                 {
-                    b.HasOne("Ldme.Models.Models.Player", "QuestGiver")
+                    b.HasOne("Ldme.Models.Models.Player", "QuestCreator")
                         .WithMany("QuestsCreated")
-                        .HasForeignKey("QuestGiverId");
+                        .HasForeignKey("QuestCreatorId");
 
-                    b.HasOne("Ldme.Models.Models.Player", "QuestRevceiver")
+                    b.HasOne("Ldme.Models.Models.Player", "QuestOwner")
                         .WithMany("QuestsOwned")
-                        .HasForeignKey("QuestRevceiverId");
+                        .HasForeignKey("QuestOwnerId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

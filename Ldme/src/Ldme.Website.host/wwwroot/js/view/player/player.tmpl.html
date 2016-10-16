@@ -4,29 +4,70 @@
             <div class="col-lg-2">
                 <label>Name: </label>
             </div>
-            <div class="col-lg-10">{{pc.name}}</div>
+            <div class="col-lg-10">{{pc.playerData.name}}</div>
         </div>
         <div class="row">
             <div class="col-lg-2">
                 <label>Gold: </label>
             </div>
-            <div class="col-lg-10">{{pc.gold}}</div>
+            <div class="col-lg-10">{{pc.playerData.gold}}</div>
         </div>
         <div class="row">
             <div class="col-lg-2">
                 <label>Honor: </label>
             </div>
-            <div class="col-lg-10">{{pc.honor}}</div>
+            <div class="col-lg-10">{{pc.playerData.honor}}</div>
         </div>
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-6">
                 <label>Quests</label>
-                <button class="btn btn-default btn-xs" ng-click="addQuest()">Add Quest</button>
+                <button class="btn btn-default btn-xs" ng-if="!pc.showQuestForm" ng-click="pc.addQuest()">Add Quest</button>
+                <form name="pc.questForm" ng-if="pc.showQuestForm">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            Quest Name
+                        </div>
+                        <div class="col-lg-9">
+                            <input type="text" ng-model="pc.qName" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-3">
+                            Quest Description
+                        </div>
+                        <div class="col-lg-9">
+                            <input type="text" ng-model="pc.qDescription" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <input class="quest-numeric" type="number" ng-model="pc.goldReward" width="30"/>
+                        </div>
+                        <div class="col-lg-3">
+                            <input class="quest-numeric" type="number" ng-model="pc.goldPenalty" width="30"/>
+                        </div>
+                        <div class="col-lg-3">
+                            <input class="quest-numeric" type="number" ng-model="pc.honorReward" width="30"/>
+                        </div>
+                        <div class="col-lg-3">
+                            <input class="quest-numeric" type="number" ng-model="pc.honorPenalty" width="30"/>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-success btn-xs" ng-click="pc.createQuest()">Create</button>
+                    <button class="btn btn-default btn-xs" ng-click="pc.cancelQuestCreation()">Cancel</button>
+                </form>
                 <div class="pre-scrollable">
-                    <div ng-repeat="item in pc.quests"></div>
+                    <div ng-repeat="item in pc.playerData.questsOwned">
+                        Name: {{item.name}}
+                        Description: {{item.description}}
+                        Gold Reward: {{item.goldReward}}
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-9"></div>
+            <div class="col-lg-6"></div>
         </div>
     </div>
     <div ng-if="!pc.isLoggedIn()">

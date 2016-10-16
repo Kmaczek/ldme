@@ -13,12 +13,12 @@
             }
 
             userApi.Login(this.email, this.password, onSuccesffullLogin);
-        }
+        };
 
         this.logOut = function() {
             appState.logOut();
             $state.go('main');
-        }
+        };
     }]);
 
-}())
+}());

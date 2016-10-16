@@ -34,30 +34,30 @@ namespace Ldme.DB.Setup
                     new Quest()
                     {
                         Name = "Do things 1",
-                        RewardedHonor = 100,
-                        QuestGiverId = mainPlayer.Id,
-                        QuestRevceiverId = mainPlayer.Id
+                        HonorReward = 100,
+                        QuestCreatorId = mainPlayer.Id,
+                        QuestOwnerId = mainPlayer.Id
                     },
                     new Quest()
                     {
                         Name = "Do things 2",
-                        RewardedHonor = 20,
-                        QuestGiverId = mainPlayer.Id,
-                        QuestRevceiverId = mainPlayer.Id
+                        HonorReward = 20,
+                        QuestCreatorId = mainPlayer.Id,
+                        QuestOwnerId = mainPlayer.Id
                     },
                     new Quest()
                     {
                         Name = "Do things 3",
-                        RewardedHonor = 30,
-                        QuestGiverId = mainPlayer.Id,
-                        QuestRevceiverId = mainPlayer.Id
+                        HonorReward = 30,
+                        QuestCreatorId = mainPlayer.Id,
+                        QuestOwnerId = mainPlayer.Id
                     },
                     new Quest()
                     {
                         Name = "Do things 4",
-                        RewardedHonor = 44,
-                        QuestGiverId = mainPlayer.Id,
-                        QuestRevceiverId = mainPlayer.Id
+                        HonorReward = 44,
+                        QuestCreatorId = mainPlayer.Id,
+                        QuestOwnerId = mainPlayer.Id
                     }
                 };
 
