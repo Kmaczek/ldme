@@ -7,6 +7,7 @@ using AutoMapper;
 using Ldme.Abstract.Interfaces;
 using Ldme.Models.Dtos;
 using Ldme.Models.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -34,6 +35,27 @@ namespace Ldme.API.host.Controllers
                 questRepository.SaveChanges();
 
                 return Ok();
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        [HttpPost("{id}/complete")]
+        public IActionResult Post(int id, [FromBody]QuestCompletionDto registrationData)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    questRepository.CompleteQuest(id, registrationData);
+                    questRepository.SaveChanges();
+                    return Ok();
+                }
+                catch (Exception e)
+                {
+                    _logger.LogInformation(e.ToString());
+                    return BadRequest();
+                }
             }
 
             return BadRequest(ModelState);

@@ -8,15 +8,28 @@
             save: {
                 method: 'POST',
                 withCredentials: true
+            },
+            complete: {
+                method: 'POST',
+                withCredentials: true,
+                url: apiUrl + '/:id/complete',
+                params: {
+                    id: '@id'
+                }
             }
         });
 
-        function createQuest(questModel, onSuccess, onFail) {
-            return apiHelper.requestWrapper(quest.save, questModel, onSuccess, onFail);
+        function createQuest(params, questModel, onSuccess, onFail) {
+            return apiHelper.requestWrapperPOST(quest.save, params, questModel, onSuccess, onFail);
+        }
+
+        function completeQuest(params, questCompletionModel, onSuccess, onFail) {
+            return apiHelper.requestWrapperPOST(quest.complete, params, questCompletionModel, onSuccess, onFail);
         }
 
         return {
-            CreateQuest: createQuest
+            CreateQuest: createQuest,
+            CompleteQuest: completeQuest
         }
     }]);
 }())

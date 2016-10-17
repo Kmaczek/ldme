@@ -14,7 +14,7 @@
             toastr.error('Request failed: <br>' + errors);
         }
 
-        function callWrapper(action, params, onSuccess, onFail) {
+        function callWrapperGET(action, params, onSuccess, onFail) {
             var success = defaultOnSuccess;
             var fail = defaultOnFail;
             if (onSuccess) {
@@ -26,8 +26,25 @@
             return action(params, success, fail).$promise;
         }
 
+        function callWrapperPOST(action, params, body, onSuccess, onFail) {
+            var success = defaultOnSuccess;
+            var fail = defaultOnFail;
+            var param = {};
+            if (onSuccess) {
+                success = onSuccess;
+            }
+            if (onFail) {
+                fail = onFail;
+            }
+            if (params) {
+                param = params;
+            }
+            return action(params, body, success, fail).$promise;
+        }
+
         return {
-            requestWrapper: callWrapper
+            requestWrapperGET: callWrapperGET,
+            requestWrapperPOST: callWrapperPOST
         }
     }]);
 

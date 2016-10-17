@@ -18,11 +18,11 @@
         });
 
         function login(email, password, onSuccess, onFail) {
-            apiHelper.requestWrapper(user.login, { email: email, password: password }, onSuccess, onFail);
+            apiHelper.requestWrapperPOST(user.login, null, { email: email, password: password }, onSuccess, onFail);
         }
 
         function register(email, password, onSuccess, onFail) {
-            apiHelper.requestWrapper(user.register, { email: email, password: password }, onSuccess, onFail);
+            apiHelper.requestWrapperPOST(user.register, null, { email: email, password: password }, onSuccess, onFail);
         }
 
         return {

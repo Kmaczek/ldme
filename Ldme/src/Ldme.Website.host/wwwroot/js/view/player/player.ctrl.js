@@ -47,7 +47,11 @@
                 toastr.error('Cannot add quest');
             }
 
-            questApi.CreateQuest(qModel, onSuccess, onFail);
+            questApi.CreateQuest(null, qModel, onSuccess, onFail);
+        }
+
+        this.completeQuest = function(questId) {
+            questApi.CompleteQuest({ id: questId },{copletedBy: ctrl.playerData.id});
         }
         
     }]);

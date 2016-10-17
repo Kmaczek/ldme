@@ -1,9 +1,13 @@
 ﻿(function () {
     "use strict";
 
-    angular.module('ldme').controller('naviCtrl', ['$state', 'userApi', 'appState', function ($state, userApi, appState) {
+    angular.module('ldme').controller('naviCtrl', ['$state', 'userApi', 'appState', 'playerInstance', function ($state, userApi, appState, playerInstance) {
         this.isLoggedIn = appState.isLoggedIn;
         var ctrl = this;
+
+        ctrl.playerName = function () {
+            return playerInstance.getPlayerData().name;
+        }
 
         this.logIn = function() {
             function onSuccesffullLogin(response) {

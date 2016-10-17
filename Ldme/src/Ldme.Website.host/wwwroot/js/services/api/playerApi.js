@@ -13,7 +13,7 @@
         });
 
         function getPlayerData(id, onSuccess, onFail) {
-            return apiHelper.requestWrapper(player.get, { id: id }, onSuccess, onFail);
+            return apiHelper.requestWrapperGET(player.get, { id: id }, onSuccess, onFail);
         }
 
         return {
