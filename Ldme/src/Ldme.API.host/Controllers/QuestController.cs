@@ -30,6 +30,7 @@ namespace Ldme.API.host.Controllers
         {
             if (ModelState.IsValid)
             {
+                _logger.LogDebug("Trying to create quest");
                 var questModel = Mapper.Map<Quest>(questData);
                 questRepository.CreateQuest(questModel);
                 questRepository.SaveChanges();
@@ -47,13 +48,14 @@ namespace Ldme.API.host.Controllers
             {
                 try
                 {
+                    _logger.LogDebug("Trying to complete quest");
                     questRepository.CompleteQuest(id, registrationData);
                     questRepository.SaveChanges();
                     return Ok();
                 }
                 catch (Exception e)
                 {
-                    _logger.LogInformation(e.ToString());
+                    _logger.LogError(e.ToString());
                     return BadRequest();
                 }
             }

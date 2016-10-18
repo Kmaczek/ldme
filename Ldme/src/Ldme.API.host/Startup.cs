@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Serilog;
 
 namespace Ldme.API.host
 {
@@ -33,6 +34,12 @@ namespace Ldme.API.host
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .Enrich.FromLogContext()
+                .WriteTo.Seq("http://localhost:5341")
+                .CreateLogger();
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -73,6 +80,11 @@ namespace Ldme.API.host
             {
                 var connection = Configuration["ConnectionStrings:EfContexConnection"];
                 config.UseSqlServer(connection);
+                if (_env.IsDevelopment())
+                {
+                    config.EnableSensitiveDataLogging();
+                }
+                //config.UseLoggerFactory(null);
             });
             services.AddTransient<LdmeContextSeed>();
             services.AddTransient<PlayerFactory>();
@@ -94,6 +106,8 @@ namespace Ldme.API.host
             {
                 loggerFactory.AddDebug(LogLevel.Error);
             }
+            loggerFactory.AddSerilog();
+
             app.UseCors("AllowLocal");
             app.UseIdentity();
             app.UseMvc();
