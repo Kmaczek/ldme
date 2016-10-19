@@ -1,4 +1,7 @@
-﻿.navi {
+﻿html {
+  overflow-y: scroll;
+}
+.navi {
   color: whitesmoke;
 }
 .navi .pull-left {
@@ -24,4 +27,7 @@
 }
 .quest-numeric {
   width: 70px;
+}
+.ldme-hand-pointer {
+  cursor: pointer;
 }

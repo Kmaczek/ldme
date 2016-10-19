@@ -4,6 +4,7 @@
     angular.module('ldme').controller('playerCtrl', ['appState', 'playerInstance', 'questApi', 'toastr', function (appState, playerInstance, questApi, toastr) {
         var ctrl = this;
         this.isLoggedIn = appState.isLoggedIn;
+        this.showFinished = false;
         this.showQuestForm = false;
 
         (function initialize() {
@@ -54,5 +55,8 @@
             questApi.CompleteQuest({ id: questId },{copletedBy: ctrl.playerData.id});
         }
         
+        this.toggleFinished = function() {
+            ctrl.showFinished = !ctrl.showFinished;
+        }
     }]);
 }())

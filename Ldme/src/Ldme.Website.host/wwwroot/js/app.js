@@ -71,7 +71,7 @@
         }
     ];
 
-    angular.module('ldme', ['ui.router', 'ngResource', 'ngAnimate', 'ngMessages', 'ngCookies', 'toastr'])
+    angular.module('ldme', ['ui.router', 'ui.bootstrap', 'ngResource', 'ngAnimate', 'ngMessages', 'ngCookies', 'toastr'])
 //        .constant('ldmeConfig', webConfig)
         .config(config)
         .run(run);
