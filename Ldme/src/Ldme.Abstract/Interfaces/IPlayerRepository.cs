@@ -13,6 +13,7 @@ namespace Ldme.Abstract.Interfaces
         IEnumerable<Quest> GetQuests(int id);
 
         void SaveChanges();
-        IEnumerable<Player> GetPlayers();
+
+        IEnumerable<Player> SearchPlayers(string query);
     }
 }

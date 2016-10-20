@@ -44,9 +44,20 @@ namespace Ldme.Persistence.Repositories
             ldmeContext.SaveChanges();
         }
 
-        public IEnumerable<Player> GetPlayers()
+        public IEnumerable<Player> SearchPlayers(string query)
         {
-            return ldmeContext.Players;
+            var players = (from p in ldmeContext.Players
+                join u in ldmeContext.Users
+                on p.Id equals u.PlayerId
+                where string.Equals(p.Name, query, StringComparison.OrdinalIgnoreCase) 
+                || string.Equals(u.Email, query, StringComparison.OrdinalIgnoreCase)
+                select p).ToList();
+
+//            var players2 = ldmeContext.Players
+//                .Join(ldmeContext.Users, p => p.Id, u => u.PlayerId, (p, u) => new { Player = p, User = u})
+//                .Where(p => SqlMethods.Like(p.Player.Name, query))
+//                System.Data.Common.
+            return players;
         }
     }
 }

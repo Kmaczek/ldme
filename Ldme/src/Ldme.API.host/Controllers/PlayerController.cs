@@ -35,16 +35,16 @@ namespace Ldme.API.host.Controllers
             }
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("search/{query}")]
+        public IActionResult Get(string query)
         {
             try
             {
-                return new JsonResult(playerRepository.GetPlayers());
+                return new JsonResult(playerRepository.SearchPlayers(query));
             }
             catch (Exception e)
             {
-                _logger.LogError($"Cannot get players from database. {e.Message}");
+                _logger.LogError($"Cannot find players with specified query. {e.Message}, {e.StackTrace}");
                 return BadRequest();
             }
         }

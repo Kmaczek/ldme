@@ -45,6 +45,16 @@
                         }
                     }
                 })
+            .state('friends',
+                {
+                    parent: 'root',
+                    url: '/friends',
+                    views: {
+                        'main': {
+                            templateUrl: 'js/view/friends/friends.tmpl.html'
+                        }
+                    }
+                })
             .state('register',
             {
                 parent: 'root',
