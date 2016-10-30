@@ -11,10 +11,10 @@ namespace Ldme.Abstract.Interfaces
 {
     public interface IUserRepository
     {
-        LdmeUser GetUserById(int id);
-        IEnumerable<LdmeUser> GetUsers();
-        LdmeUser GetUserByEmail(string email);
         void SaveUser(LdmeUser user);
+        LdmeUser GetUserById(int id);
+        LdmeUser GetUserByEmail(string email);
+        IEnumerable<LdmeUser> GetUsers();
         Task<SignInResult> LoginAsync(LoginDto loginData);
         Task<IdentityResult> RegisterAsync(RegistrationDto registrationData);
     }

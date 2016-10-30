@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Ldme.Abstract.Interfaces;
 using Ldme.Models.Models;
+using Ldme.Models.ViewModels;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -40,7 +43,9 @@ namespace Ldme.API.host.Controllers
         {
             try
             {
-                return new JsonResult(playerRepository.SearchPlayers(query));
+                var searchedPlayers = playerRepository.SearchPlayers(query);
+                var players = Mapper.Map<IEnumerable<Player>, IEnumerable<PlayerVM>>(searchedPlayers);
+                return new JsonResult(players);
             }
             catch (Exception e)
             {

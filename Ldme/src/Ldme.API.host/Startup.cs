@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using AutoMapper;
 using ldme.Persistence.Repositories;
 using Ldme.Abstract.Interfaces;
@@ -91,6 +92,7 @@ namespace Ldme.API.host
             services.AddScoped<IPlayerRepository, PlayerRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IQuestRepository, QuestRepository>();
+            services.AddScoped<IFriendRepository, FriendRepository>();
             services.AddLogging();
         }
 
@@ -114,6 +116,7 @@ namespace Ldme.API.host
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<LdmeUser, UserVM>().ReverseMap();
+                cfg.CreateMap<Player, PlayerVM>();
                 cfg.CreateMap<QuestDto, Quest>()
                 .ForMember(q => q.CreatedDate, m => m.MapFrom(qd => qd.StartTime))
                 .ForMember(q => q.QuestCreatorId, m => m.MapFrom(qd => qd.FromPlayer))

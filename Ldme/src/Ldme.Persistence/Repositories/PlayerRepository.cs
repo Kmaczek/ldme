@@ -53,10 +53,6 @@ namespace Ldme.Persistence.Repositories
                 || string.Equals(u.Email, query, StringComparison.OrdinalIgnoreCase)
                 select p).ToList();
 
-//            var players2 = ldmeContext.Players
-//                .Join(ldmeContext.Users, p => p.Id, u => u.PlayerId, (p, u) => new { Player = p, User = u})
-//                .Where(p => SqlMethods.Like(p.Player.Name, query))
-//                System.Data.Common.
             return players;
         }
     }

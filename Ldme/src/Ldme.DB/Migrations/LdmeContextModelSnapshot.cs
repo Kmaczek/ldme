@@ -38,6 +38,26 @@ namespace Ldme.DB.Migrations
                     b.ToTable("Activities");
                 });
 
+            modelBuilder.Entity("Ldme.Models.Models.FriendRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("RequestTargetId");
+
+                    b.Property<int>("RequestedById");
+
+                    b.Property<string>("Status");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestTargetId");
+
+                    b.HasIndex("RequestedById");
+
+                    b.ToTable("FriendRequests");
+                });
+
             modelBuilder.Entity("Ldme.Models.Models.LdmeUser", b =>
                 {
                     b.Property<string>("Id");
@@ -268,6 +288,17 @@ namespace Ldme.DB.Migrations
                         .WithMany()
                         .HasForeignKey("ReferencedQuestId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Ldme.Models.Models.FriendRequest", b =>
+                {
+                    b.HasOne("Ldme.Models.Models.Player", "RequestTarget")
+                        .WithMany()
+                        .HasForeignKey("RequestTargetId");
+
+                    b.HasOne("Ldme.Models.Models.Player", "RequestedBy")
+                        .WithMany()
+                        .HasForeignKey("RequestedById");
                 });
 
             modelBuilder.Entity("Ldme.Models.Models.LdmeUser", b =>

@@ -15,12 +15,12 @@ namespace Ldme.DB.Setup
         public DbSet<Player> Players { get; set; }
         public DbSet<Quest> Quests { get; set; }
         public DbSet<Activity> Activities { get; set; }
+        public DbSet<FriendRequest> FriendRequests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Player>();
             modelBuilder.Entity<Quest>()
                 .HasOne(q => q.QuestCreator)
                 .WithMany(p => p.QuestsCreated)
@@ -31,7 +31,14 @@ namespace Ldme.DB.Setup
                 .WithMany(p => p.QuestsOwned)
                 .HasForeignKey(p => p.QuestOwnerId)
                 .OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Activity>();
+            modelBuilder.Entity<FriendRequest>()
+                .HasOne(q => q.RequestedBy)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<FriendRequest>()
+                .HasOne(q => q.RequestTarget)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

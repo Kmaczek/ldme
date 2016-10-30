@@ -8,8 +8,8 @@ using Ldme.DB.Setup;
 namespace Ldme.DB.Migrations
 {
     [DbContext(typeof(LdmeContext))]
-    [Migration("20161016184548_Initial")]
-    partial class Initial
+    [Migration("20161030204648_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,6 +37,26 @@ namespace Ldme.DB.Migrations
                     b.HasIndex("ReferencedQuestId");
 
                     b.ToTable("Activities");
+                });
+
+            modelBuilder.Entity("Ldme.Models.Models.FriendRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("RequestTargetId");
+
+                    b.Property<int>("RequestedById");
+
+                    b.Property<string>("Status");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequestTargetId");
+
+                    b.HasIndex("RequestedById");
+
+                    b.ToTable("FriendRequests");
                 });
 
             modelBuilder.Entity("Ldme.Models.Models.LdmeUser", b =>
@@ -269,6 +289,17 @@ namespace Ldme.DB.Migrations
                         .WithMany()
                         .HasForeignKey("ReferencedQuestId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Ldme.Models.Models.FriendRequest", b =>
+                {
+                    b.HasOne("Ldme.Models.Models.Player", "RequestTarget")
+                        .WithMany()
+                        .HasForeignKey("RequestTargetId");
+
+                    b.HasOne("Ldme.Models.Models.Player", "RequestedBy")
+                        .WithMany()
+                        .HasForeignKey("RequestedById");
                 });
 
             modelBuilder.Entity("Ldme.Models.Models.LdmeUser", b =>

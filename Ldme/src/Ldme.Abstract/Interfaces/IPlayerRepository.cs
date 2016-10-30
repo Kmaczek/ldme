@@ -5,14 +5,15 @@ namespace Ldme.Abstract.Interfaces
 {
     public interface IPlayerRepository
     {
-        Player GetPlayer(int id);
-        Player GetPlayerByEmail(string email);
+        void SaveChanges();
 
         void AddPlayer(Player player);
 
-        IEnumerable<Quest> GetQuests(int id);
+        Player GetPlayer(int id);
 
-        void SaveChanges();
+        Player GetPlayerByEmail(string email);
+
+        IEnumerable<Quest> GetQuests(int id);
 
         IEnumerable<Player> SearchPlayers(string query);
     }

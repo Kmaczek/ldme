@@ -1,14 +1,30 @@
 ﻿<div ng-controller="friendsCtrl as fc">
     <h1>Search for friends</h1>
     <form name="friendSearchForm">
-        <div class="input-group">
+        <div class="input-group ldme-std-pad-bot">
             <input class="form-control" type="text" placeholder="Name, email" ng-model="fc.searchQuery">
             <span class="input-group-btn">
-                <button class="btn btn-default" type="button" ng-click="fc.findFriends(fc.searchQuery)">
+                <button class="btn btn-default" type="submit" ng-click="fc.findFriends(fc.searchQuery)">
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
             </span>
         </div>
-
+        <div class="well well-sm" ng-if="fc.searchInitialized">
+            <label>Search Results:</label>
+            <div ng-if="fc.searchSuccessfull">
+                <label>Name:</label> {{fc.searchedPlayer.name}}
+                <label>Gold:</label> {{fc.searchedPlayer.gold}}
+                <label>Honor:</label> {{fc.searchedPlayer.honor}}
+                <button class="btn btn-xs" 
+                        type="button" 
+                        uib-tooltip="Add friend" 
+                        tooltip-placement="top-right">
+                    <span class="glyphicon glyphicon-plus ldme-add-player"></span>
+                </button>
+            </div>
+            <div ng-if="!fc.searchSuccessfull">
+                Player not found.
+            </div>
+        </div>
     </form>
 </div>
