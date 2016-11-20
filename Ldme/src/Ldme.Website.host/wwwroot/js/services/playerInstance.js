@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    angular.module('ldme').factory('playerInstance', ['$resource', 'ldmeConfig', 'playerApi', function ($resource, ldmeConfig, playerApi) {
+    angular.module('ldme').factory('playerInstance', ['$resource', 'ldmeConfig', 'playerApi', 'questApi', function ($resource, ldmeConfig, playerApi, questApi) {
         var playerData = {};
 
         function fetchPlayerData(id) {
@@ -9,7 +9,7 @@
                 function createQuestList(quests) {
                     var list = new Array();
 
-                    angular.forEach(quests, function(value) {
+                    angular.forEach(quests, function (value) {
                         list.push(QuestModel.FromResponse(value));
                     });
 
@@ -31,9 +31,31 @@
             return playerData;
         }
 
+        function updateQuests(typeToUpdate) {
+            function onSuccessWrap(array) {
+                 function onSuccess(result) {
+                    array.length = 0;
+                    angular.forEach(result, function (value) {
+                        array.push(QuestModel.FromResponse(value));
+                    });
+                 }
+
+                return onSuccess;
+            }
+
+            if (!typeToUpdate || typeToUpdate === 'created') {
+                questApi.GetCreatedByPlayer(playerData.id, onSuccessWrap(playerData.questsCreated));
+            }
+
+            if (!typeToUpdate || typeToUpdate === 'owned') {
+                questApi.GetOwnedByPlayer(playerData.id, onSuccessWrap(playerData.questsOwned));
+            }
+        }
+
         return {
             fetchPlayerData: fetchPlayerData,
-            getPlayerData: getPlayerData
+            getPlayerData: getPlayerData,
+            updateQuests: updateQuests
         }
     }]);
 }())

@@ -62,5 +62,47 @@ namespace Ldme.API.host.Controllers
 
             return BadRequest(ModelState);
         }
+
+        [HttpGet("createdby/{id}")]
+        public IActionResult CreatedBy(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _logger.LogDebug($"Trying to get quests created by player: {id}");
+                    var questsCreatedBy = questRepository.GetCreatedBy(id);
+                    return Json(questsCreatedBy);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e.ToString());
+                    return BadRequest();
+                }
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        [HttpGet("ownedby/{id}")]
+        public IActionResult OwnedBy(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _logger.LogDebug($"Trying to get quests owned by player: {id}");
+                    var questsCreatedBy = questRepository.GetOwnedBy(id);
+                    return Json(questsCreatedBy);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e.ToString());
+                    return BadRequest();
+                }
+            }
+
+            return BadRequest(ModelState);
+        }
     }
 }

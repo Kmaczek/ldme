@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Ldme.Abstract.Interfaces;
 using Ldme.DB.Setup;
@@ -57,6 +58,16 @@ namespace ldme.Persistence.Repositories
             var questOwner = quest.QuestOwner;
             questOwner.Gold += quest.GoldReward;
             questOwner.Honor += quest.HonorReward;
+        }
+
+        public IEnumerable<Quest> GetCreatedBy(int playerId)
+        {
+            return ldmeContext.Quests.Where(x => x.QuestCreatorId == playerId).ToList();
+        }
+
+        public IEnumerable<Quest> GetOwnedBy(int playerId)
+        {
+            return ldmeContext.Quests.Where(x => x.QuestOwnerId == playerId).ToList();
         }
 
         public void DeleteQuest(int id)

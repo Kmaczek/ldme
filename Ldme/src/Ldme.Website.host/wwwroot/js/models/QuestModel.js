@@ -1,6 +1,7 @@
 ﻿function QuestModel() {
     var self = this;
 
+    this.id = 0;
     this.fromPlayer = 0;
     this.toPlayer = 0;
     this.name = '';
@@ -16,21 +17,22 @@
     this.finishedDate = null;
 
     this.isFinished = function() {
-        return !self.finishedDate;
+        return self.finishedDate !== null && self.finishedDate !== undefined;
     }
 }
 
 QuestModel.FromResponse = function (response) {
-    return QuestModel.FromData(response.questCreatorId, response.questOwnerId, response.name, response.description, 
+    return QuestModel.FromData(response.id, response.questCreatorId, response.questOwnerId, response.name, response.description, 
         response.goldReward, response.goldReward, response.honorReward, response.honorPenalty, response.questType,
         response.questState, response.createdDate, response.deadlineDate, response.finishedDate);
 }
 
-QuestModel.FromData = function (fromPlayer, toPlayer, name, description, goldReward, goldPenalty,
+QuestModel.FromData = function (id, fromPlayer, toPlayer, name, description, goldReward, goldPenalty,
     honorReward, honorPenalty, questType, questState, createdDate, deadlineDate, finishedDate) {
     
     var qModel = new QuestModel();
 
+    qModel.id = id;
     qModel.fromPlayer = fromPlayer || 0;
     qModel.toPlayer = toPlayer || 0;
     qModel.name = name || 'Unknown';

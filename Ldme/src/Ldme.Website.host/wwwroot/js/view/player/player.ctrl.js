@@ -41,6 +41,7 @@
             function onSuccess(result) {
                 toastr.success('Quest added');
                 ctrl.showQuestForm = false;
+                playerInstance.updateQuests();
                 ctrl.questForm.$setPristine();
             }
 
@@ -51,8 +52,13 @@
             questApi.CreateQuest(null, qModel, onSuccess, onFail);
         }
 
-        this.completeQuest = function(questId) {
-            questApi.CompleteQuest({ id: questId },{copletedBy: ctrl.playerData.id});
+        this.completeQuest = function (questId) {
+            function onSuccess(result) {
+                playerInstance.updateQuests();
+                toastr.success('Quests updated');
+            }
+
+            questApi.CompleteQuest({ id: questId },{copletedBy: ctrl.playerData.id}, onSuccess);
         }
         
         this.toggleFinished = function() {

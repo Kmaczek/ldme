@@ -1,4 +1,5 @@
-﻿using Ldme.Models.Dtos;
+﻿using System.Collections.Generic;
+using Ldme.Models.Dtos;
 using Ldme.Models.Models;
 
 namespace Ldme.Abstract.Interfaces
@@ -9,5 +10,8 @@ namespace Ldme.Abstract.Interfaces
         void DeleteQuest(int id);
         void CreateQuest(Quest quest);
         void CompleteQuest(int id, QuestCompletionDto completionData);
+
+        IEnumerable<Quest> GetCreatedBy(int playerId);
+        IEnumerable<Quest> GetOwnedBy(int playerId);
     }
 }

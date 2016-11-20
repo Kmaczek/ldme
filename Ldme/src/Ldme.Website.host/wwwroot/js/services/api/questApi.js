@@ -16,6 +16,22 @@
                 params: {
                     id: '@id'
                 }
+            },
+            getCreatedBy: {
+                method: 'GET',
+                url: apiUrl + '/createdby/:id',
+                params: {
+                    id: '@id'
+                },
+                isArray: true
+            },
+            getOwnedBy: {
+                method: 'GET',
+                url: apiUrl + '/ownedby/:id',
+                params: {
+                    id: '@id'
+                },
+                isArray: true
             }
         });
 
@@ -27,9 +43,19 @@
             return apiHelper.requestWrapperPOST(quest.complete, params, questCompletionModel, onSuccess, onFail);
         }
 
+        function getCreatedByPlayer(id, onSuccess, onFail) {
+            return apiHelper.requestWrapperGET(quest.getCreatedBy, { id: id }, onSuccess, onFail);
+        }
+
+        function getOwnedByPlayer(id, onSuccess, onFail) {
+            return apiHelper.requestWrapperGET(quest.getOwnedBy, { id: id }, onSuccess, onFail);
+        }
+
         return {
             CreateQuest: createQuest,
-            CompleteQuest: completeQuest
+            CompleteQuest: completeQuest,
+            GetCreatedByPlayer: getCreatedByPlayer,
+            GetOwnedByPlayer: getOwnedByPlayer
         }
     }]);
 }())
