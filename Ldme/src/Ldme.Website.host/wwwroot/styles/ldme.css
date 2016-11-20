@@ -32,13 +32,34 @@
 }
 /*#endregion */
 .quest-numeric {
-  width: 70px;
+  max-width: 60px;
 }
 .ldme-hand-pointer {
   cursor: pointer;
 }
 .ldme-std-pad-bot {
   padding-bottom: 10px;
+}
+.ldme-std-pad {
+  padding: 0 0 0 10px;
+}
+.ldme-inline-p {
+  overflow: hidden;
+}
+.ldme-inline-cl {
+  float: left;
+}
+.ldme-inline-cr {
+  overflow: hidden;
+}
+.ldme-row {
+  margin-bottom: 10px;
+}
+.ldme-red {
+  color: crimson;
+}
+.ldme-green {
+  color: seagreen;
 }
 /*#region Friends */
 .ldme-add-player {
