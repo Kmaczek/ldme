@@ -8,14 +8,19 @@ namespace Ldme.Models.Models
         public int Id { get; set; }
 
         public int ActivityCreatorId { get; set; }
+
         [ForeignKey("ActivityCreatorId")]
         public Player ActivityCreator { get; set; }
 
+        public string Description { get; set; }
+
         public int ReferencedQuestId { get; set; }
+
         [ForeignKey("ReferencedQuestId")]
         public Quest ReferencedQuest { get; set; }
 
         public DateTime CreationDate { get; set; }
+
         public DateTime CompletionDate { get; set; }
     }
 }

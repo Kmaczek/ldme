@@ -82,15 +82,15 @@
                             </div>
                             <div class="ldme-inline-p ldme-std-pad">
                                 <div class="ldme-inline-cl">
-                                    <input class="quest-numeric" type="text" ng-model="pc.goldReward" />
-                                    <span class="glyphicon glyphicon-triangle-top ldme-hand-pointer ldme-green" 
+                                    <input class="quest-numeric" type="number" ng-model="pc.goldReward" />
+                                    <span class="glyphicon glyphicon-triangle-top ldme-hand-pointer ldme-green"
                                           aria-hidden="true"
                                           tooltip-placement="top-right"
                                           uib-tooltip="Gold given after quest is done"></span>
                                 </div>
                                 <div class="ldme-inline-cr ldme-std-pad">
-                                    <input class="quest-numeric" type="text" ng-model="pc.goldPenalty" />
-                                    <span class="glyphicon glyphicon-triangle-bottom ldme-hand-pointer ldme-red" 
+                                    <input class="quest-numeric" type="number" ng-model="pc.goldPenalty" />
+                                    <span class="glyphicon glyphicon-triangle-bottom ldme-hand-pointer ldme-red"
                                           aria-hidden="true"
                                           tooltip-placement="top-right"
                                           uib-tooltip="Gold lost after quest has been failed"></span>
@@ -104,23 +104,32 @@
                             </div>
                             <div class="ldme-inline-p ldme-std-pad">
                                 <div class="ldme-inline-cl">
-                                    <input class="quest-numeric" type="text" ng-model="pc.honorReward" />
-                                    <span class="glyphicon glyphicon-triangle-top ldme-hand-pointer ldme-green" 
+                                    <input class="quest-numeric" type="number" ng-model="pc.honorReward" />
+                                    <span class="glyphicon glyphicon-triangle-top ldme-hand-pointer ldme-green"
                                           aria-hidden="true"
                                           tooltip-placement="top-right"
                                           uib-tooltip="Honor given after quest is done"></span>
                                 </div>
                                 <div class="ldme-inline-cr ldme-std-pad">
-                                    <input class="quest-numeric" type="text" ng-model="pc.honorPenalty" />
-                                    <span class="glyphicon glyphicon-triangle-bottom ldme-hand-pointer ldme-red" 
+                                    <input class="quest-numeric" type="number" ng-model="pc.honorPenalty" />
+                                    <span class="glyphicon glyphicon-triangle-bottom ldme-hand-pointer ldme-red"
                                           aria-hidden="true"
                                           tooltip-placement="top-right"
                                           uib-tooltip="Honor lost after quest has been failed"></span>
                                 </div>
                             </div>
                         </div>
-                        
-                        <br/>
+
+                        <div class="row ldme-row">
+                            <div>
+                                <label class="ldme-std-pad">Quest Type</label>
+                            </div>
+                            <select class="ldme-std-margin" ng-model="pc.questType">
+                                <option ng-repeat="option in pc.questTypes" value="{{option.value}}">{{option.name}}</option>
+                            </select>
+                        </div>
+
+                        <br />
 
                         <button class="btn btn-success btn-xs" ng-click="pc.createQuest()">Create</button>
                         <button class="btn btn-default btn-xs" ng-click="pc.cancelQuestCreation()">Cancel</button>

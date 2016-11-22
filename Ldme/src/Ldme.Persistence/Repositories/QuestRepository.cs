@@ -54,7 +54,22 @@ namespace ldme.Persistence.Repositories
                 throw new Exception("Cannot complete already finished quest");
             }
 
-            quest.FinishedDate = completionData.CompletionDate ?? DateTime.Now;
+            if (quest.QuestType == QuestType.Daily)
+            {
+                ldmeContext.RepTags.Add(new RepTag()
+                {
+                    CompletionDate = completionData.CompletionDate ?? DateTime.Now,
+                    GoldGain = quest.GoldReward,
+                    HonorGain = quest.HonorReward,
+                    ReferencedQuest = quest,
+                    TagingPlayerId = completionData.CopletedBy
+                });
+            }
+            else
+            {
+                quest.FinishedDate = completionData.CompletionDate ?? DateTime.Now;
+            }
+
             var questOwner = quest.QuestOwner;
             questOwner.Gold += quest.GoldReward;
             questOwner.Honor += quest.HonorReward;

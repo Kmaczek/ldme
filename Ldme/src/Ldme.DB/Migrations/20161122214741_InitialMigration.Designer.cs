@@ -8,7 +8,7 @@ using Ldme.DB.Setup;
 namespace Ldme.DB.Migrations
 {
     [DbContext(typeof(LdmeContext))]
-    [Migration("20161030204648_InitialMigration")]
+    [Migration("20161122214741_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,6 +27,8 @@ namespace Ldme.DB.Migrations
                     b.Property<DateTime>("CompletionDate");
 
                     b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("Description");
 
                     b.Property<int>("ReferencedQuestId");
 
@@ -117,9 +119,9 @@ namespace Ldme.DB.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<double>("Gold");
+                    b.Property<int>("Gold");
 
-                    b.Property<double>("Honor");
+                    b.Property<int>("Honor");
 
                     b.Property<string>("Name");
 
@@ -143,13 +145,15 @@ namespace Ldme.DB.Migrations
 
                     b.Property<DateTime?>("FinishedDate");
 
-                    b.Property<double>("GoldPenalty");
+                    b.Property<int>("GoldPenalty");
 
-                    b.Property<double>("GoldReward");
+                    b.Property<int>("GoldReward");
 
-                    b.Property<double>("HonorPenalty");
+                    b.Property<int>("HonorPenalty");
 
-                    b.Property<double>("HonorReward");
+                    b.Property<int>("HonorReward");
+
+                    b.Property<int>("MaxRepetitions");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -160,6 +164,8 @@ namespace Ldme.DB.Migrations
 
                     b.Property<string>("QuestType");
 
+                    b.Property<int>("RequiredRepetitions");
+
                     b.Property<DateTime?>("StartedDate");
 
                     b.HasKey("Id");
@@ -169,6 +175,30 @@ namespace Ldme.DB.Migrations
                     b.HasIndex("QuestOwnerId");
 
                     b.ToTable("Quests");
+                });
+
+            modelBuilder.Entity("Ldme.Models.Models.RepTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CompletionDate");
+
+                    b.Property<int>("GoldGain");
+
+                    b.Property<int>("HonorGain");
+
+                    b.Property<int>("ReferencedQuestId");
+
+                    b.Property<int>("TagingPlayerId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReferencedQuestId");
+
+                    b.HasIndex("TagingPlayerId");
+
+                    b.ToTable("RepTags");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
@@ -319,6 +349,19 @@ namespace Ldme.DB.Migrations
                     b.HasOne("Ldme.Models.Models.Player", "QuestOwner")
                         .WithMany("QuestsOwned")
                         .HasForeignKey("QuestOwnerId");
+                });
+
+            modelBuilder.Entity("Ldme.Models.Models.RepTag", b =>
+                {
+                    b.HasOne("Ldme.Models.Models.Quest", "ReferencedQuest")
+                        .WithMany()
+                        .HasForeignKey("ReferencedQuestId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Ldme.Models.Models.Player", "TagingPlayer")
+                        .WithMany()
+                        .HasForeignKey("TagingPlayerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

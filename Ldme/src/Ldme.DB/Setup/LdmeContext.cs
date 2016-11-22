@@ -13,9 +13,14 @@ namespace Ldme.DB.Setup
         }
 
         public DbSet<Player> Players { get; set; }
+
         public DbSet<Quest> Quests { get; set; }
+
         public DbSet<Activity> Activities { get; set; }
+
         public DbSet<FriendRequest> FriendRequests { get; set; }
+
+        public DbSet<RepTag> RepTags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

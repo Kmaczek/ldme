@@ -43,6 +43,9 @@
 .ldme-std-pad {
   padding: 0 0 0 10px;
 }
+.ldme-std-margin {
+  margin: 0 0 0 10px;
+}
 .ldme-inline-p {
   overflow: hidden;
 }

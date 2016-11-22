@@ -9,11 +9,13 @@ namespace Ldme.Models.Models
 
         [Required]
         public int RequestedById { get; set; }
+
         [ForeignKey("RequestedById")]
         public Player RequestedBy { get; set; }
 
         [Required]
         public int RequestTargetId { get; set; }
+
         [ForeignKey("RequestTargetId")]
         public Player RequestTarget { get; set; }
 

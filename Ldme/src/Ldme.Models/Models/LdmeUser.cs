@@ -10,6 +10,7 @@ namespace Ldme.Models.Models
     public class LdmeUser : IdentityUser
     {
         public int PlayerId { get; set; }
+
         public virtual Player Player { get; set; }
     }
 }

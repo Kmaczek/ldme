@@ -10,7 +10,7 @@ namespace Ldme.Models.ViewModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public double Gold { get; set; }
-        public double Honor { get; set; }
+        public int Gold { get; set; }
+        public int Honor { get; set; }
     }
 }

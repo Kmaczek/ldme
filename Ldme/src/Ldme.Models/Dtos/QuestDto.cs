@@ -18,19 +18,19 @@ namespace Ldme.Models.Dtos
         public string Description { get; set; }
 
         [Range(0, 100)]
-        public decimal HonorReward { get; set; }
+        public int HonorReward { get; set; }
 
         [Range(0, 100)]
-        public decimal HonorPenalty { get; set; }
+        public int HonorPenalty { get; set; }
 
         [Range(0, 100)]
         [Required]
-        public decimal GoldReward { get; set; }
+        public int GoldReward { get; set; }
 
         [Range(0, 100)]
-        public decimal GoldPenalty { get; set; }
+        public int GoldPenalty { get; set; }
 
-        public bool Daily { get; set; }
+        public string QuestType { get; set; }
 
         public DateTime StartTime { get; set; }
 

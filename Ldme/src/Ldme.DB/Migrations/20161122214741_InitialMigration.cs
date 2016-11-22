@@ -15,8 +15,8 @@ namespace Ldme.DB.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Gold = table.Column<double>(nullable: false),
-                    Honor = table.Column<double>(nullable: false),
+                    Gold = table.Column<int>(nullable: false),
+                    Honor = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -122,14 +122,16 @@ namespace Ldme.DB.Migrations
                     DeadlineDate = table.Column<DateTime>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     FinishedDate = table.Column<DateTime>(nullable: true),
-                    GoldPenalty = table.Column<double>(nullable: false),
-                    GoldReward = table.Column<double>(nullable: false),
-                    HonorPenalty = table.Column<double>(nullable: false),
-                    HonorReward = table.Column<double>(nullable: false),
+                    GoldPenalty = table.Column<int>(nullable: false),
+                    GoldReward = table.Column<int>(nullable: false),
+                    HonorPenalty = table.Column<int>(nullable: false),
+                    HonorReward = table.Column<int>(nullable: false),
+                    MaxRepetitions = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     QuestCreatorId = table.Column<int>(nullable: false),
                     QuestOwnerId = table.Column<int>(nullable: false),
                     QuestType = table.Column<string>(nullable: true),
+                    RequiredRepetitions = table.Column<int>(nullable: false),
                     StartedDate = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
@@ -244,6 +246,7 @@ namespace Ldme.DB.Migrations
                     ActivityCreatorId = table.Column<int>(nullable: false),
                     CompletionDate = table.Column<DateTime>(nullable: false),
                     CreationDate = table.Column<DateTime>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
                     ReferencedQuestId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -259,6 +262,35 @@ namespace Ldme.DB.Migrations
                         name: "FK_Activities_Quests_ReferencedQuestId",
                         column: x => x.ReferencedQuestId,
                         principalTable: "Quests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RepTags",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CompletionDate = table.Column<DateTime>(nullable: false),
+                    GoldGain = table.Column<int>(nullable: false),
+                    HonorGain = table.Column<int>(nullable: false),
+                    ReferencedQuestId = table.Column<int>(nullable: false),
+                    TagingPlayerId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RepTags", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RepTags_Quests_ReferencedQuestId",
+                        column: x => x.ReferencedQuestId,
+                        principalTable: "Quests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RepTags_Players_TagingPlayerId",
+                        column: x => x.TagingPlayerId,
+                        principalTable: "Players",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -310,6 +342,16 @@ namespace Ldme.DB.Migrations
                 column: "QuestOwnerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RepTags_ReferencedQuestId",
+                table: "RepTags",
+                column: "ReferencedQuestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RepTags_TagingPlayerId",
+                table: "RepTags",
+                column: "TagingPlayerId");
+
+            migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName");
@@ -347,6 +389,9 @@ namespace Ldme.DB.Migrations
 
             migrationBuilder.DropTable(
                 name: "FriendRequests");
+
+            migrationBuilder.DropTable(
+                name: "RepTags");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
