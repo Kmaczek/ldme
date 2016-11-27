@@ -1,0 +1,40 @@
+﻿<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-lg-8"><label>Quests</label></div>
+            <div class="col-lg-1">
+                <span class="glyphicon glyphicon-plus ldme-hand-pointer"
+                      aria-hidden="true"
+                      ng-if="!pc.showQuestForm"
+                      ng-click="pc.addQuest()"></span>
+            </div>
+            <div class="col-lg-1">
+                <span class="glyphicon glyphicon-expand ldme-hand-pointer"
+                      aria-hidden="true"
+                      ng-click="pc.toggleFinished()"
+                      tooltip-placement="top-right"
+                      uib-tooltip="Show finished quests"></span>
+            </div>
+            <div class="col-lg-1">
+                <span class="glyphicon glyphicon-cog ldme-hand-pointer" aria-hidden="true"></span>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="pre-scrollable">
+            <div ng-repeat="item in pc.playerData.questsOwned | filter:{questType: '!daily'}">
+                <div ng-if="!item.isFinished() || pc.showFinished">
+                    Name: {{item.name}}
+                    Description: {{item.description}}
+                    Gold Reward: {{item.goldReward}}
+                    <button class="btn btn-success btn-xs"
+                            ng-click="pc.completeQuest(item.id)"
+                            ng-if="!item.isFinished()">
+                        Complete
+                    </button>
+                    <hr />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

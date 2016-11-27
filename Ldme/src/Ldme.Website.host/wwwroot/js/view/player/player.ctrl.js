@@ -58,7 +58,7 @@
 
             this.completeQuest = function (questId) {
                 function onSuccess(result) {
-                    playerInstance.updateQuests();
+                    playerInstance.fetchPlayerData();
                     toastr.success('Quests updated');
                 }
 
