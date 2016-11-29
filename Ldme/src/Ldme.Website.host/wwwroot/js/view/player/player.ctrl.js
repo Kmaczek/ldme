@@ -5,7 +5,6 @@
         function (appState, playerInstance, questApi, toastr, enumHelper) {
             var ctrl = this;
             this.isLoggedIn = appState.isLoggedIn;
-            this.showFinished = false;
             this.showQuestForm = false;
 
             (function initialize() {
@@ -23,8 +22,8 @@
             }
 
             this.cancelQuestCreation = function () {
-                this.showQuestForm = false;
                 this.questForm.$setPristine();
+                this.showQuestForm = false;
             }
 
             this.createQuest = function () {
@@ -54,19 +53,6 @@
                 }
 
                 questApi.CreateQuest(null, qModel, onSuccess, onFail);
-            }
-
-            this.completeQuest = function (questId) {
-                function onSuccess(result) {
-                    playerInstance.fetchPlayerData();
-                    toastr.success('Quests updated');
-                }
-
-                questApi.CompleteQuest({ id: questId }, { copletedBy: ctrl.playerData.id }, onSuccess);
-            }
-
-            this.toggleFinished = function () {
-                ctrl.showFinished = !ctrl.showFinished;
             }
 
             function createQuestTypeOptions() {

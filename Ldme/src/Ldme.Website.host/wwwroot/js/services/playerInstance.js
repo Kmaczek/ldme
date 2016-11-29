@@ -8,9 +8,7 @@
             gold: 0,
             id: 0,
             questsCreated: new Array(),
-            questsOwned: new Array(),
-
-            getDailyQuests: getDailyQuests
+            questsOwned: new Array()
         };
 
         function fetchPlayerData(id) {
