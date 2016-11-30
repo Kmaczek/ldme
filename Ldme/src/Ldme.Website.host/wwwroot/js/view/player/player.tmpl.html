@@ -1,6 +1,6 @@
 ﻿<div ng-controller="playerCtrl as pc">
     <div ng-if="pc.isLoggedIn()">
-        <div class="row">
+        <div class="row ldme-std-pad-bot">
             <!--player data-->
             <div class="col-lg-2">
                 <label>Name:</label> {{pc.playerData.name}}
@@ -10,6 +10,14 @@
             </div>
             <div class="col-lg-2">
                 <label>Honor:</label> {{pc.playerData.honor}}
+            </div>
+            <div class="col-lg-2">
+                <button class="btn btn-default btn-xs" 
+                        ng-click="pc.addQuest()"
+                        ng-if="!pc.showQuestForm">
+                    Add Quest &nbsp;
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
             </div>
         </div>
 
@@ -21,7 +29,7 @@
                              quest-filter="daily">
                 </quest-panel>
             </div>
-            
+
             <div class="col-lg-4">
                 <quest-panel title="Quests"
                              quests="pc.playerData.questsOwned"

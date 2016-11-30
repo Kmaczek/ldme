@@ -64,8 +64,27 @@
 .ldme-green {
   color: seagreen;
 }
+.big-bold {
+  font-weight: 900;
+  font-size: larger;
+}
 /*#region Friends */
 .ldme-add-player {
   color: forestgreen;
+}
+/*#endregion */
+/*#region Quest Panel*/
+.qpanel .quest .gold-img {
+  height: 20px;
+}
+.qpanel .quest .number {
+  font-weight: 900;
+  font-size: larger;
+}
+.qpanel .quest-panel {
+  padding: 5px;
+}
+.qpanel .repeat {
+  padding-right: 5px;
 }
 /*#endregion */

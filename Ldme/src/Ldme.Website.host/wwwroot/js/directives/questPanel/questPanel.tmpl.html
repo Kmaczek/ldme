@@ -1,7 +1,7 @@
-﻿<div class="panel panel-default">
+﻿<div class="panel panel-default qpanel">
     <div class="panel-heading">
         <div class="row">
-            <div class="col-lg-8"><label>{{title}}</label></div>
+            <div class="col-lg-8 big-bold">{{title}}</div>
             <div class="col-lg-1">
                 <!--<span class="glyphicon glyphicon-plus ldme-hand-pointer"
                       aria-hidden="true"
@@ -20,19 +20,45 @@
             </div>
         </div>
     </div>
-    <div class="panel-body">
+    <div class="panel-body quest-panel">
         <div class="pre-scrollable">
-            <div ng-repeat="item in quests | filter:arrayFilter">
-                <div ng-if="!item.isFinished() || showFinished">
-                    Name: {{item.name}}
-                    Description: {{item.description}}
-                    Gold Reward: {{item.goldReward}}
+            <div class="repeat" ng-repeat="item in quests | filter:arrayFilter">
+                <div class="quest well well-sm" ng-if="!item.isFinished() || showFinished" ng-click="showDescription($index)">
+                    <div class="big-bold">{{item.name}}</div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <img class="gold-img" 
+                                 ng-src="content/one_coin.png" 
+                                 alt="Gold" 
+                                 ng-if="item.goldReward !== 0 && item.goldPenalty !== 0"/>
+                        </div>
+                        <div class="col-lg-4" ng-if="item.goldReward !== 0 && item.goldPenalty !== 0">
+                            <span class="ldme-green number">{{item.goldReward}}</span>
+                            <span class="number">/</span>
+                            <span class="ldme-red number">{{item.goldPenalty}}</span>
+                        </div>
+                        <div class="col-lg-2">
+                            <img class="gold-img"
+                                 ng-src="content/blue-medal.png"
+                                 alt="Honor"
+                                 ng-if="item.honorReward !== 0 && item.honorPenalty !== 0" />
+                        </div>
+                        <div class="col-lg-4" ng-if="item.honorReward !== 0 && item.honorPenalty !== 0">
+                            <span class="ldme-green number">{{item.honorReward}}</span>
+                            <span class="number">/</span>
+                            <span class="ldme-red number">{{item.honorPenalty}}</span>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" ng-show="showDescriptionLookup[$index]">
+                        <div class="panel-body">
+                            {{item.description}}
+                        </div>
+                    </div>
                     <button class="btn btn-success btn-xs"
                             ng-click="completeQuest(item.id)"
                             ng-if="!item.isFinished()">
                         Complete
                     </button>
-                    <hr />
                 </div>
             </div>
         </div>
