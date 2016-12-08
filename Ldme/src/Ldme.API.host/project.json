@@ -25,7 +25,8 @@
     "Ldme.Persistence": "1.0.0-*",
     "Ldme.Models": "1.0.0-*",
     "Newtonsoft.Json": "9.0.1",
-    "Ldme.Common": "1.0.0-*"
+    "Ldme.Common": "1.0.0-*",
+    "Ldme.Logic": "1.0.0-*"
   },
 
   "tools": {

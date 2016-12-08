@@ -1,24 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Ldme.Abstract.Interfaces;
+using Ldme.Logic.Domains;
 using Ldme.Models.Models;
-using Ldme.Models.ViewModels;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace Ldme.API.host.Controllers
 {
     [Route("api/[controller]")]
     public class PlayerController : Controller
     {
-        private readonly IPlayerRepository playerRepository;
+        private readonly PlayerDomain playerDomain;
         private readonly ILogger<PlayerController> _logger;
 
-        public PlayerController(IPlayerRepository playerRepository, ILogger<PlayerController> log)
+        public PlayerController(PlayerDomain playerDomain, ILogger<PlayerController> log)
         {
-            this.playerRepository = playerRepository;
+            this.playerDomain = playerDomain;
             this._logger = log;
         }
 
@@ -28,7 +24,7 @@ namespace Ldme.API.host.Controllers
         {
             try
             {
-                var player = playerRepository.GetPlayer(id);
+                var player = playerDomain.GetPlayer(id);
                 return Json(player);
             }
             catch (Exception e)
@@ -43,8 +39,7 @@ namespace Ldme.API.host.Controllers
         {
             try
             {
-                var searchedPlayers = playerRepository.SearchPlayers(query);
-                var players = Mapper.Map<IEnumerable<Player>, IEnumerable<PlayerVM>>(searchedPlayers);
+                var players = playerDomain.SearchPlayers(query);
                 return new JsonResult(players);
             }
             catch (Exception e)
@@ -59,8 +54,7 @@ namespace Ldme.API.host.Controllers
         {
             if (ModelState.IsValid)
             {
-                playerRepository.AddPlayer(playerModel);
-                playerRepository.SaveChanges();
+                playerDomain.AddPlayer(playerModel);
 
                 return Ok();
             }

@@ -22,6 +22,7 @@ namespace ldme.Persistence.Repositories
             if (quest.QuestCreatorId == quest.QuestOwnerId)
             {
                 quest.Accepted = true;
+                quest.QuestState = QuestState.InProgress;
             }
 
             ldmeContext.Quests.Add(quest);
@@ -56,7 +57,7 @@ namespace ldme.Persistence.Repositories
 
             if (quest.QuestType == QuestType.Daily)
             {
-                ldmeContext.RepTags.Add(new RepTag()
+                ldmeContext.RepTags.Add(new Repetition
                 {
                     CompletionDate = completionData.CompletionDate ?? DateTime.Now,
                     GoldGain = quest.GoldReward,
@@ -67,12 +68,21 @@ namespace ldme.Persistence.Repositories
             }
             else
             {
+                quest.QuestState = QuestState.Completed;
                 quest.FinishedDate = completionData.CompletionDate ?? DateTime.Now;
             }
 
             var questOwner = quest.QuestOwner;
             questOwner.Gold += quest.GoldReward;
             questOwner.Honor += quest.HonorReward;
+        }
+
+        public Quest GetQuest(int id)
+        {
+            return ldmeContext.Quests
+                .Include(q => q.QuestOwner)
+                .Include(q => q.QuestCreator)
+                .Single(x => x.Id == id);
         }
 
         public IEnumerable<Quest> GetCreatedBy(int playerId)
@@ -93,6 +103,12 @@ namespace ldme.Persistence.Repositories
         public void SaveChanges()
         {
             ldmeContext.SaveChanges();
+        }
+
+        private float CalculateBonusForRepetition()
+        {
+
+            return 1;
         }
     }
 }

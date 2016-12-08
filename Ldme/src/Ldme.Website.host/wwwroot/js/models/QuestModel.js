@@ -2,19 +2,24 @@
     var self = this;
 
     this.id = 0;
-    this.fromPlayer = 0;
-    this.toPlayer = 0;
     this.name = '';
     this.description = '';
+    this.createdDate = null;
+    this.finishedDate = null;
+    this.deadlineDate = null;
     this.goldReward = 0;
     this.goldPenalty = 0;
     this.honorReward = 0;
     this.honorPenalty = 0;
-    this.questType = '';
     this.questState = '';
-    this.createdDate = null;
-    this.deadlineDate = null;
-    this.finishedDate = null;
+    this.questType = '';
+    this.fromPlayer = 0;
+    this.toPlayer = 0;
+    this.requiredRepetitions = 0;
+    this.maxRepetitions = 0;
+    this.repetitionsForMaxBonus = 0;
+    this.maxRepetitionBonus = 0;
+    this.repetitionBonus = 0;
 
     this.isFinished = function() {
         return self.finishedDate !== null && self.finishedDate !== undefined;
@@ -24,11 +29,13 @@
 QuestModel.FromResponse = function (response) {
     return QuestModel.FromData(response.id, response.questCreatorId, response.questOwnerId, response.name, response.description, 
         response.goldReward, response.goldReward, response.honorReward, response.honorPenalty, response.questType,
-        response.questState, response.createdDate, response.deadlineDate, response.finishedDate);
+        response.questState, response.createdDate, response.deadlineDate, response.finishedDate, response.requiredRepetitions,
+        response.maxRepetitions, response.repetitionsForMaxBonus, response.maxRepetitionBonus, response.repetitionBonus);
 }
 
 QuestModel.FromData = function (id, fromPlayer, toPlayer, name, description, goldReward, goldPenalty,
-    honorReward, honorPenalty, questType, questState, createdDate, deadlineDate, finishedDate) {
+    honorReward, honorPenalty, questType, questState, createdDate, deadlineDate, finishedDate, requiredRepetitions,
+    maxRepetitions, repetitionsForMaxBonus, maxRepetitionBonus, repetitionBonus) {
     
     var qModel = new QuestModel();
 
@@ -46,6 +53,11 @@ QuestModel.FromData = function (id, fromPlayer, toPlayer, name, description, gol
     qModel.createdDate = createdDate || null;
     qModel.deadlineDate = deadlineDate || null;
     qModel.finishedDate = finishedDate || null;
+    qModel.requiredRepetitions = requiredRepetitions || 0;
+    qModel.maxRepetitions = maxRepetitions || 0;
+    qModel.repetitionsForMaxBonus = repetitionsForMaxBonus || 0;
+    qModel.maxRepetitionBonus = maxRepetitionBonus || 0;
+    qModel.repetitionBonus = repetitionBonus || 0;
 
     return qModel;
 }

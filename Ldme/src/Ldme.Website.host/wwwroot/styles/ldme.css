@@ -87,4 +87,17 @@
 .qpanel .repeat {
   padding-right: 5px;
 }
+.qpanel .buttons {
+  padding-top: 5px;
+}
+.qpanel .description {
+  margin-bottom: 0;
+  margin-top: 3px;
+}
+.qpanel .panel-body {
+  padding: 4px 10px 4px 10px;
+}
+.qpanel .bonus {
+  max-height: 10px;
+}
 /*#endregion */

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Ldme.Models.Models
 {
     // Daily quests can have repetitions, gold and honor gain, to at least have slight history
-    public class RepTag
+    public class Repetition
     {
         public int Id { get; set; }
 
@@ -16,9 +16,9 @@ namespace Ldme.Models.Models
         [ForeignKey("ReferencedQuestId")]
         public Quest ReferencedQuest { get; set; }
 
-        public int GoldGain { get; set; }
+        public float GoldGain { get; set; }
 
-        public int HonorGain { get; set; }
+        public float HonorGain { get; set; }
 
         public DateTime CompletionDate { get; set; }
     }

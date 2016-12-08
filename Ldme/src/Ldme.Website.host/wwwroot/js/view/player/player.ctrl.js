@@ -38,7 +38,7 @@
                 qModel.honorReward = ctrl.honorReward;
                 qModel.honorPenalty = ctrl.honorPenalty;
                 qModel.startTime = moment();
-                qModel.endTime = moment().add(7, 'days');
+                qModel.endTime = null; //moment().add(7, 'days');
                 qModel.questType = ctrl.questType;
 
                 function onSuccess(result) {

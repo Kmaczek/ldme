@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using AutoMapper;
+﻿using AutoMapper;
 using ldme.Persistence.Repositories;
 using Ldme.Abstract.Interfaces;
 using Ldme.Common.Factories;
 using Ldme.DB.Setup;
+using Ldme.Logic.Domains;
 using Ldme.Models.Dtos;
 using Ldme.Models.Models;
 using Ldme.Models.ViewModels;
@@ -89,10 +88,14 @@ namespace Ldme.API.host
             });
             services.AddTransient<LdmeContextSeed>();
             services.AddTransient<PlayerFactory>();
+            services.AddTransient<QuestDomain>();
+            services.AddTransient<PlayerDomain>();
+
             services.AddScoped<IPlayerRepository, PlayerRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IQuestRepository, QuestRepository>();
             services.AddScoped<IFriendRepository, FriendRepository>();
+            services.AddScoped<IRepetitionRepository, RepetitionRepository>();
             services.AddLogging();
         }
 
@@ -116,7 +119,7 @@ namespace Ldme.API.host
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<LdmeUser, UserVM>().ReverseMap();
-                cfg.CreateMap<Player, PlayerVM>();
+                cfg.CreateMap<Player, PlayerSearchDto>();
                 cfg.CreateMap<QuestDto, Quest>()
                 .ForMember(q => q.CreatedDate, m => m.MapFrom(qd => qd.StartTime))
                 .ForMember(q => q.QuestCreatorId, m => m.MapFrom(qd => qd.FromPlayer))

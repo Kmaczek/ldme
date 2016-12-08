@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using Ldme.Abstract.Interfaces;
+using Ldme.Logic.Domains;
 using Ldme.Models.Dtos;
 using Ldme.Models.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -17,11 +13,15 @@ namespace Ldme.API.host.Controllers
     public class QuestController : Controller
     {
         private readonly IQuestRepository questRepository;
+        private readonly IRepetitionRepository repRepository;
+        private readonly QuestDomain questDomain;
         private readonly ILogger<QuestController> _logger;
 
-        public QuestController(IQuestRepository questRepository, ILogger<QuestController> log)
+        public QuestController(IQuestRepository questRepository, IRepetitionRepository repRepository, ILogger<QuestController> log, QuestDomain questDomain)
         {
             this.questRepository = questRepository;
+            this.repRepository = repRepository;
+            this.questDomain = questDomain;
             this._logger = log;
         }
 
@@ -92,7 +92,7 @@ namespace Ldme.API.host.Controllers
                 try
                 {
                     _logger.LogDebug($"Trying to get quests owned by player: {id}");
-                    var questsCreatedBy = questRepository.GetOwnedBy(id);
+                    var questsCreatedBy = questDomain.GetQuestsForPlayer(id);
                     return Json(questsCreatedBy);
                 }
                 catch (Exception e)

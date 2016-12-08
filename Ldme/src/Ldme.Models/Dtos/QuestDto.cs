@@ -11,7 +11,7 @@ namespace Ldme.Models.Dtos
         [Required]
         public int ToPlayer { get; set; }
 
-        [MinLength(4)]
+        [MinLength(3)]
         [Required]
         public string Name { get; set; }
 
@@ -32,9 +32,11 @@ namespace Ldme.Models.Dtos
 
         public string QuestType { get; set; }
 
-        public DateTime StartTime { get; set; }
+        public string QuestState { get; set; }
 
-        public DateTime EndTime { get; set; }
+        public DateTime? StartTime { get; set; }
+
+        public DateTime? EndTime { get; set; }
 
     }
 }

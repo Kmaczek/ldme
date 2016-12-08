@@ -11,6 +11,8 @@ namespace Ldme.Abstract.Interfaces
         void CreateQuest(Quest quest);
         void CompleteQuest(int id, QuestCompletionDto completionData);
 
+        Quest GetQuest(int id);
+
         IEnumerable<Quest> GetCreatedBy(int playerId);
         IEnumerable<Quest> GetOwnedBy(int playerId);
     }

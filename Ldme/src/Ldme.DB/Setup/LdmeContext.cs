@@ -20,7 +20,7 @@ namespace Ldme.DB.Setup
 
         public DbSet<FriendRequest> FriendRequests { get; set; }
 
-        public DbSet<RepTag> RepTags { get; set; }
+        public DbSet<Repetition> RepTags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -42,6 +42,18 @@ namespace Ldme.DB.Setup
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<FriendRequest>()
                 .HasOne(q => q.RequestTarget)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Repetition>()
+                .HasOne(q => q.ReferencedQuest)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Repetition>()
+                .HasOne(q => q.TagingPlayer)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Reward>()
+                .HasOne(q => q.RewardCreator)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
         }
