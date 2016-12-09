@@ -1,6 +1,6 @@
 ﻿using Ldme.Models.Models;
 
-namespace Ldme.Common.Factories
+namespace Ldme.Models.Factories
 {
     public class PlayerFactory
     {

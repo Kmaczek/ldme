@@ -49,5 +49,20 @@ namespace Ldme.Common.Extensions
             var day = DateTime.DaysInMonth(date.Year, date.Month);
             return new DateTime(date.Year, date.Month, day).AddDays(1).AddMilliseconds(-1);
         }
+
+        public static string ToJsTime(this DateTime date)
+        {
+            return date.ToUniversalTime() + TimeZoneInfo.Local.GetUtcOffset(date).ToString("c");
+        }
+
+        public static string ToDateTimeString(this DateTime? dateTime)
+        {
+            return dateTime?.ToString("O");
+        }
+
+        public static string ToDateTimeString(this DateTime dateTime)
+        {
+            return dateTime.ToString("O");
+        }
     }
 }

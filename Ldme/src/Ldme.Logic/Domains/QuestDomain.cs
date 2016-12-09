@@ -30,7 +30,7 @@ namespace Ldme.Logic.Domains
             var questsVM = new List<QuestVM>();
             foreach (var quest in quests)
             {
-                var multiplier = repRepository.GetBonusMultiplier(quest.Id, DateTime.Now, quest.RequiredRepetitions,
+                var multiplier = repRepository.GetBonusMultiplier(quest.Id, DateTime.UtcNow, quest.RequiredRepetitions,
                 quest.RepetitionBonusType, quest.RepetitionsForMaxBonus);
                 questsVM.Add(new QuestVM(quest, multiplier));
             }
@@ -55,7 +55,7 @@ namespace Ldme.Logic.Domains
 
             if (quest.DeadlineDate.HasValue && (
                 (completionData.CompletionDate.HasValue && quest.DeadlineDate.Value < completionData.CompletionDate)
-                || quest.DeadlineDate.Value < DateTime.Now))
+                || quest.DeadlineDate.Value < DateTime.UtcNow))
             {
                 throw new Exception("Cannot complete quest after its deadline");
             }
@@ -76,11 +76,13 @@ namespace Ldme.Logic.Domains
             else
             {
                 quest.QuestState = QuestState.Completed;
-                quest.FinishedDate = completionData.CompletionDate ?? DateTime.Now;
+                quest.FinishedDate = completionData.CompletionDate ?? DateTime.UtcNow;
                 
                 questOwner.Gold += quest.GoldReward;
                 questOwner.Honor += quest.HonorReward;
             }
+
+            questRepository.SaveChanges();
         }
     }
 }

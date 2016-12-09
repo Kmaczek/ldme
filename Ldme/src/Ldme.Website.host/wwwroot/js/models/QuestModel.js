@@ -18,11 +18,23 @@
     this.requiredRepetitions = 0;
     this.maxRepetitions = 0;
     this.repetitionsForMaxBonus = 0;
-    this.maxRepetitionBonus = 0;
+    this.repetitionBonusMultiplier = 0;
     this.repetitionBonus = 0;
 
     this.isFinished = function() {
         return self.finishedDate !== null && self.finishedDate !== undefined;
+    }
+
+    this.elapsedDays = function () {
+        var difference = moment().diff(moment(self.createdDate));
+        
+        return Math.ceil(moment.duration(difference).asDays());
+    }
+
+    this.totalDays = function() {
+        var difference = moment(self.deadlineDate).diff(moment(self.createdDate));
+
+        return Math.ceil(moment.duration(difference).asDays());
     }
 }
 
@@ -30,12 +42,12 @@ QuestModel.FromResponse = function (response) {
     return QuestModel.FromData(response.id, response.questCreatorId, response.questOwnerId, response.name, response.description, 
         response.goldReward, response.goldReward, response.honorReward, response.honorPenalty, response.questType,
         response.questState, response.createdDate, response.deadlineDate, response.finishedDate, response.requiredRepetitions,
-        response.maxRepetitions, response.repetitionsForMaxBonus, response.maxRepetitionBonus, response.repetitionBonus);
+        response.maxRepetitions, response.repetitionsForMaxBonus, response.repetitionBonusMultiplier, response.repetitionBonus);
 }
 
 QuestModel.FromData = function (id, fromPlayer, toPlayer, name, description, goldReward, goldPenalty,
     honorReward, honorPenalty, questType, questState, createdDate, deadlineDate, finishedDate, requiredRepetitions,
-    maxRepetitions, repetitionsForMaxBonus, maxRepetitionBonus, repetitionBonus) {
+    maxRepetitions, repetitionsForMaxBonus, repetitionBonusMultiplier, repetitionBonus) {
     
     var qModel = new QuestModel();
 
@@ -56,7 +68,7 @@ QuestModel.FromData = function (id, fromPlayer, toPlayer, name, description, gol
     qModel.requiredRepetitions = requiredRepetitions || 0;
     qModel.maxRepetitions = maxRepetitions || 0;
     qModel.repetitionsForMaxBonus = repetitionsForMaxBonus || 0;
-    qModel.maxRepetitionBonus = maxRepetitionBonus || 0;
+    qModel.repetitionBonusMultiplier = repetitionBonusMultiplier || 0;
     qModel.repetitionBonus = repetitionBonus || 0;
 
     return qModel;

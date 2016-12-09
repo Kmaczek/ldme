@@ -29,6 +29,17 @@
             }
 
             scope.arrayFilter = { questType: scope.questFilter }
+
+            scope.calculateDeadlineColor = function (quest) {
+                var percent = (quest.elapsedDays() / quest.totalDays());
+                if (percent <= 0.25) {
+                    return 'success';
+                }else if (percent > 0.25 && percent <=0.75) {
+                    return 'warning';
+                } else {
+                    return 'danger';
+                }
+            }
         }
         
         return {

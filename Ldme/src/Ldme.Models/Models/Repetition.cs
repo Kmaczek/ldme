@@ -9,11 +9,11 @@ namespace Ldme.Models.Models
         public int Id { get; set; }
 
         public int TagingPlayerId { get; set; }
-        [ForeignKey("TagingPlayerId")]
+        
         public Player TagingPlayer { get; set; }
 
         public int ReferencedQuestId { get; set; }
-        [ForeignKey("ReferencedQuestId")]
+        
         public Quest ReferencedQuest { get; set; }
 
         public float GoldGain { get; set; }

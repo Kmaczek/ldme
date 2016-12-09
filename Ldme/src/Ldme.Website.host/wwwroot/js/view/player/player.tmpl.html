@@ -6,10 +6,10 @@
                 <label>Name:</label> {{pc.playerData.name}}
             </div>
             <div class="col-lg-2">
-                <label>Gold:</label> {{pc.playerData.gold}}
+                <label>Gold:</label> {{pc.playerData.gold | number:2}}
             </div>
             <div class="col-lg-2">
-                <label>Honor:</label> {{pc.playerData.honor}}
+                <label>Honor:</label> {{pc.playerData.honor | number:2}}
             </div>
             <div class="col-lg-2">
                 <button class="btn btn-default btn-xs" 

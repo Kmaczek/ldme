@@ -27,7 +27,7 @@
                     <div class="row">
                         <div class="col-lg-10 big-bold">{{item.name}}</div>
                         <div class="col-lg-2">
-                            <span class="glyphicon glyphicon-ok ldme-green" 
+                            <span class="glyphicon glyphicon-ok ldme-green"
                                   ng-if="item.questState === 'Completed'"></span>
                             <span class="glyphicon glyphicon-remove ldme-red"
                                   ng-if="item.questState === 'Abandoned'"></span>
@@ -64,8 +64,29 @@
                             <span class="glyphicon glyphicon-expand ldme-hand-pointer" ng-click="showDescription($index)"></span>
                         </div>
                     </div>
-                    <div class="bonus">
-                        <uib-progressbar animate="true" value="dynamic" type="success"><b>{{item.repetitionBonus*100}}%</b></uib-progressbar>
+                    <div class="bonus" ng-if="item.questType === 'daily'">
+                        <div class="row">
+                            <div class="col-lg-2 bonus-label">Bomus:</div>
+                            <div class="col-lg-10">
+                                <uib-progressbar animate="false" value="item.repetitionBonus*100" max="item.repetitionBonusMultiplier*100" type="success">
+                                    {{(item.repetitionBonus*100) | number:0 }}% <span tooltip-placement="top-right"
+                                          uib-tooltip="Current bonus gold">(+{{(item.goldReward*item.repetitionBonus)|number:2}})</span>
+                                </uib-progressbar>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="deadline" ng-if="item.questType === 'regular'">
+                        <div class="row">
+                            <div class="col-lg-2 bonus-label">Deadline:</div>
+                            <div class="col-lg-10">
+                                <uib-progressbar class="progress-striped active" animate="false" value="item.elapsedDays()" max="item.totalDays()" type="calculateDeadlineColor(item)">
+                                    <span tooltip-placement="top-right"
+                                          uib-tooltip="Days left">
+                                        {{item.totalDays()-item.elapsedDays()}}
+                                    </span>
+                                </uib-progressbar>
+                            </div>
+                        </div>
                     </div>
                     <div class="panel panel-default description" ng-show="showDescriptionLookup[$index]">
                         <div class="panel-body">

@@ -45,7 +45,7 @@ namespace ldme.Persistence.Repositories
 
             if (quest.DeadlineDate.HasValue && (
                 (completionData.CompletionDate.HasValue && quest.DeadlineDate.Value < completionData.CompletionDate) 
-                || quest.DeadlineDate.Value < DateTime.Now))
+                || quest.DeadlineDate.Value < DateTime.UtcNow))
             {
                 throw new Exception("Cannot complete quest after its deadline");
             }
@@ -57,9 +57,9 @@ namespace ldme.Persistence.Repositories
 
             if (quest.QuestType == QuestType.Daily)
             {
-                ldmeContext.RepTags.Add(new Repetition
+                ldmeContext.Repetitions.Add(new Repetition
                 {
-                    CompletionDate = completionData.CompletionDate ?? DateTime.Now,
+                    CompletionDate = completionData.CompletionDate ?? DateTime.UtcNow,
                     GoldGain = quest.GoldReward,
                     HonorGain = quest.HonorReward,
                     ReferencedQuest = quest,
@@ -69,7 +69,7 @@ namespace ldme.Persistence.Repositories
             else
             {
                 quest.QuestState = QuestState.Completed;
-                quest.FinishedDate = completionData.CompletionDate ?? DateTime.Now;
+                quest.FinishedDate = completionData.CompletionDate ?? DateTime.UtcNow;
             }
 
             var questOwner = quest.QuestOwner;

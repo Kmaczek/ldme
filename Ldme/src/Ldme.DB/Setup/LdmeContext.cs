@@ -20,8 +20,9 @@ namespace Ldme.DB.Setup
 
         public DbSet<FriendRequest> FriendRequests { get; set; }
 
-        public DbSet<Repetition> RepTags { get; set; }
+        public DbSet<Repetition> Repetitions { get; set; }
 
+        //TODO: Double foreign keys are generated
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -47,14 +48,17 @@ namespace Ldme.DB.Setup
             modelBuilder.Entity<Repetition>()
                 .HasOne(q => q.ReferencedQuest)
                 .WithMany()
+                .HasForeignKey(k => k.ReferencedQuestId)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Repetition>()
                 .HasOne(q => q.TagingPlayer)
                 .WithMany()
+                .HasForeignKey(k => k.TagingPlayerId)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Reward>()
                 .HasOne(q => q.RewardCreator)
                 .WithMany()
+                .HasForeignKey(k => k.RewardCreatorId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

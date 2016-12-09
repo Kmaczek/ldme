@@ -8,7 +8,7 @@ using Ldme.DB.Setup;
 namespace Ldme.DB.Migrations
 {
     [DbContext(typeof(LdmeContext))]
-    [Migration("20161207232353_InitialMigration")]
+    [Migration("20161209000446_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -212,7 +212,7 @@ namespace Ldme.DB.Migrations
 
                     b.HasIndex("TagingPlayerId");
 
-                    b.ToTable("RepTags");
+                    b.ToTable("Repetitions");
                 });
 
             modelBuilder.Entity("Ldme.Models.Models.Reward", b =>

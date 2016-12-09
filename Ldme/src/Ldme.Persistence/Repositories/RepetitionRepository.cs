@@ -20,24 +20,24 @@ namespace Ldme.Persistence.Repositories
 
         public Repetition CreateRepetition(Quest quest, int playerId)
         {
-            var multiplier = this.GetBonusMultiplier(quest.Id, DateTime.Now, quest.RequiredRepetitions,
+            var multiplier = this.GetBonusMultiplier(quest.Id, DateTime.UtcNow, quest.RequiredRepetitions,
                 quest.RepetitionBonusType, quest.RepetitionsForMaxBonus);
             var rep = new Repetition
             {
-                CompletionDate = DateTime.Now,
+                CompletionDate = DateTime.UtcNow,
                 ReferencedQuestId = quest.Id,
                 TagingPlayerId = playerId,
                 GoldGain = quest.GoldReward + quest.GoldReward*(quest.RepetitionBonusMultiplier*multiplier),
                 HonorGain = quest.HonorReward // not aplicable for honor
             };
 
-            _context.RepTags.Add(rep);
+            _context.Repetitions.Add(rep);
             return rep;
         }
 
         public IEnumerable<Repetition> GetRepetitions(int questId)
         {
-            var tags = _context.RepTags.Where(x => x.ReferencedQuestId == questId).ToList();
+            var tags = _context.Repetitions.Where(x => x.ReferencedQuestId == questId).ToList();
 
             return tags;
 
@@ -71,7 +71,7 @@ namespace Ldme.Persistence.Repositories
             for (int i = repetitionsToMaxBonus; i > 0; i--)
             {
                 var dateRange = GetRepetitionDateRange(repetitionType, funcToExecOnDate(date, i));
-                var count = _context.RepTags.Count(x => x.ReferencedQuestId == questId &&
+                var count = _context.Repetitions.Count(x => x.ReferencedQuestId == questId &&
                     x.CompletionDate.Between(dateRange.StartDate, dateRange.EndDate));
                 if (count >= requiredRepetitions)
                 {

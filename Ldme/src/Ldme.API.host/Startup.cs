@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using ldme.Persistence.Repositories;
 using Ldme.Abstract.Interfaces;
-using Ldme.Common.Factories;
 using Ldme.DB.Setup;
 using Ldme.Logic.Domains;
 using Ldme.Models.Dtos;
+using Ldme.Models.Factories;
 using Ldme.Models.Models;
 using Ldme.Models.ViewModels;
 using Microsoft.AspNetCore.Builder;

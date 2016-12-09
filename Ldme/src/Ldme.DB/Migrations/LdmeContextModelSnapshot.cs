@@ -211,7 +211,7 @@ namespace Ldme.DB.Migrations
 
                     b.HasIndex("TagingPlayerId");
 
-                    b.ToTable("RepTags");
+                    b.ToTable("Repetitions");
                 });
 
             modelBuilder.Entity("Ldme.Models.Models.Reward", b =>

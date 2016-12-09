@@ -319,7 +319,7 @@ namespace Ldme.DB.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RepTags",
+                name: "Repetitions",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -334,27 +334,27 @@ namespace Ldme.DB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RepTags", x => x.Id);
+                    table.PrimaryKey("PK_Repetitions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RepTags_Players_PlayerId",
+                        name: "FK_Repetitions_Players_PlayerId",
                         column: x => x.PlayerId,
                         principalTable: "Players",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_RepTags_Quests_QuestId",
+                        name: "FK_Repetitions_Quests_QuestId",
                         column: x => x.QuestId,
                         principalTable: "Quests",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_RepTags_Quests_ReferencedQuestId",
+                        name: "FK_Repetitions_Quests_ReferencedQuestId",
                         column: x => x.ReferencedQuestId,
                         principalTable: "Quests",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_RepTags_Players_TagingPlayerId",
+                        name: "FK_Repetitions_Players_TagingPlayerId",
                         column: x => x.TagingPlayerId,
                         principalTable: "Players",
                         principalColumn: "Id",
@@ -408,23 +408,23 @@ namespace Ldme.DB.Migrations
                 column: "QuestOwnerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RepTags_PlayerId",
-                table: "RepTags",
+                name: "IX_Repetitions_PlayerId",
+                table: "Repetitions",
                 column: "PlayerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RepTags_QuestId",
-                table: "RepTags",
+                name: "IX_Repetitions_QuestId",
+                table: "Repetitions",
                 column: "QuestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RepTags_ReferencedQuestId",
-                table: "RepTags",
+                name: "IX_Repetitions_ReferencedQuestId",
+                table: "Repetitions",
                 column: "ReferencedQuestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RepTags_TagingPlayerId",
-                table: "RepTags",
+                name: "IX_Repetitions_TagingPlayerId",
+                table: "Repetitions",
                 column: "TagingPlayerId");
 
             migrationBuilder.CreateIndex(
@@ -482,7 +482,7 @@ namespace Ldme.DB.Migrations
                 name: "FriendRequests");
 
             migrationBuilder.DropTable(
-                name: "RepTags");
+                name: "Repetitions");
 
             migrationBuilder.DropTable(
                 name: "Reward");

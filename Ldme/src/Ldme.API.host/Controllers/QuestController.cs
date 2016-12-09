@@ -42,15 +42,14 @@ namespace Ldme.API.host.Controllers
         }
 
         [HttpPost("{id}/complete")]
-        public IActionResult Post(int id, [FromBody]QuestCompletionDto registrationData)
+        public IActionResult Post(int id, [FromBody]QuestCompletionDto completionData)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     _logger.LogDebug("Trying to complete quest");
-                    questRepository.CompleteQuest(id, registrationData);
-                    questRepository.SaveChanges();
+                    questDomain.CompleteQuest(id, completionData);
                     return Ok();
                 }
                 catch (Exception e)
