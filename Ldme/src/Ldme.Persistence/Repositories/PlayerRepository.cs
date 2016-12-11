@@ -34,6 +34,30 @@ namespace Ldme.Persistence.Repositories
             ldmeContext.Players.Add(player);
         }
 
+        public void ChangeGold(int id, float goldChange)
+        {
+            var player = ldmeContext.Players.Single(x => x.Id == id);
+
+            if (player.Gold + goldChange < 0 && goldChange < 0)
+            {
+                throw new Exception("Player has not enough gold");
+            }
+
+            player.Gold += goldChange;
+        }
+
+        public void ChangeHonor(int id, float honorChange)
+        {
+            var player = ldmeContext.Players.Single(x => x.Id == id);
+
+            if (player.Honor + honorChange < 0 && honorChange < 0)
+            {
+                throw new Exception("Player has not enough honor");
+            }
+
+            player.Honor += honorChange;
+        }
+
         public IEnumerable<Quest> GetQuests(int id)
         {
             throw new NotImplementedException();

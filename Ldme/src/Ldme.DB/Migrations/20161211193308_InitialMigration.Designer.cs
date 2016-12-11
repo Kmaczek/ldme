@@ -8,7 +8,7 @@ using Ldme.DB.Setup;
 namespace Ldme.DB.Migrations
 {
     [DbContext(typeof(LdmeContext))]
-    [Migration("20161209000446_InitialMigration")]
+    [Migration("20161211193308_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -236,7 +236,7 @@ namespace Ldme.DB.Migrations
 
                     b.HasIndex("RewardCreatorId");
 
-                    b.ToTable("Reward");
+                    b.ToTable("Rewards");
                 });
 
             modelBuilder.Entity("Ldme.Models.Models.RewardClaim", b =>
@@ -252,7 +252,7 @@ namespace Ldme.DB.Migrations
 
                     b.HasIndex("ClaimedById");
 
-                    b.ToTable("RewardClaim");
+                    b.ToTable("RewardClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>

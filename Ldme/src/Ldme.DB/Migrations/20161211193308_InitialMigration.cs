@@ -155,7 +155,7 @@ namespace Ldme.DB.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reward",
+                name: "Rewards",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -168,15 +168,15 @@ namespace Ldme.DB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Reward", x => x.Id);
+                    table.PrimaryKey("PK_Rewards", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reward_Players_PlayerId",
+                        name: "FK_Rewards_Players_PlayerId",
                         column: x => x.PlayerId,
                         principalTable: "Players",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Reward_Players_RewardCreatorId",
+                        name: "FK_Rewards_Players_RewardCreatorId",
                         column: x => x.RewardCreatorId,
                         principalTable: "Players",
                         principalColumn: "Id",
@@ -184,7 +184,7 @@ namespace Ldme.DB.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RewardClaim",
+                name: "RewardClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -194,9 +194,9 @@ namespace Ldme.DB.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RewardClaim", x => x.Id);
+                    table.PrimaryKey("PK_RewardClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RewardClaim_Players_ClaimedById",
+                        name: "FK_RewardClaims_Players_ClaimedById",
                         column: x => x.ClaimedById,
                         principalTable: "Players",
                         principalColumn: "Id",
@@ -428,18 +428,18 @@ namespace Ldme.DB.Migrations
                 column: "TagingPlayerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reward_PlayerId",
-                table: "Reward",
+                name: "IX_Rewards_PlayerId",
+                table: "Rewards",
                 column: "PlayerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reward_RewardCreatorId",
-                table: "Reward",
+                name: "IX_Rewards_RewardCreatorId",
+                table: "Rewards",
                 column: "RewardCreatorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RewardClaim_ClaimedById",
-                table: "RewardClaim",
+                name: "IX_RewardClaims_ClaimedById",
+                table: "RewardClaims",
                 column: "ClaimedById");
 
             migrationBuilder.CreateIndex(
@@ -485,10 +485,10 @@ namespace Ldme.DB.Migrations
                 name: "Repetitions");
 
             migrationBuilder.DropTable(
-                name: "Reward");
+                name: "Rewards");
 
             migrationBuilder.DropTable(
-                name: "RewardClaim");
+                name: "RewardClaims");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");

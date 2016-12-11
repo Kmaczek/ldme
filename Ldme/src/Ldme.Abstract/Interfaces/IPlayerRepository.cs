@@ -9,6 +9,10 @@ namespace Ldme.Abstract.Interfaces
 
         void AddPlayer(Player player);
 
+        void ChangeGold(int id, float goldChange);
+
+        void ChangeHonor(int id, float honorChange);
+
         Player GetPlayer(int id);
 
         Player GetPlayerByEmail(string email);

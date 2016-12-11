@@ -135,6 +135,14 @@ namespace Ldme.DB.Setup
                 };
 
                 await _context.SaveChangesAsync();
+
+                _context.Rewards.Add(new Reward
+                {
+                    Description = "Kupuje lody",
+                    GoldPrice = 10,
+                    HonorPrice = 0,
+                    RewardCreatorId = 2
+                });
             }
         }
     }

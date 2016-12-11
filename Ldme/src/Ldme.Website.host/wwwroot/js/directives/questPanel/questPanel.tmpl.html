@@ -66,11 +66,11 @@
                     </div>
                     <div class="bonus" ng-if="item.questType === 'daily'">
                         <div class="row">
-                            <div class="col-lg-2 bonus-label">Bomus:</div>
+                            <div class="col-lg-2 bonus-label">Bonus:</div>
                             <div class="col-lg-10">
                                 <uib-progressbar animate="false" value="item.repetitionBonus*100" max="item.repetitionBonusMultiplier*100" type="success">
                                     {{(item.repetitionBonus*100) | number:0 }}% <span tooltip-placement="top-right"
-                                          uib-tooltip="Current bonus gold">(+{{(item.goldReward*item.repetitionBonus)|number:2}})</span>
+                                                                                      uib-tooltip="Current bonus gold">(+{{(item.goldReward*item.repetitionBonus)|number:2}})</span>
                                 </uib-progressbar>
                             </div>
                         </div>
@@ -79,12 +79,20 @@
                         <div class="row">
                             <div class="col-lg-2 bonus-label">Deadline:</div>
                             <div class="col-lg-10">
-                                <uib-progressbar class="progress-striped active" animate="false" value="item.elapsedDays()" max="item.totalDays()" type="calculateDeadlineColor(item)">
-                                    <span tooltip-placement="top-right"
-                                          uib-tooltip="Days left">
-                                        {{item.totalDays()-item.elapsedDays()}}
-                                    </span>
-                                </uib-progressbar>
+                                <uib-progress animate="true" max="item.totalDays()">
+                                    <uib-bar class="progress-bar-striped active"  value="item.elapsedDays()" type="danger">
+                                        <span tooltip-placement="top"
+                                              uib-tooltip="Days passed">
+                                            {{item.elapsedDays()}}
+                                        </span>
+                                    </uib-bar>
+                                    <uib-bar value="item.totalDays()-item.elapsedDays()" type="calculateDeadlineColor(item)">
+                                        <span tooltip-placement="top"
+                                              uib-tooltip="Days left to {{item.deadlineDate | date}}">
+                                            {{item.totalDays()-item.elapsedDays()}}
+                                        </span>
+                                    </uib-bar>
+                                </uib-progress>
                             </div>
                         </div>
                     </div>

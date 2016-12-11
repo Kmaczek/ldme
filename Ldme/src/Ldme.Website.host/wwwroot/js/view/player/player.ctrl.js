@@ -1,8 +1,8 @@
 ﻿(function () {
     "use strict";
 
-    angular.module('ldme').controller('playerCtrl', ['appState', 'playerInstance', 'questApi', 'toastr', 'enumHelper',
-        function (appState, playerInstance, questApi, toastr, enumHelper) {
+    angular.module('ldme').controller('playerCtrl', ['appState', 'playerInstance', 'questApi', 'rewardApi', 'toastr', 'enumHelper',
+        function (appState, playerInstance, questApi, rewardApi, toastr, enumHelper) {
             var ctrl = this;
             this.isLoggedIn = appState.isLoggedIn;
             this.showQuestForm = false;

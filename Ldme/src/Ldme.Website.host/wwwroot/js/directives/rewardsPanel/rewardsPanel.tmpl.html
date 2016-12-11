@@ -1,0 +1,47 @@
+﻿<div class="panel panel-default qpanel">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-lg-8 big-bold">{{title}}</div>
+            <div class="col-lg-1">
+            </div>
+            <div class="col-lg-1">
+                <span class="glyphicon glyphicon-expand ldme-hand-pointer"
+                      aria-hidden="true"
+                      ng-click="toggleFinished()"
+                      tooltip-placement="top-right"
+                      uib-tooltip="Show finished quests"></span>
+            </div>
+            <div class="col-lg-1">
+                <span class="glyphicon glyphicon-cog ldme-hand-pointer" aria-hidden="true"></span>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body rewards-panel">
+        <div class="pre-scrollable">
+            <div class="repeat" ng-repeat="item in rewards | filter:arrayFilter">
+                <div class="well well-sm">
+                    <div class="reward">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <span class="big-bold">{{item.description}}</span>
+                            </div>
+                            <div class="col-lg-3">
+                                <span class="ldme-gold big-bold">{{item.goldPrice}}</span>
+                                <span ng-if="item.honorPrice !== 0">
+                                    /
+                                    <span class="ldme-honor big-bold">{{item.honorPrice}}</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row buttons">
+                            <div class="col-lg-3">
+                                <div class="btn-success btn-xs ldme-hand-pointer" ng-click="claimReward(item.id)">Claim</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

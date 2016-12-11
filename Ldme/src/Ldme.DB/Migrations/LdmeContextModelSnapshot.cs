@@ -235,7 +235,7 @@ namespace Ldme.DB.Migrations
 
                     b.HasIndex("RewardCreatorId");
 
-                    b.ToTable("Reward");
+                    b.ToTable("Rewards");
                 });
 
             modelBuilder.Entity("Ldme.Models.Models.RewardClaim", b =>
@@ -251,7 +251,7 @@ namespace Ldme.DB.Migrations
 
                     b.HasIndex("ClaimedById");
 
-                    b.ToTable("RewardClaim");
+                    b.ToTable("RewardClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>

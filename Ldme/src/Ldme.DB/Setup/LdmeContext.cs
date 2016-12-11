@@ -22,6 +22,10 @@ namespace Ldme.DB.Setup
 
         public DbSet<Repetition> Repetitions { get; set; }
 
+        public DbSet<Reward> Rewards { get; set; }
+
+        public DbSet<RewardClaim> RewardClaims { get; set; }
+
         //TODO: Double foreign keys are generated
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

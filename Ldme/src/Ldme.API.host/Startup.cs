@@ -90,12 +90,14 @@ namespace Ldme.API.host
             services.AddTransient<PlayerFactory>();
             services.AddTransient<QuestDomain>();
             services.AddTransient<PlayerDomain>();
+            services.AddTransient<RewardDomain>();
 
             services.AddScoped<IPlayerRepository, PlayerRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IQuestRepository, QuestRepository>();
             services.AddScoped<IFriendRepository, FriendRepository>();
             services.AddScoped<IRepetitionRepository, RepetitionRepository>();
+            services.AddScoped<IRewardRepository, RewardRepository>();
             services.AddLogging();
         }
 
