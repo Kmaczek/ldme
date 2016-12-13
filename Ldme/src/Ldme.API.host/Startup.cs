@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Globalization;
+using System.IO;
+using AutoMapper;
 using ldme.Persistence.Repositories;
 using Ldme.Abstract.Interfaces;
 using Ldme.DB.Setup;
@@ -18,6 +21,9 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Serilog;
+using Serilog.Events;
+using Serilog.Formatting.Display;
+using Serilog.Sinks.File;
 
 namespace Ldme.API.host
 {
@@ -27,18 +33,33 @@ namespace Ldme.API.host
 
         public Startup(IHostingEnvironment env)
         {
-            _env = env;
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(_env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
-            Configuration = builder.Build();
+            try
+            {
+                _env = env;
+                var builder = new ConfigurationBuilder()
+                    .SetBasePath(_env.ContentRootPath)
+                    .AddJsonFile("apisettings.json", optional: true, reloadOnChange: false)
+                    .AddEnvironmentVariables();
+                if (env.IsDevelopment())
+                {
+                    builder.AddJsonFile($@"C:\Ldme\appsettings.{env.EnvironmentName}.json", optional: true);
+                }
+                Configuration = builder.Build();
 
+                SetupLogger(env);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        private void SetupLogger(IHostingEnvironment env)
+        {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .Enrich.FromLogContext()
-                .WriteTo.Seq("http://localhost:5341")
+                .WriteTo.Seq(Configuration["SeqUrl"])
                 .CreateLogger();
         }
 
@@ -50,10 +71,10 @@ namespace Ldme.API.host
             services.AddSingleton(Configuration);
             services.AddCors(options =>
             { // don not put slashes to WithOrigins
-                options.AddPolicy("AllowAll", 
+                options.AddPolicy("AllowAll",
                     p => p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
-                options.AddPolicy("AllowLocal", 
-                    p => p.WithOrigins(Configuration["WebsiteUrl"]).AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+                options.AddPolicy("AllowLocal",
+                    p => p.WithOrigins(Configuration["WebsiteUrl"], Configuration["Local"]).AllowAnyMethod().AllowAnyHeader().AllowCredentials());
             });
             // Add framework services.
             services.AddMvc()

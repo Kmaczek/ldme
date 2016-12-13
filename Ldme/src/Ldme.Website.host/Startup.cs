@@ -22,10 +22,12 @@ namespace Ldme.Website.host
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("webConfig.json", false, true)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile("websettings.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables();
+            if (env.IsDevelopment())
+            {
+                builder.AddJsonFile($@"C:\Ldme\websettings.{env.EnvironmentName}.json", optional: true);
+            }
             Configuration = builder.Build();
         }
 
