@@ -27,6 +27,8 @@
                         },
                         'footer@root': {
                             templateUrl: 'js/view/footer/footer.tmpl.html'
+                        },
+                        'lpanel@root': {
                         }
                     }
                 })
@@ -37,11 +39,26 @@
                 })
             .state('player',
                 {
+                    abstract: true,
                     parent: 'root',
-                    url: '/player',
                     views: {
-                        'main': {
+                        'main@root': {
                             templateUrl: 'js/view/player/player.tmpl.html'
+                        }
+                    }
+                })
+            .state('profile',
+                {
+                    parent: 'player',
+                    url: '/player'
+                })
+            .state('addQuest',
+                {
+                    parent: 'player',
+                    url: '/player/addQuest',
+                    views: {
+                        'lpanel@root': {
+                            templateUrl: 'js/view/addQuest/addQuest.tmpl.html'
                         }
                     }
                 })

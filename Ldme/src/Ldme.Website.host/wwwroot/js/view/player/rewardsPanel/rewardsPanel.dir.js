@@ -17,7 +17,7 @@
 
             return {
                 restrict: 'E',
-                templateUrl: 'js/directives/rewardsPanel/rewardsPanel.tmpl.html',
+                templateUrl: 'js/view/player/rewardsPanel/rewardsPanel.tmpl.html',
                 scope: {
                     title: '@',
                     rewards: '='

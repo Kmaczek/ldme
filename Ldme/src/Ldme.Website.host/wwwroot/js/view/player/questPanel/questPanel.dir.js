@@ -44,7 +44,7 @@
         
         return {
             restrict: 'E',
-            templateUrl: 'js/directives/questPanel/questPanel.tmpl.html',
+            templateUrl: 'js/view/player/questPanel/questPanel.tmpl.html',
             scope: {
                 title: '@',
                 quests: '=',
