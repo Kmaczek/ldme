@@ -18,10 +18,20 @@
 /*#region Left Panel */
 .left-panel {
   position: absolute;
-  padding: 10px;
-  width: 150px;
+  padding: 40px;
+  margin-left: -20px;
+  width: 280px;
   min-height: 300px;
   border: solid 1px black;
+  -moz-border-radius: 18px;
+  -webkit-border-radius: 18px;
+  border-radius: 18px;
+  transition: 1s linear all;
+  /*transition: 1s linear opacity;*/
+}
+.lpanel-fade {
+  margin-left: -240px;
+  /*opacity: 0;*/
 }
 /*#endregion */
 /*#region Status Bar */

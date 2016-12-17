@@ -1,66 +1,28 @@
 ﻿(function () {
     "use strict";
 
-    angular.module('ldme').controller('playerCtrl', ['$state', 'appState', 'playerInstance', 'questApi', 'rewardApi', 'toastr', 'enumHelper',
-        function ($state, appState, playerInstance, questApi, rewardApi, toastr, enumHelper) {
+    angular.module('ldme')
+        .controller('playerCtrl', function ($state, appState, playerInstance) {
             var ctrl = this;
             this.isLoggedIn = appState.isLoggedIn;
             this.showQuestForm = false;
 
             (function initialize() {
                 if (appState.isLoggedIn) {
-                    playerInstance.fetchPlayerData(appState.getPlayerId()).then(function () {
-                        ctrl.playerData = playerInstance.getPlayerData();
-                    });
+                    playerInstance.fetchPlayerData(appState.getPlayerId())
+                        .then(function () {
+                            ctrl.playerData = playerInstance.getPlayerData();
+                        });
                 }
-                createQuestTypeOptions();
-                setDefaultQuestType(QuestType.Regular);
+
             })();
 
             this.addQuest = function () {
-                $state.go('addQuest');
-            }
-
-            this.cancelQuestCreation = function () {
-                this.questForm.$setPristine();
-                this.showQuestForm = false;
-            }
-
-            this.createQuest = function () {
-
-                var qModel = new QuestModel();
-                qModel.fromPlayer = ctrl.playerData.id;
-                qModel.toPlayer = ctrl.playerData.id;
-                qModel.name = ctrl.qName;
-                qModel.description = ctrl.qDescription;
-                qModel.goldReward = ctrl.goldReward;
-                qModel.goldPenalty = ctrl.goldPenalty;
-                qModel.honorReward = ctrl.honorReward;
-                qModel.honorPenalty = ctrl.honorPenalty;
-                qModel.startTime = moment();
-                qModel.endTime = null; //moment().add(7, 'days');
-                qModel.questType = ctrl.questType;
-
-                function onSuccess(result) {
-                    toastr.success('Quest added');
-                    ctrl.showQuestForm = false;
-                    playerInstance.updateQuests();
-                    ctrl.questForm.$setPristine();
+                if ($state.current.name === 'addQuest') {
+                    $state.go('profile');
+                } else {
+                    $state.go('addQuest');
                 }
-
-                function onFail(result) {
-                    toastr.error('Cannot add quest');
-                }
-
-                questApi.CreateQuest(null, qModel, onSuccess, onFail);
             }
-
-            function createQuestTypeOptions() {
-                ctrl.questTypes = enumHelper.ToSelectOptions(QuestType);
-            }
-
-            function setDefaultQuestType(qType) {
-                ctrl.questType = qType;
-            }
-        }]);
-}())
+        });
+}());

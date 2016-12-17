@@ -3,14 +3,14 @@
         <div class="row ldme-row">
             <label class="ldme-std-pad">Quest Name</label>
             <div class="ldme-std-pad">
-                <input type="text" ng-model="pc.qName" />
+                <input type="text" ng-model="aqc.qName" />
             </div>
         </div>
 
         <div class="row ldme-row">
             <label class="ldme-std-pad">Quest Description</label>
             <div class="ldme-std-pad">
-                <input type="text" ng-model="pc.qDescription" />
+                <input type="text" ng-model="aqc.qDescription" />
             </div>
         </div>
 
@@ -20,14 +20,14 @@
             </div>
             <div class="ldme-inline-p ldme-std-pad">
                 <div class="ldme-inline-cl">
-                    <input class="quest-numeric" type="number" ng-model="pc.goldReward" />
+                    <input class="quest-numeric" type="number" ng-model="aqc.goldReward" />
                     <span class="glyphicon glyphicon-triangle-top ldme-hand-pointer ldme-green"
                           aria-hidden="true"
                           tooltip-placement="top-right"
                           uib-tooltip="Gold given after quest is done"></span>
                 </div>
                 <div class="ldme-inline-cr ldme-std-pad">
-                    <input class="quest-numeric" type="number" ng-model="pc.goldPenalty" />
+                    <input class="quest-numeric" type="number" ng-model="aqc.goldPenalty" />
                     <span class="glyphicon glyphicon-triangle-bottom ldme-hand-pointer ldme-red"
                           aria-hidden="true"
                           tooltip-placement="top-right"
@@ -42,14 +42,14 @@
             </div>
             <div class="ldme-inline-p ldme-std-pad">
                 <div class="ldme-inline-cl">
-                    <input class="quest-numeric" type="number" ng-model="pc.honorReward" />
+                    <input class="quest-numeric" type="number" ng-model="aqc.honorReward" />
                     <span class="glyphicon glyphicon-triangle-top ldme-hand-pointer ldme-green"
                           aria-hidden="true"
                           tooltip-placement="top-right"
                           uib-tooltip="Honor given after quest is done"></span>
                 </div>
                 <div class="ldme-inline-cr ldme-std-pad">
-                    <input class="quest-numeric" type="number" ng-model="pc.honorPenalty" />
+                    <input class="quest-numeric" type="number" ng-model="aqc.honorPenalty" />
                     <span class="glyphicon glyphicon-triangle-bottom ldme-hand-pointer ldme-red"
                           aria-hidden="true"
                           tooltip-placement="top-right"
@@ -62,15 +62,15 @@
             <div>
                 <label class="ldme-std-pad">Quest Type</label>
             </div>
-            <select class="ldme-std-margin" ng-model="pc.questType">
-                <option ng-repeat="option in pc.questTypes" value="{{option.value}}">{{option.name}}</option>
+            <select class="ldme-std-margin" ng-model="aqc.questType">
+                <option ng-repeat="option in aqc.questTypes" value="{{option.value}}">{{option.name}}</option>
             </select>
         </div>
 
         <br />
 
-        <button class="btn btn-success btn-xs" ng-click="pc.createQuest()">Create</button>
-        <button class="btn btn-default btn-xs" ng-click="pc.cancelQuestCreation()">Cancel</button>
+        <button class="btn btn-success btn-xs" ng-click="aqc.createQuest()">Create</button>
+        <button class="btn btn-default btn-xs" ng-click="aqc.cancelQuestCreation()">Cancel</button>
     </form>
     
 </div>
