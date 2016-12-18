@@ -2,8 +2,13 @@
 <div class="jumbotron"></div>
 <div ng-controller="leftPanelCtrl as lpc">
     <div class="left-panel" ng-class="{'lpanel-fade': lpc.isPanelHidden()}">
-        <button class="btn btn-xs btn-danger" ng-click="lpc.closePanel()" ng-hide="lpc.isPanelHidden()">Close Panel</button>
-        <div ui-view="lpanel">
+        <div class="row">
+            <div class="col-lg-10">
+                <div ui-view="lpanel"></div>
+            </div>
+            <div class="col-lg-2">
+                <span class="glyphicon glyphicon-remove right" ng-click="lpc.closePanel()" ng-hide="lpc.isPanelHidden()"></span>
+            </div>
         </div>
     </div>
 </div>

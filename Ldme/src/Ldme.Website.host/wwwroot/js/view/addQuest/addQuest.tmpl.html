@@ -1,76 +1,77 @@
-﻿<div ng-controller="addQuestCtrl as aqc">
+﻿<div class="add-quest" ng-controller="addQuestCtrl as aqc">
     <form name="questForm">
-        <div class="row ldme-row">
-            <label class="ldme-std-pad">Quest Name</label>
-            <div class="ldme-std-pad">
-                <input type="text" ng-model="aqc.qName" />
-            </div>
-        </div>
-
-        <div class="row ldme-row">
-            <label class="ldme-std-pad">Quest Description</label>
-            <div class="ldme-std-pad">
-                <input type="text" ng-model="aqc.qDescription" />
-            </div>
-        </div>
-
-        <div class="row ldme-row">
+        <div class="group">
+            <label>Quest Name</label>
             <div>
-                <label class="ldme-std-pad">Gold</label>
+                <input class="text" type="text" ng-model="aqc.qName" />
             </div>
-            <div class="ldme-inline-p ldme-std-pad">
+        </div>
+
+        <div class="group">
+            <label>Quest Description</label>
+            <div>
+                <input class="text" type="text" ng-model="aqc.qDescription" />
+            </div>
+        </div>
+
+        <div class="group">
+            <div>
+                <label>Gold</label>
+            </div>
+            <div class="ldme-inline-p">
                 <div class="ldme-inline-cl">
-                    <input class="quest-numeric" type="number" ng-model="aqc.goldReward" />
+                    <input class="numeric" ng-model="aqc.goldReward" type="number" max="100"/>
                     <span class="glyphicon glyphicon-triangle-top ldme-hand-pointer ldme-green"
                           aria-hidden="true"
-                          tooltip-placement="top-right"
+                          tooltip-placement="top-left"
                           uib-tooltip="Gold given after quest is done"></span>
                 </div>
-                <div class="ldme-inline-cr ldme-std-pad">
-                    <input class="quest-numeric" type="number" ng-model="aqc.goldPenalty" />
+                <div class="ldme-inline-cr">
+                    <input class="numeric" ng-model="aqc.goldPenalty" type="number" max="100"/>
                     <span class="glyphicon glyphicon-triangle-bottom ldme-hand-pointer ldme-red"
                           aria-hidden="true"
-                          tooltip-placement="top-right"
+                          tooltip-placement="top-left"
                           uib-tooltip="Gold lost after quest has been failed"></span>
                 </div>
             </div>
         </div>
 
-        <div class="row ldme-row">
+        <div class="group">
             <div>
-                <label class="ldme-std-pad">Honor</label>
+                <label>Honor</label>
             </div>
-            <div class="ldme-inline-p ldme-std-pad">
+            <div class="ldme-inline-p ">
                 <div class="ldme-inline-cl">
-                    <input class="quest-numeric" type="number" ng-model="aqc.honorReward" />
+                    <input class="numeric" ng-model="aqc.honorReward" type="number" max="100"/>
                     <span class="glyphicon glyphicon-triangle-top ldme-hand-pointer ldme-green"
                           aria-hidden="true"
-                          tooltip-placement="top-right"
+                          tooltip-placement="top-left"
                           uib-tooltip="Honor given after quest is done"></span>
                 </div>
-                <div class="ldme-inline-cr ldme-std-pad">
-                    <input class="quest-numeric" type="number" ng-model="aqc.honorPenalty" />
+                <div class="ldme-inline-cr ">
+                    <input class="numeric" ng-model="aqc.honorPenalty" type="number" max="100"/>
                     <span class="glyphicon glyphicon-triangle-bottom ldme-hand-pointer ldme-red"
                           aria-hidden="true"
-                          tooltip-placement="top-right"
+                          tooltip-placement="top-left"
                           uib-tooltip="Honor lost after quest has been failed"></span>
                 </div>
             </div>
         </div>
 
-        <div class="row ldme-row">
+        <div class="group">
             <div>
-                <label class="ldme-std-pad">Quest Type</label>
+                <label>Quest Type</label>
             </div>
-            <select class="ldme-std-margin" ng-model="aqc.questType">
+            <select ng-model="aqc.questType">
                 <option ng-repeat="option in aqc.questTypes" value="{{option.value}}">{{option.name}}</option>
             </select>
         </div>
 
         <br />
-
-        <button class="btn btn-success btn-xs" ng-click="aqc.createQuest()">Create</button>
-        <button class="btn btn-default btn-xs" ng-click="aqc.cancelQuestCreation()">Cancel</button>
-    </form>
+        <div >
+            <button class="btn btn-success btn-xs" ng-click="aqc.createQuest()">Create</button>
+            <button class="btn btn-default btn-xs" ng-click="aqc.cancelQuestCreation()">Cancel</button>
+        </div>
+</form>
     
 </div>

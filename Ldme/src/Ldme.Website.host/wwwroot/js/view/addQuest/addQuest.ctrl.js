@@ -3,11 +3,13 @@
 
     angular.module('ldme').controller('addQuestCtrl', function ($scope, playerInstance, questApi, toastr, enumHelper) {
         var ctrl = this;
+        this.playerData = playerInstance.getPlayerData();
 
         (function initialize() {
             createQuestTypeOptions();
             setDefaultQuestType(QuestType.Regular);
             $scope.$parent.lpc.registerUnderlying($scope);
+
         })();
 
         this.cancelQuestCreation = function () {
