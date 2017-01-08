@@ -4,6 +4,14 @@
     angular.module('ldme').controller('addQuestCtrl', function ($scope, playerInstance, questApi, toastr, enumHelper) {
         var ctrl = this;
         this.playerData = playerInstance.getPlayerData();
+        this.deadlinePickerOpened = false;
+        this.deadlineOptions = {
+            //dateDisabled: disabled,
+            formatYear: 'yy',
+            maxDate: new Date(2020, 5, 22),
+            minDate: new Date(),
+            startingDay: 1
+        };
 
         (function initialize() {
             createQuestTypeOptions();
@@ -18,19 +26,15 @@
         }
 
         this.createQuest = function () {
+            var qModel = null;
+            if (ctrl.questType === QuestType.Regular) {
+                qModel = QuestModel.CreateRegular(ctrl.playerData.id, ctrl.playerData.id, ctrl.qName, ctrl.qDescription, ctrl.goldReward,
+                    ctrl.goldPenalty, ctrl.honorReward, ctrl.honorPenalty, moment(), ctrl.endTime);
+            }
 
-            var qModel = new QuestModel();
-            qModel.fromPlayer = ctrl.playerData.id;
-            qModel.toPlayer = ctrl.playerData.id;
-            qModel.name = ctrl.qName;
-            qModel.description = ctrl.qDescription;
-            qModel.goldReward = ctrl.goldReward;
-            qModel.goldPenalty = ctrl.goldPenalty;
-            qModel.honorReward = ctrl.honorReward;
-            qModel.honorPenalty = ctrl.honorPenalty;
-            qModel.startTime = moment();
-            qModel.endTime = null; //moment().add(7, 'days');
-            qModel.questType = ctrl.questType;
+            if (ctrl.questType === QuestType.Daily) {
+                qModel = QuestModel.CreateDaily();
+            }
 
             function onSuccess(result) {
                 toastr.success('Quest added');
@@ -46,12 +50,20 @@
             questApi.CreateQuest(null, qModel, onSuccess, onFail);
         }
 
+        this.openDeadlinePicker = function() {
+            this.deadlinePickerOpened = true;
+        }
+
         function createQuestTypeOptions() {
             ctrl.questTypes = enumHelper.ToSelectOptions(QuestType);
         }
 
         function setDefaultQuestType(qType) {
             ctrl.questType = qType;
+        }
+
+        function disablePast() {
+            
         }
     });
 }())

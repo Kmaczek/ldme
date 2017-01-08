@@ -11,6 +11,7 @@
     "angular-ui-router": "0.2.18",
     "angular-ui-breadcrumb": "0.0.4",
     "angular-toastr": "2.1.1",
+    "angular-spinners": "3.1.2",
     "moment": "2.15.0",
     "bootstrap-css": "3.3.6"
   }

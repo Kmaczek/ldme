@@ -20,17 +20,22 @@
     color: black;
 }
 
+/*.navbar-inverse{
+    background: seagreen;
+}*/
+
 /*#endregion */
 
 
 /*#region Left Panel */
 
-.left-panel {
+@lpanelHeight: 400px;
+.lpanel {
     position: absolute;
     padding: 10px 10px 10px 40px;
     margin-left: -20px;
     width: 280px;
-    height: 400px;
+    height: @lpanelHeight;
     border: solid 3px rgba(53, 108, 181, 0.74);
     -moz-border-radius: 18px;
     -webkit-border-radius: 18px;
@@ -45,6 +50,24 @@
 .lpanel-fade{
     margin-left: -240px;
     /*opacity: 0;*/
+}
+
+.lpanel .glyphicon-chevron-left{
+    font-size: x-large;
+    top: @lpanelHeight/2-20;
+}
+
+.lpanel .glyphicon-chevron-left:hover{
+    color: dodgerblue;
+}
+
+.lpanel .glyphicon-chevron-right{
+    font-size: x-large;
+    top: @lpanelHeight/2-20;
+}
+
+.lpanel .glyphicon-chevron-right:hover{
+    color: dodgerblue;
 }
 
 /*#endregion */
@@ -231,6 +254,29 @@
 
 .reward .buttons {
     padding-top: 5px;
+}
+
+/*#endregion */
+
+/*#region UI Lock */
+
+.ui-lock{
+    position: relative;
+    pointer-events: none;
+}
+
+.ui-lock:before{
+    position: absolute;
+    content: '';
+    background-image: url("../content/spin.svg");
+    background-color: rgba(0,0,0, 0.5); 
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    border: 1px dashed rgba(27, 230, 230, 0.4);
 }
 
 /*#endregion */

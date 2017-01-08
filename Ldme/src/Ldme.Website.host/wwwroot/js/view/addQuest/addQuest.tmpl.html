@@ -1,16 +1,16 @@
 ﻿<div class="add-quest" ng-controller="addQuestCtrl as aqc">
     <form name="questForm">
         <div class="group">
-            <label>Quest Name</label>
+            <!--<label>Quest Name</label>-->
             <div>
-                <input class="text" type="text" ng-model="aqc.qName" />
+                <input class="text" type="text" ng-model="aqc.qName" placeholder="Quest Name" />
             </div>
         </div>
 
         <div class="group">
-            <label>Quest Description</label>
+            <!--<label>Quest Description</label>-->
             <div>
-                <input class="text" type="text" ng-model="aqc.qDescription" />
+                <input class="text" type="text" ng-model="aqc.qDescription" placeholder="Quest Description" />
             </div>
         </div>
 
@@ -20,14 +20,14 @@
             </div>
             <div class="ldme-inline-p">
                 <div class="ldme-inline-cl">
-                    <input class="numeric" ng-model="aqc.goldReward" type="number" max="100"/>
+                    <input class="numeric" ng-model="aqc.goldReward" type="number" max="100" />
                     <span class="glyphicon glyphicon-triangle-top ldme-hand-pointer ldme-green"
                           aria-hidden="true"
                           tooltip-placement="top-left"
                           uib-tooltip="Gold given after quest is done"></span>
                 </div>
                 <div class="ldme-inline-cr">
-                    <input class="numeric" ng-model="aqc.goldPenalty" type="number" max="100"/>
+                    <input class="numeric" ng-model="aqc.goldPenalty" type="number" max="100" />
                     <span class="glyphicon glyphicon-triangle-bottom ldme-hand-pointer ldme-red"
                           aria-hidden="true"
                           tooltip-placement="top-left"
@@ -42,14 +42,14 @@
             </div>
             <div class="ldme-inline-p ">
                 <div class="ldme-inline-cl">
-                    <input class="numeric" ng-model="aqc.honorReward" type="number" max="100"/>
+                    <input class="numeric" ng-model="aqc.honorReward" type="number" max="100" />
                     <span class="glyphicon glyphicon-triangle-top ldme-hand-pointer ldme-green"
                           aria-hidden="true"
                           tooltip-placement="top-left"
                           uib-tooltip="Honor given after quest is done"></span>
                 </div>
                 <div class="ldme-inline-cr ">
-                    <input class="numeric" ng-model="aqc.honorPenalty" type="number" max="100"/>
+                    <input class="numeric" ng-model="aqc.honorPenalty" type="number" max="100" />
                     <span class="glyphicon glyphicon-triangle-bottom ldme-hand-pointer ldme-red"
                           aria-hidden="true"
                           tooltip-placement="top-left"
@@ -67,11 +67,30 @@
             </select>
         </div>
 
+        <div class="group">
+            <div>
+                <label>Deadline Date</label>
+            </div>
+            <p class="input-group">
+                <input type="text"
+                       class="form-control"
+                       uib-datepicker-popup ng-model="aqc.endTime"
+                       is-open="aqc.deadlinePickerOpened"
+                       datepicker-options="aqc.deadlineOptions"
+                       ng-required="false"
+                       close-text="Close" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="aqc.openDeadlinePicker()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+            <!--<input class="numeric" ng-model="aqc.endTime" type="date" max="100" />-->
+        </div>
+
         <br />
-        <div >
+        <div>
             <button class="btn btn-success btn-xs" ng-click="aqc.createQuest()">Create</button>
             <button class="btn btn-default btn-xs" ng-click="aqc.cancelQuestCreation()">Cancel</button>
         </div>
-</form>
-    
+    </form>
+
 </div>

@@ -42,9 +42,9 @@
                         </div>
                         <div class="col-lg-4">
                             <div ng-if="item.goldReward !== 0 && item.goldPenalty !== 0">
-                                <span class="ldme-green number">{{item.goldReward}}</span>
+                                <span class="ldme-green number">{{::item.goldReward}}</span>
                                 <span class="number">/</span>
-                                <span class="ldme-red number">{{item.goldPenalty}}</span>
+                                <span class="ldme-red number">{{::item.goldPenalty}}</span>
                             </div>
                         </div>
                         <div class="col-lg-1">
@@ -55,9 +55,9 @@
                         </div>
                         <div class="col-lg-4">
                             <div ng-if="item.honorReward !== 0 && item.honorPenalty !== 0">
-                                <span class="ldme-green number">{{item.honorReward}}</span>
+                                <span class="ldme-green number">{{::item.honorReward}}</span>
                                 <span class="number">/</span>
-                                <span class="ldme-red number">{{item.honorPenalty}}</span>
+                                <span class="ldme-red number">{{::item.honorPenalty}}</span>
                             </div>
                         </div>
                         <div class="col-lg-1">
@@ -75,7 +75,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="deadline" ng-if="item.questType === 'regular'">
+                    <div class="deadline" ng-if="item.questType === 'regular' && item.deadlineDate">
                         <div class="row">
                             <div class="col-lg-2 bonus-label">Deadline:</div>
                             <div class="col-lg-10">
@@ -83,7 +83,7 @@
                                     <uib-bar class="progress-bar-striped active"  value="item.elapsedDays()" type="danger">
                                         <span tooltip-placement="top"
                                               uib-tooltip="Days passed">
-                                            {{item.elapsedDays()}}
+                                            {{::item.elapsedDays()}}
                                         </span>
                                     </uib-bar>
                                     <uib-bar value="item.totalDays()-item.elapsedDays()" type="calculateDeadlineColor(item)">
@@ -98,7 +98,7 @@
                     </div>
                     <div class="panel panel-default description" ng-show="showDescriptionLookup[$index]">
                         <div class="panel-body">
-                            {{item.description}}
+                            {{::item.description}}
                         </div>
                     </div>
                     <div class="buttons">

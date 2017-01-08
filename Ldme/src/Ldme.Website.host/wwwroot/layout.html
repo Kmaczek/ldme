@@ -1,13 +1,16 @@
-﻿<nav ui-view="navbar" class="navbar navbar-inverse navbar-fixed-top navi"></nav>
+﻿<nav ui-view="navbar" class="navbar navbar-inverse navbar-fixed-top navi ldme-navbar"></nav>
 <div class="jumbotron"></div>
 <div ng-controller="leftPanelCtrl as lpc">
-    <div class="left-panel" ng-class="{'lpanel-fade': lpc.isPanelHidden()}">
+    <div class="lpanel" ng-class="{'lpanel-fade': lpc.isPanelHidden()}">
         <div class="row">
             <div class="col-lg-10">
                 <div ui-view="lpanel"></div>
             </div>
             <div class="col-lg-2">
-                <span class="glyphicon glyphicon-remove right" ng-click="lpc.closePanel()" ng-hide="lpc.isPanelHidden()"></span>
+                <!--<span class="glyphicon glyphicon-remove right" ng-click="lpc.closePanel()" ng-hide="lpc.isPanelHidden()"></span>-->
+                <span class="glyphicon" 
+                      ng-class="{'glyphicon-chevron-left': !lpc.isPanelHidden(), 'glyphicon-chevron-right': lpc.isPanelHidden()}"
+                      ng-click="lpc.togglePanel()"></span>
             </div>
         </div>
     </div>

@@ -40,7 +40,7 @@
 
 QuestModel.FromResponse = function (response) {
     return QuestModel.FromData(response.id, response.questCreatorId, response.questOwnerId, response.name, response.description, 
-        response.goldReward, response.goldReward, response.honorReward, response.honorPenalty, response.questType,
+        response.goldReward, response.goldPenalty, response.honorReward, response.honorPenalty, response.questType,
         response.questState, response.createdDate, response.deadlineDate, response.finishedDate, response.requiredRepetitions,
         response.maxRepetitions, response.repetitionsForMaxBonus, response.repetitionBonusMultiplier, response.repetitionBonus);
 }
@@ -70,6 +70,42 @@ QuestModel.FromData = function (id, fromPlayer, toPlayer, name, description, gol
     qModel.repetitionsForMaxBonus = repetitionsForMaxBonus || 0;
     qModel.repetitionBonusMultiplier = repetitionBonusMultiplier || 0;
     qModel.repetitionBonus = repetitionBonus || 0;
+
+    return qModel;
+}
+
+QuestModel.CreateDaily = function (fromPlayer, toPlayer, name, description, goldReward, goldPenalty, honorReward, honorPenalty,
+    startTime, endTime ) {
+    var qModel = new QuestModel();
+    qModel.fromPlayer = fromPlayer;
+    qModel.toPlayer = toPlayer;
+    qModel.name = name;
+    qModel.description = description;
+    qModel.goldReward = goldReward;
+    qModel.goldPenalty = goldPenalty;
+    qModel.honorReward = honorReward;
+    qModel.honorPenalty = honorPenalty;
+    qModel.startTime = startTime;
+    qModel.endTime = endTime;
+    qModel.questType = QuestType.Daily;
+
+    return qModel;
+}
+
+QuestModel.CreateRegular = function (fromPlayer, toPlayer, name, description, goldReward, goldPenalty, honorReward, honorPenalty,
+    startTime, endTime) {
+    var qModel = new QuestModel();
+    qModel.fromPlayer = fromPlayer;
+    qModel.toPlayer = toPlayer;
+    qModel.name = name;
+    qModel.description = description;
+    qModel.goldReward = goldReward;
+    qModel.goldPenalty = goldPenalty;
+    qModel.honorReward = honorReward;
+    qModel.honorPenalty = honorPenalty;
+    qModel.startTime = startTime;
+    qModel.endTime = endTime; //moment().add(7, 'days');
+    qModel.questType = QuestType.Regular;
 
     return qModel;
 }

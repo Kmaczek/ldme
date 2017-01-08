@@ -13,9 +13,10 @@
         </ul>
     </div>
     <div class="pull-right" ng-if="!navc.isLoggedIn()">
-        <form class="navbar-form navbar-right">
+        <form class="navbar-form navbar-right" ui-lock lock-condition="!navc.isLoggedIn()">
+<!--            <spinner show="true" img-src="content/ring.svg"></spinner>-->
             <input class="input-sm nav-input" type="email" placeholder="email" ng-model="navc.email">
-            <input class="input-sm nav-input" type="password" placeholder="password" ng-model="navc.password" />
+            <input class="input-sm nav-input" type="password" placeholder="password" ng-model="navc.password"/>
             <button class="btn btn-success btn-sm" type="submit" ng-click="navc.logIn()">Login</button>
             <button class="btn btn-info btn-sm" ui-sref="register">Register</button>
         </form>
