@@ -16,7 +16,7 @@
             function fetchPlayerData(id) {
                 var playerId = id || playerData.id || 0;
                 if (playerId === 0) {
-                    throw "Invalid player ID";
+                    console.error("Invalid player ID");
                 }
 
                 function onSuccess(result) {

@@ -10,18 +10,20 @@
             },
             function (newVal) {
                 if (newVal) {
-                    if (!isLockSet(element)) {
-                        element.addClass('ui-lock');
-                        element.attr('img-src', imagePath);
-                        disableElements(element.find('input'));
-                        disableElements(element.find('button'));
-                    }
+                    lock(element);
                 } else {
-                    if (isLockSet(element)) {
-                        element.removeClass('ui-lock');
-                        restoreElements(element.find('input'));
-                        restoreElements(element.find('button'));
-                    }
+                    unlock(element);
+                }
+            });
+
+            scope.$watch(function() {
+                return scope.lockPromise;
+            },
+            function (newVal) {
+                if (newVal && !newVal.$$state.status) {
+                    lock(element);
+                } else {
+                    unlock(element);
                 }
             });
         }
@@ -46,6 +48,23 @@
                     el.removeAttr('disabled');
                     el.removeAttr('tabindex');
                 });
+        }
+
+        function lock(element) {
+            if (!isLockSet(element)) {
+                element.addClass('ui-lock');
+                element.attr('img-src', imagePath);
+                disableElements(element.find('input'));
+                disableElements(element.find('button'));
+            }
+        }
+
+        function unlock(element) {
+            if (isLockSet(element)) {
+                element.removeClass('ui-lock');
+                restoreElements(element.find('input'));
+                restoreElements(element.find('button'));
+            }
         }
 
         return {

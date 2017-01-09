@@ -13,10 +13,10 @@
             function onSuccesffullLogin(response) {
                 appState.logIn();
                 appState.setPlayerData(response);
-                $state.go('player');
+                $state.go('profile');
             }
 
-            userApi.Login(this.email, this.password, onSuccesffullLogin);
+            ctrl.lockLogin = userApi.Login(this.email, this.password, onSuccesffullLogin);
         };
 
         this.logOut = function() {
