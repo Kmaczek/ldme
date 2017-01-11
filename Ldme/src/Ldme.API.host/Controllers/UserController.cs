@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Ldme.Abstract.Interfaces;
+using Ldme.Models;
 using Ldme.Models.Dtos;
+using Ldme.Models.Errors;
 using Ldme.Models.Models;
 using Ldme.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -52,7 +54,7 @@ namespace Ldme.API.host.Controllers
             catch (Exception e)
             {
                 _logger.LogError($"Cannot get user from database. {e.Message}");
-                return BadRequest();
+                return BadRequest(new ErrorMessage(new ErrorModel(e.Message, e.StackTrace)));
             }
         }
 
@@ -71,11 +73,13 @@ namespace Ldme.API.host.Controllers
 
                         return Ok(userVM);
                     }
+
+                    return BadRequest(new ErrorMessage(new ErrorModel("Login failed", "Incorrect username/email or password")));
                 }
                 catch (Exception e)
                 {
                     _logger.LogInformation(e.ToString());
-                    return NotFound();
+                    return BadRequest(new ErrorMessage(new ErrorModel("Login failed", "Incorrect username/email or password")));
                 }
             }
 
@@ -87,19 +91,19 @@ namespace Ldme.API.host.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityResult result = null;
                 try
                 {
-                    result = _userRepository.RegisterAsync(registrationData).Result;
+                    var result = _userRepository.RegisterAsync(registrationData).Result;
                     if (result.Succeeded)
                     {
                         return Ok();
                     }
+                    return BadRequest(result.Errors);
                 }
                 catch (Exception e)
                 {
                     _logger.LogInformation(e.ToString());
-                    return BadRequest(result.Errors);
+                    return BadRequest(new ErrorMessage(new ErrorModel(e.Message, e.StackTrace)));
                 }
             }
 

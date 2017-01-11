@@ -17,10 +17,10 @@
             });
 
             scope.$watch(function() {
-                return scope.lockPromise;
+                return scope.lockPromise && scope.lockPromise.$$state && scope.lockPromise.$$state.status;
             },
             function (newVal) {
-                if (newVal && !newVal.$$state.status) {
+                if (newVal && newVal.$$state && !newVal.$$state.status) {
                     lock(element);
                 } else {
                     unlock(element);
