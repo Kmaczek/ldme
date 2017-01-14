@@ -3,7 +3,7 @@
         <div class="group">
             <!--<label>Quest Name</label>-->
             <div>
-                <input class="text" type="text" ng-model="aqc.qName" placeholder="Quest Name" />
+                <input class="text" type="text" ng-model="aqc.qName" placeholder="Quest Name" uib-tooltip="Gold given after quest is done"/>
             </div>
         </div>
 
@@ -85,7 +85,9 @@
             </p>
             <!--<input class="numeric" ng-model="aqc.endTime" type="date" max="100" />-->
         </div>
-
+        <form-input label="Some Input" form-obj="questForm" field-name="someInput">
+            <input class="form-control" ng-model="aqc.someInput" name="someInput"/>
+        </form-input>
         <br />
         <div>
             <button class="btn btn-success btn-xs" ng-click="aqc.createQuest()">Create</button>

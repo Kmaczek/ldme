@@ -12,6 +12,14 @@
             minDate: new Date(),
             startingDay: 1
         };
+        this.formErrors = {
+            name: [],
+            description: [],
+            goldReward: [],
+            goldPenalty: [],
+            honorReward: [],
+            honorPenalty: []
+        };
 
         (function initialize() {
             createQuestTypeOptions();
@@ -33,7 +41,8 @@
             }
 
             if (ctrl.questType === QuestType.Daily) {
-                qModel = QuestModel.CreateDaily();
+                qModel = QuestModel.CreateDaily(ctrl.playerData.id, ctrl.playerData.id, ctrl.qName, ctrl.qDescription, ctrl.goldReward,
+                    ctrl.goldPenalty, ctrl.honorReward, ctrl.honorPenalty, moment(), ctrl.endTime);
             }
 
             function onSuccess(result) {
@@ -43,14 +52,14 @@
                 ctrl.questForm.$setPristine();
             }
 
-            function onFail(result) {
-                toastr.error('Cannot add quest');
-            }
+            //            function onFail(result) {
+            //                toastr.error('Cannot add quest');
+            //            }
 
-            questApi.CreateQuest(null, qModel, onSuccess, onFail);
+            questApi.CreateQuest(null, qModel, onSuccess);
         }
 
-        this.openDeadlinePicker = function() {
+        this.openDeadlinePicker = function () {
             this.deadlinePickerOpened = true;
         }
 
@@ -63,7 +72,7 @@
         }
 
         function disablePast() {
-            
+
         }
     });
 }())

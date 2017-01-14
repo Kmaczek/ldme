@@ -1,9 +1,13 @@
 ﻿(function () {
-    angular.module('ldme').controller('registerCtrl', ['$scope', 'userApi', function ($scope, userApi) {
+    angular.module('ldme').controller('registerCtrl', ['$scope', 'userApi', function ($scope, userApi, toastr, $state) {
 
         $scope.register = function() {
             if ($scope.password === $scope.passwordRepeat) {
-                userApi.Register($scope.email, $scope.password);
+                function onSuccess(result) {
+                    toastr.success("Registration successfull");
+                    $state.go('profile');
+                }
+                $scope.lockButton = userApi.Register($scope.email, $scope.password, onSuccess);
             } else {
                 // sth
             }
