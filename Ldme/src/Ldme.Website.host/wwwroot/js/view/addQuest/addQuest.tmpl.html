@@ -1,80 +1,75 @@
 ﻿<div class="add-quest" ng-controller="addQuestCtrl as aqc">
     <form name="questForm">
-        <div class="group">
-            <!--<label>Quest Name</label>-->
-            <div>
-                <input class="text" type="text" ng-model="aqc.qName" placeholder="Quest Name" uib-tooltip="Gold given after quest is done"/>
-            </div>
-        </div>
+        <form-input form-obj="questForm" field-name="name">
+            <input class="text input-sm" type="text" ng-model="aqc.qName" name="name" placeholder="Quest Name" uib-tooltip="Gold given after quest is done" />
+        </form-input>
 
-        <div class="group">
-            <!--<label>Quest Description</label>-->
-            <div>
-                <input class="text" type="text" ng-model="aqc.qDescription" placeholder="Quest Description" />
-            </div>
-        </div>
+        <form-input form-obj="questForm" field-name="description">
+            <input class="text input-sm" type="text" ng-model="aqc.qDescription" name="description" placeholder="Quest Description" />
+        </form-input>
 
-        <div class="group">
-            <div>
-                <label>Gold</label>
-            </div>
-            <div class="ldme-inline-p">
-                <div class="ldme-inline-cl">
-                    <input class="numeric" ng-model="aqc.goldReward" type="number" max="100" />
+        <div>
+            <label>Gold</label>
+        </div>
+        <div class="ldme-inline-p">
+            <div class="ldme-inline-cl">
+                <form-input form-obj="questForm" field-name="goldReward">
+                    <input class="numeric input-sm" ng-model="aqc.goldReward" name="goldReward" type="number" max="100" />
                     <span class="glyphicon glyphicon-triangle-top ldme-hand-pointer ldme-green"
                           aria-hidden="true"
                           tooltip-placement="top-left"
                           uib-tooltip="Gold given after quest is done"></span>
-                </div>
-                <div class="ldme-inline-cr">
-                    <input class="numeric" ng-model="aqc.goldPenalty" type="number" max="100" />
+                </form-input>
+
+
+            </div>
+            <div class="ldme-inline-cr">
+                <form-input form-obj="questForm" field-name="goldPenalty">
+                    <input class="numeric input-sm" ng-model="aqc.goldPenalty" name="honorReward" type="number" max="100" />
                     <span class="glyphicon glyphicon-triangle-bottom ldme-hand-pointer ldme-red"
                           aria-hidden="true"
                           tooltip-placement="top-left"
                           uib-tooltip="Gold lost after quest has been failed"></span>
-                </div>
+                </form-input>
             </div>
         </div>
-
-        <div class="group">
-            <div>
-                <label>Honor</label>
-            </div>
-            <div class="ldme-inline-p ">
-                <div class="ldme-inline-cl">
-                    <input class="numeric" ng-model="aqc.honorReward" type="number" max="100" />
+        
+        <div>
+            <label>Honor</label>
+        </div>
+        <div class="ldme-inline-p ">
+            <div class="ldme-inline-cl">
+                <form-input form-obj="questForm" field-name="honorReward">
+                    <input class="numeric input-sm" ng-model="aqc.honorReward" name="honorReward" type="number" max="100" />
                     <span class="glyphicon glyphicon-triangle-top ldme-hand-pointer ldme-green"
                           aria-hidden="true"
                           tooltip-placement="top-left"
                           uib-tooltip="Honor given after quest is done"></span>
-                </div>
-                <div class="ldme-inline-cr ">
-                    <input class="numeric" ng-model="aqc.honorPenalty" type="number" max="100" />
+                </form-input>
+            </div>
+            <div class="ldme-inline-cr ">
+                <form-input form-obj="questForm" field-name="honorPenalty">
+                    <input class="numeric input-sm" ng-model="aqc.honorPenalty" name="honorPenalty" type="number" max="100" />
                     <span class="glyphicon glyphicon-triangle-bottom ldme-hand-pointer ldme-red"
                           aria-hidden="true"
                           tooltip-placement="top-left"
                           uib-tooltip="Honor lost after quest has been failed"></span>
-                </div>
+                </form-input>
             </div>
         </div>
 
-        <div class="group">
-            <div>
-                <label>Quest Type</label>
-            </div>
-            <select ng-model="aqc.questType">
+        <form-input form-obj="questForm" field-name="questType" label="Quest Type">
+            <select class="input-sm" ng-model="aqc.questType" name="questType">
                 <option ng-repeat="option in aqc.questTypes" value="{{option.value}}">{{option.name}}</option>
             </select>
-        </div>
+        </form-input>
 
-        <div class="group">
-            <div>
-                <label>Deadline Date</label>
-            </div>
-            <p class="input-group">
+        <form-input form-obj="questForm" field-name="endTime" label="Deadline Date">
+            <p class="input-group input-group-sm">
                 <input type="text"
                        class="form-control"
                        uib-datepicker-popup ng-model="aqc.endTime"
+                       name="endTime"
                        is-open="aqc.deadlinePickerOpened"
                        datepicker-options="aqc.deadlineOptions"
                        ng-required="false"
@@ -83,11 +78,8 @@
                     <button type="button" class="btn btn-default" ng-click="aqc.openDeadlinePicker()"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
             </p>
-            <!--<input class="numeric" ng-model="aqc.endTime" type="date" max="100" />-->
-        </div>
-        <form-input label="Some Input" form-obj="questForm" field-name="someInput">
-            <input class="form-control" ng-model="aqc.someInput" name="someInput"/>
         </form-input>
+
         <br />
         <div>
             <button class="btn btn-success btn-xs" ng-click="aqc.createQuest()">Create</button>

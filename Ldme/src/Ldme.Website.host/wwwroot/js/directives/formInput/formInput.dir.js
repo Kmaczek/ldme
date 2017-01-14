@@ -5,7 +5,7 @@
 
         var linkFunc = function (scope, element, attrs) {
             scope.$watch(function () {
-                return scope.formObj[scope.fieldName].$dirty;
+                return scope.formObj[scope.fieldName];
             },
             function (newVal) {
                 var s = scope.formObj[scope.fieldName];
@@ -22,8 +22,8 @@
             scope: {
                 errors: '=',
                 label: '@',
-                formObj: '=',
-                fieldName: '@'
+                formObj: '=', // for future maybe remove this field
+                fieldName: '@' // for future maybe remove this field
             }
         };
     });
