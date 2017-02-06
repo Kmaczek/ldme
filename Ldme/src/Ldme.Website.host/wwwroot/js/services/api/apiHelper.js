@@ -9,7 +9,7 @@
             var errors = '';
             angular.forEach(response.data,
             function (value, key) {
-                errors += '- ' + value[0] + "<br>";
+                errors += '- ' + value.code + "<br>";
             });
             toastr.error('Request failed: <br>' + errors);
         }

@@ -22,7 +22,6 @@
 .lpanel {
   position: absolute;
   padding: 10px 10px 10px 40px;
-  margin-left: -20px;
   width: 280px;
   height: 400px;
   border: solid 3px rgba(53, 108, 181, 0.74);
@@ -32,25 +31,33 @@
   -moz-box-shadow: 4px 2px 20px 0px rgba(53, 108, 181, 0.74);
   box-shadow: 4px 2px 20px 0px rgba(53, 108, 181, 0.74);
   border-radius: 18px;
-  transition: 0.5s linear all;
   /*transition: 1s linear opacity;*/
 }
 .lpanel-fade {
+  transition: 0.2s linear all;
   margin-left: -240px;
   /*opacity: 0;*/
 }
-.lpanel .glyphicon-chevron-left {
+.lpanel-show {
+  transition: 0.2s linear all;
+  margin-left: -20px;
+}
+.lpanel-hide {
+  transition: 0.2s linear all;
+  margin-left: -300px;
+}
+.lpanel .red-cross:hover {
+  color: crimson;
+  background-color: rgba(255, 106, 0, 0.4);
+  -webkit-box-shadow: 0px 0px 5px 0px #ff6a00;
+  -moz-box-shadow: 0px 0px 5px 0px #ff6a00;
+  box-shadow: 0px 0px 5px 0px #ff6a00;
+}
+.lpanel .glyph-center {
   font-size: x-large;
   top: 180px;
 }
-.lpanel .glyphicon-chevron-left:hover {
-  color: dodgerblue;
-}
-.lpanel .glyphicon-chevron-right {
-  font-size: x-large;
-  top: 180px;
-}
-.lpanel .glyphicon-chevron-right:hover {
+.lpanel .glyph-center:hover {
   color: dodgerblue;
 }
 /*#endregion */
@@ -207,10 +214,47 @@
   padding-left: 4px;
   margin-bottom: 5px;
 }
+.form-input .input-sm {
+  padding: 0 0 0 3px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+  border: 1px solid #43484f;
+}
+.form-input .select-sm {
+  height: 21px;
+  padding: 0 0 0 3px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+  border: 1px solid #43484f;
+}
+.form-input .form-control {
+  height: 21px;
+}
+.form-input .calendar-btn {
+  height: 21px !important;
+}
+.form-input .calendar {
+  top: -2px;
+}
+/*.form-input .tooltip.top{
+    bottom: -47px !important;
+    left: 15px !important;
+}*/
 .input-ok {
   border-color: seagreen !important;
 }
 .input-error {
   border-color: crimson !important;
+}
+.val-msgs {
+  padding: 0;
+}
+.val-msgs .glyphicon-play {
+  font-size: smaller;
+}
+.val-msgs p {
+  margin: 0;
 }
 /*#endregion */

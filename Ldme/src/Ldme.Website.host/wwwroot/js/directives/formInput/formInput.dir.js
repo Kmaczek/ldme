@@ -4,14 +4,11 @@
     angular.module('ldme').directive('formInput', function () {
 
         var linkFunc = function (scope, element, attrs) {
-            scope.$watch(function () {
-                return scope.formObj[scope.fieldName];
-            },
-            function (newVal) {
-                var s = scope.formObj[scope.fieldName];
-            });
-
             scope.formField = scope.formObj[scope.fieldName];
+            scope.focus = false;
+            scope.isOpen = function() {
+                return !scope.formField.$valid;
+            }
         }
 
         return {
@@ -22,6 +19,7 @@
             scope: {
                 errors: '=',
                 label: '@',
+                errorsUrl: '@',
                 formObj: '=', // for future maybe remove this field
                 fieldName: '@' // for future maybe remove this field
             }

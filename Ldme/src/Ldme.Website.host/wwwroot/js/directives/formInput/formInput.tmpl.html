@@ -1,4 +1,9 @@
-﻿<div class="form-input" ng-class="{ 'input-ok': (formField.$valid && formField.$dirty), 'input-error': (!formField.$valid && formField.$dirty)}">
+﻿<div class="form-input" 
+     ng-class="{ 'input-ok': (formField.$valid && formField.$dirty), 'input-error': (!formField.$valid && formField.$dirty)}">
     <label ng-if="label">{{label}}</label>
+    <!--uib-tooltip-template="'{{errorsUrl}}'"
+    tooltip-trigger="'none'"
+    tooltip-is-open="isOpen()"-->
     <div ng-transclude></div>
+    
 </div>
