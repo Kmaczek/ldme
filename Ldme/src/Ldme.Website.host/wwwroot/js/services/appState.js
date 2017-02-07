@@ -3,6 +3,8 @@
         var cName = 'ldmeState';
         var state;
 
+        var dependencies = [];
+
         (function initialize() {
             setCookie();
         })();
@@ -37,6 +39,10 @@
             $cookies.putObject(cName, state);
         }
 
+        function dependencyFinishedLoading(name) {
+            dependencies[name] = true;
+        }
+
         //------------------------------------
         function setCookie() {
             function getDefaultState() {
@@ -62,8 +68,11 @@
             getEmail: getEmail,
             getPlayerId: getPlayerId,
             setPlayerData: setPlayerData,
+            dependencies: dependencies,
+            dependencyFinishedLoading: dependencyFinishedLoading,
 
-            onLoggedIn: function() {
+            onLoggedIn: function () {
+                //TODO: why do I need this?
                 // implement
             }
         }

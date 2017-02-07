@@ -56,6 +56,10 @@
                 }
             }
 
+            function isPlayerDataFetched() {
+                return playerData.id > 0;
+            }
+
             function copyQuests(array, result) {
                 array.length = 0;
                 angular.forEach(result, function (value) {
@@ -85,7 +89,8 @@
             return {
                 fetchPlayerData: fetchPlayerData,
                 getPlayerData: getPlayerData,
-                updateQuests: updateQuests
+                updateQuests: updateQuests,
+                isPlayerDataFetched: isPlayerDataFetched
             }
         }]);
 }())

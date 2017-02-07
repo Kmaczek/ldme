@@ -95,18 +95,14 @@
         });
     }
 
-    var run = function ($rootScope, $state, $cookies) {
-//        $rootScope.$on('$stateChangeStart',
-//            function (event, toState) {
-//                if (toState.data) {
-//                    toState.data.prev = $state.current.name;
-//                }
-//                var greeting = toState.data.customData1 + " " + toState.data.customData2;
-//                console.log(greeting);
-//
-//                // Would print "Hello World!" when 'parent' is activated
-//                // Would print "Hello UI-Router!" when 'parent.child' is activated
-//            });
+    var run = function (appState, playerInstance) {
+        if (appState.isLoggedIn) {
+            playerInstance.fetchPlayerData(appState.getPlayerId()).then(function (result) {
+                // poor for now, dont want to develop it util I will need it. Doesnt do anything right now,
+                // coz I use playerInstance.isPlayerDataFetched to check if this service has fetched data
+                appState.dependencyFinishedLoading('playerInstance');
+            });
+        }
     };
 
     angular.module('ldme', ['ui.router', 'ui.bootstrap', 'ngResource', 'ngAnimate', 'ngMessages', 'ngCookies', 'toastr', 'angularSpinners'])
