@@ -5,7 +5,6 @@
         .controller('playerCtrl', function ($scope, $state, appState, playerInstance) {
             var ctrl = this;
             this.isLoggedIn = appState.isLoggedIn;
-            this.showQuestForm = false;
 
             (function initialize() {
                 var playerLoaded = $scope.$watch(function () {

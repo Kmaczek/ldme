@@ -1,19 +1,18 @@
 ﻿<div class="add-quest" ng-controller="addQuestCtrl as aqc">
-    <form name="questForm">
+    <div class="formMsg">
+        <span class="label label-warning" ng-if="aqc.formMsg">{{aqc.formMsg}}</span>
+    </div>
+    
+    <form name="questForm" novalidate>
         <form-input class="" form-obj="questForm" field-name="name" errors-url="js/view/addQuest/errors/nameErrors.html">
-            <input class="text input-sm" type="text" ng-model="aqc.qName" name="name" placeholder="Quest Name" ng-minlength="3" ng-required/>
+            <input class="text input-sm" type="text" ng-model="aqc.formModel.name" name="name" placeholder="Quest Name" ng-minlength="3" ng-required="questForm.name.$dirty===true"/>
         </form-input>
-        <!--<div ng-messages="questForm.name.$error" class="val-msgs">
-            <p ng-message="required"><span class="glyphicon glyphicon-play"></span> Quest Name is required</p>
-            <p ng-message="minlength"><span class="glyphicon glyphicon-play"></span> Quest Name is to small (min 3 chars)</p>
-        </div>-->
         <ul ng-messages="questForm.name.$error" class="val-msgs">
             <li ng-messages-include="js/view/addQuest/errors/nameErrors.html"></li>
         </ul>
-        <!--<div ng-messages-include="js/view/addQuest/errors/nameErrors.html"></div>-->
 
         <form-input form-obj="questForm" field-name="description">
-            <input class="text input-sm" type="text" ng-model="aqc.qDescription" name="description" placeholder="Quest Description" />
+            <input class="text input-sm" type="text" ng-model="aqc.formModel.description" name="description" placeholder="Quest Description"/>
         </form-input>
 
         <div>
@@ -22,7 +21,7 @@
         <div class="ldme-inline-p">
             <div class="ldme-inline-cl">
                 <form-input form-obj="questForm" field-name="goldReward">
-                    <input class="numeric input-sm" ng-model="aqc.goldReward" name="goldReward" type="number" max="100" />
+                    <input class="numeric input-sm" ng-model="aqc.formModel.goldReward" name="goldReward" type="number" max="100"/>
                     <span class="glyphicon glyphicon-triangle-top ldme-hand-pointer ldme-green"
                           aria-hidden="true"
                           tooltip-placement="bottom"
@@ -33,7 +32,7 @@
             </div>
             <div class="ldme-inline-cr">
                 <form-input form-obj="questForm" field-name="goldPenalty">
-                    <input class="numeric input-sm" ng-model="aqc.goldPenalty" name="goldPenalty" type="number" max="100" />
+                    <input class="numeric input-sm" ng-model="aqc.formModel.goldPenalty" name="goldPenalty" type="number" max="100"/>
                     <span class="glyphicon glyphicon-triangle-bottom ldme-hand-pointer ldme-red"
                           aria-hidden="true"
                           tooltip-placement="bottom"
@@ -41,14 +40,14 @@
                 </form-input>
             </div>
         </div>
-        
+
         <div>
             <label>Honor</label>
         </div>
         <div class="ldme-inline-p ">
             <div class="ldme-inline-cl">
                 <form-input form-obj="questForm" field-name="honorReward">
-                    <input class="numeric input-sm" ng-model="aqc.honorReward" name="honorReward" type="number" max="100" />
+                    <input class="numeric input-sm" ng-model="aqc.formModel.honorReward" name="honorReward" type="number" max="100"/>
                     <span class="glyphicon glyphicon-triangle-top ldme-hand-pointer ldme-green"
                           aria-hidden="true"
                           tooltip-placement="bottom"
@@ -57,7 +56,7 @@
             </div>
             <div class="ldme-inline-cr ">
                 <form-input form-obj="questForm" field-name="honorPenalty">
-                    <input class="numeric input-sm" ng-model="aqc.honorPenalty" name="honorPenalty" type="number" max="100" />
+                    <input class="numeric input-sm" ng-model="aqc.formModel.honorPenalty" name="honorPenalty" type="number" max="100"/>
                     <span class="glyphicon glyphicon-triangle-bottom ldme-hand-pointer ldme-red"
                           aria-hidden="true"
                           tooltip-placement="bottom"
@@ -67,7 +66,7 @@
         </div>
 
         <form-input form-obj="questForm" field-name="questType" label="Quest Type">
-            <select class="select-sm" ng-model="aqc.questType" name="questType">
+            <select class="select-sm" ng-model="aqc.formModel.questType" name="questType">
                 <option ng-repeat="option in aqc.questTypes" value="{{option.value}}">{{option.name}}</option>
             </select>
         </form-input>
@@ -76,22 +75,22 @@
             <p class="input-group input-group-sm">
                 <input type="text"
                        class="form-control"
-                       uib-datepicker-popup ng-model="aqc.endTime"
+                       uib-datepicker-popup ng-model="aqc.formModel.endTime"
                        name="endTime"
                        is-open="aqc.deadlinePickerOpened"
                        datepicker-options="aqc.deadlineOptions"
                        ng-required="false"
-                       close-text="Close" />
+                       close-text="Close"/>
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default calendar-btn" ng-click="aqc.openDeadlinePicker()"><i class="glyphicon glyphicon-calendar calendar"></i></button>
                 </span>
             </p>
         </form-input>
 
-        <br />
+        <br/>
         <div>
             <button class="btn btn-success btn-xs" ng-click="aqc.createQuest()">Create</button>
-            <button class="btn btn-default btn-xs" ng-click="aqc.cancelQuestCreation()">Cancel</button>
+            <button class="btn btn-default btn-xs" ng-click="aqc.clearForm()">Clear</button>
         </div>
     </form>
 
