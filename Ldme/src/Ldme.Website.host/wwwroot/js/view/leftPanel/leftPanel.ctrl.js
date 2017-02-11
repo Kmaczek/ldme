@@ -10,10 +10,6 @@
             this.closed = true;
 
             (function initialize() {
-                $scope.$watch('underlying',
-                    function(newVal, oldVal) {
-                        var sth = $scope;
-                    });
             })();
 
             this.registerUnderlying = function (underlyingScope) {
@@ -28,8 +24,7 @@
             }
 
             this.closePanel = function () {
-                this.currentChild = null;
-                this.closed = true;
+                // this will trigger 'destroy'
                 $state.go($state.current.data.closeState);
             }
 
