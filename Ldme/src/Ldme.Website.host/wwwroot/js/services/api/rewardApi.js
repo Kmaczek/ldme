@@ -18,8 +18,14 @@
                 url: apiUrl + '/:id/claim',
                 params: {
                     id: '@id'
-                },
-                isArray: true
+                }
+            },
+            deactivate: {
+                method: 'POST',
+                url: apiUrl + '/:id/deactivate',
+                params: {
+                    id: '@id'
+                }
             }
         });
 
@@ -31,9 +37,14 @@
             return apiHelper.requestWrapperGET(reward.claim, { id: id }, onSuccess, onFail);
         }
 
+        function deactivate(id, onSuccess, onFail) {
+            return apiHelper.requestWrapperGET(reward.deactivate, { id: id }, onSuccess, onFail);
+        }
+
         return {
             GetRewards: getRewards,
-            ClaimReward: claimReward
+            ClaimReward: claimReward,
+            Deactivate: deactivate
         }
     }]);
 }())

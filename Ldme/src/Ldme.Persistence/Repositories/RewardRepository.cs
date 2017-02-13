@@ -21,6 +21,17 @@ namespace Ldme.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
+
+        public void Deactivate(int id)
+        {
+            var reward = GetReward(id);
+            reward.Deactivated = DateTime.Now;
+        }
+
         public Reward GetReward(int id)
         {
             return _context.Rewards.Single(x => x.Id == id);
@@ -28,7 +39,7 @@ namespace Ldme.Persistence.Repositories
 
         public IEnumerable<Reward> GetRewards(int playerId)
         {
-            return _context.Rewards.Where(x => x.RewardCreatorId == playerId).ToList();
+            return _context.Rewards.Where(x => x.RewardCreatorId == playerId && x.Deactivated == null).ToList();
         }
     }
 }

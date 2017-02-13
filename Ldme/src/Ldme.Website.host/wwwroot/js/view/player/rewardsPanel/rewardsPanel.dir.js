@@ -13,6 +13,14 @@
 
                     rewardApi.ClaimReward(questId, onSuccess);
                 }
+
+                scope.deactivate = function (questId) {
+                    function onSuccess(result) {
+                        playerInstance.fetchPlayerData();
+                    }
+
+                    rewardApi.Deactivate(questId, onSuccess);
+                }
             }
 
             return {

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="1dc9e842-a667-4100-b1a1-14d05bb0987a" ChangeDateTime="02/13/2017 22:04:15">
+    <Property Name="ElementName" Value="[dbo].[Quest].[RepetitionMultiplier]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Quest]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="RepetitionBonusMultiplier" />
+  </Operation>
+</Operations>

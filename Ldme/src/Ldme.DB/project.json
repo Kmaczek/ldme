@@ -3,21 +3,21 @@
 
   "dependencies": {
     "Ldme.Models": "1.0.0-*",
-    "Microsoft.EntityFrameworkCore": "1.0.1",
-    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1",
-    "Microsoft.Extensions.Configuration.Abstractions": "1.0.0",
+    "Microsoft.EntityFrameworkCore": "1.1.0",
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.1.0",
+    "Microsoft.Extensions.Configuration.Abstractions": "1.1.0",
     "Microsoft.EntityFrameworkCore.Tools": {
-      "version": "1.0.0-preview2-final",
+      "version": "1.1.0-preview4-final",
         "type": "build"
     },
-    "NETStandard.Library": "1.6.0",
-    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
+    "NETStandard.Library": "1.6.1",
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.1.0",
     "Ldme.Common": "1.0.0-*"
   },
 
   "tools": {
     "Microsoft.EntityFrameworkCore.Tools": {
-      "version": "1.0.0-preview2-final",
+      "version": "1.1.0-preview4-final",
       "imports": [
         "portable-net45+win8+dnxcore50",
         "portable-net45+win8"

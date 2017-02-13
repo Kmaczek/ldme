@@ -7,6 +7,10 @@ namespace Ldme.Abstract.Interfaces
     {
         void SaveChangesAsync();
 
+        void SaveChanges();
+
+        void Deactivate(int id);
+
         Reward GetReward(int id);
 
         IEnumerable<Reward> GetRewards(int playerId);

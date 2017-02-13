@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Ldme.Models.Models
 {
     /// <summary>
-    /// Rewards that can be claimed for spending anough amount of gold/honor
+    /// Rewards that can be claimed for spending enough amount of gold/honor
     /// </summary>
     public class Reward
     {
@@ -21,5 +22,7 @@ namespace Ldme.Models.Models
         public int RewardCreatorId { get; set; }
 
         public Player RewardCreator { get; set; }
+
+        public DateTime? Deactivated { get; set; }
     }
 }

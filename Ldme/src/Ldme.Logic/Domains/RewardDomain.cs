@@ -40,5 +40,11 @@ namespace Ldme.Logic.Domains
 
             playerRepository.SaveChanges();
         }
+
+        public void Deactivate(int id)
+        {
+            rewardRepository.Deactivate(id);
+            rewardRepository.SaveChanges();
+        }
     }
 }

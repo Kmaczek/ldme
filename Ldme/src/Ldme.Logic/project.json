@@ -6,7 +6,7 @@
     "Ldme.Abstract": "1.0.0-*",
     "Ldme.Models": "1.0.0-*",
     "Ldme.Persistence": "1.0.0-*",
-    "NETStandard.Library": "1.6.0"
+    "NETStandard.Library": "1.6.1"
   },
 
   "frameworks": {

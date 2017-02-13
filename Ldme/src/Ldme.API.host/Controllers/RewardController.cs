@@ -60,5 +60,26 @@ namespace Ldme.API.host.Controllers
 
             return BadRequest(ModelState);
         }
+
+        [HttpPost("{id}/deactivate")]
+        public IActionResult DeactivateReward(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _logger.LogDebug($"Deactivating reward: {id}");
+                    rewardDomain.Deactivate(id);
+                    return Ok();
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e.ToString());
+                    return BadRequest(e.Message);
+                }
+            }
+
+            return BadRequest(ModelState);
+        }
     }
 }
