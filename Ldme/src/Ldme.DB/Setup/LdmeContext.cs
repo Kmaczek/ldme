@@ -34,35 +34,35 @@ namespace Ldme.DB.Setup
             modelBuilder.Entity<Quest>()
                 .HasOne(q => q.QuestCreator)
                 .WithMany(p => p.QuestsCreated)
-                .HasForeignKey(p => p.QuestCreatorId)
+                .HasForeignKey(q => q.QuestCreatorId)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Quest>()
                 .HasOne(q => q.QuestOwner)
                 .WithMany(p => p.QuestsOwned)
-                .HasForeignKey(p => p.QuestOwnerId)
+                .HasForeignKey(q => q.QuestOwnerId)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<FriendRequest>()
-                .HasOne(q => q.RequestedBy)
+                .HasOne(fr => fr.RequestedBy)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<FriendRequest>()
-                .HasOne(q => q.RequestTarget)
+                .HasOne(fr => fr.RequestTarget)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Repetition>()
-                .HasOne(q => q.ReferencedQuest)
-                .WithMany()
-                .HasForeignKey(k => k.ReferencedQuestId)
+                .HasOne(r => r.ReferencedQuest)
+                .WithMany(q => q.RepetitionTags)
+                .HasForeignKey(r => r.ReferencedQuestId)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Repetition>()
-                .HasOne(q => q.TagingPlayer)
-                .WithMany()
-                .HasForeignKey(k => k.TagingPlayerId)
+                .HasOne(r => r.TagingPlayer)
+                .WithMany(p => p.RepetitionTags)
+                .HasForeignKey(r => r.TagingPlayerId)
                 .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Reward>()
-                .HasOne(q => q.RewardCreator)
-                .WithMany()
-                .HasForeignKey(k => k.RewardCreatorId)
+                .HasOne(r => r.RewardCreator)
+                .WithMany(p => p.RewardsCreated)
+                .HasForeignKey(r => r.RewardCreatorId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

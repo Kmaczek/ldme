@@ -251,3 +251,4 @@ paket-files/
 .idea/
 *.sln.iml
 lib
+/Ldme/src/Ldme.DB/TemporaryDbContextFactory.cs

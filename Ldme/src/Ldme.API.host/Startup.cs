@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Globalization;
-using System.IO;
 using AutoMapper;
 using ldme.Persistence.Repositories;
 using Ldme.Abstract.Interfaces;
@@ -21,9 +19,6 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Serilog;
-using Serilog.Events;
-using Serilog.Formatting.Display;
-using Serilog.Sinks.File;
 
 namespace Ldme.API.host
 {
@@ -100,12 +95,14 @@ namespace Ldme.API.host
             services.AddDbContext<LdmeContext>(config =>
             {
                 var connection = Configuration["ConnectionStrings:EfContexConnection"];
+                Log.Logger.Information($"Used connection string: {connection}");
+
                 config.UseSqlServer(connection);
                 if (_env.IsDevelopment())
                 {
                     config.EnableSensitiveDataLogging();
                 }
-                //config.UseLoggerFactory(null);
+                //config.UseLoggerFactory(Log.);
             });
             services.AddTransient<LdmeContextSeed>();
             services.AddTransient<PlayerFactory>();
