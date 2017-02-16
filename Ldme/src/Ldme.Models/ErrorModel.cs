@@ -8,7 +8,7 @@ namespace Ldme.Models
 {
     public class ErrorModel
     {
-        public ErrorModel(string code, string description)
+        public ErrorModel(string description, string code = null)
         {
             this.Code = code;
             this.Description = description;

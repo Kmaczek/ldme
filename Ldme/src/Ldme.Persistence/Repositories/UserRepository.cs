@@ -43,7 +43,7 @@ namespace Ldme.Persistence.Repositories
 
         public LdmeUser GetUserByEmail(string email)
         {
-            return _context.Users.First(x => x.Email == email);
+            return _context.Users.FirstOrDefault(x => x.Email == email);
         }
 
         public void SaveUser(LdmeUser user)

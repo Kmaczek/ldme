@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Ldme.Abstract.Interfaces;
+using Ldme.API.host.RequestHandling;
 using Ldme.Models;
 using Ldme.Models.Dtos;
-using Ldme.Models.Errors;
 using Ldme.Models.Models;
 using Ldme.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -37,9 +37,9 @@ namespace Ldme.API.host.Controllers
                 return new JsonResult(_userRepository.GetUsers());
             }
             catch (Exception e)
-            {
-                _logger.LogError($"Cannot get user from database. {e.Message}");
-                return BadRequest();
+            { 
+                _logger.LogError($"Cannot get users from database. {e.Message}");
+                return this.HandleErrors(e);
             }
         }
 
@@ -49,12 +49,24 @@ namespace Ldme.API.host.Controllers
         {
             try
             {
-                return new JsonResult(_userRepository.GetUserByEmail(email));
+                if (string.IsNullOrEmpty(email))
+                {
+                    return BadRequest(new ErrorDto("User email was not provided"));
+                }
+
+                var user = _userRepository.GetUserByEmail(email);
+
+                if (user == null)
+                {
+                    return NotFound(new ErrorDto($"No user was found under: {email}"));
+                }
+
+                return new JsonResult(user);
             }
             catch (Exception e)
             {
                 _logger.LogError($"Cannot get user from database. {e.Message}");
-                return BadRequest(new ErrorMessage(new ErrorModel(e.Message, e.StackTrace)));
+                return this.HandleErrors(e);
             }
         }
 
@@ -73,17 +85,16 @@ namespace Ldme.API.host.Controllers
 
                         return Ok(userVM);
                     }
-
-                    return BadRequest(new ErrorMessage(new ErrorModel("Login failed", "Incorrect username/email or password")));
+                    return this.Unauthorized(ErrorStore.UnauthorizedLoginFailed);
                 }
                 catch (Exception e)
                 {
-                    _logger.LogInformation(e.ToString());
-                    return BadRequest(new ErrorMessage(new ErrorModel("Login failed", "Incorrect username/email or password")));
+                    _logger.LogError(LdmeLogEvents.Unknown, e, $"Logging in of user {loginData.Email ?? "UNKNOWN"} failed.");
+                    return this.HandleErrors(e);
                 }
             }
 
-            return Unauthorized();
+            return BadRequest(new ErrorDto(ModelState));
         }
 
         [HttpPost("register")]
@@ -96,18 +107,19 @@ namespace Ldme.API.host.Controllers
                     var result = _userRepository.RegisterAsync(registrationData).Result;
                     if (result.Succeeded)
                     {
-                        return Ok();
+                        var user = _userRepository.GetUserByEmail(registrationData.Email);
+                        return Created(this.Request.Path, user);
                     }
-                    return BadRequest(result.Errors);
+                    return BadRequest(new ErrorDto(result));
                 }
                 catch (Exception e)
                 {
-                    _logger.LogInformation(e.ToString());
-                    return BadRequest(new ErrorMessage(new ErrorModel(e.Message, e.StackTrace)));
+                    _logger.LogInformation(LdmeLogEvents.Unknown, e, "Couldnt register user.");
+                    return this.HandleErrors(e);
                 }
             }
 
-            return BadRequest(ModelState);
+            return BadRequest(new ErrorDto(ModelState));
         }
     }
 }

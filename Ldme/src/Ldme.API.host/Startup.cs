@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net;
+using System.Threading.Tasks;
 using AutoMapper;
 using ldme.Persistence.Repositories;
 using Ldme.Abstract.Interfaces;
@@ -14,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Ldme.Persistence.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -88,6 +91,20 @@ namespace Ldme.API.host
                 config.Password.RequireNonAlphanumeric = false;
                 config.Password.RequireUppercase = false;
                 config.Password.RequiredLength = 3;
+                config.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents
+                {
+                    // override redirecting
+                    OnRedirectToLogin = context =>
+                    {
+                        if (context.Request.Path.Value.StartsWith("/api"))
+                        {
+                            context.Response.StatusCode = 401;
+                            return Task.FromResult(0);
+                        }
+                        context.Response.Redirect(context.RedirectUri);
+                        return Task.FromResult(0);
+                    }
+                };
                 //config.Cookies.ApplicationCookie
             })
             .AddEntityFrameworkStores<LdmeContext>();
@@ -102,7 +119,6 @@ namespace Ldme.API.host
                 {
                     config.EnableSensitiveDataLogging();
                 }
-                //config.UseLoggerFactory(Log.);
             });
             services.AddTransient<LdmeContextSeed>();
             services.AddTransient<PlayerFactory>();
