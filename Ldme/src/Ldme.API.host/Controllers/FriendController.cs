@@ -1,4 +1,7 @@
-﻿using Ldme.Abstract.Interfaces;
+﻿using System;
+using Ldme.Abstract.Interfaces;
+using Ldme.API.host.RequestHandling;
+using Ldme.Logic.Domains;
 using Ldme.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -8,27 +11,36 @@ namespace Ldme.API.host.Controllers
     [Route("api/[controller]")]
     public class FriendController : Controller
     {
-        private readonly IFriendRepository friendRepository;
+        private readonly FriendDomain friendDomain;
         private readonly ILogger<FriendController> _logger;
 
-        public FriendController(IFriendRepository friendRepository, ILogger<FriendController> log)
+        public FriendController(FriendDomain friendDomain, ILogger<FriendController> log)
         {
-            this.friendRepository = friendRepository;
+            this.friendDomain = friendDomain;
             this._logger = log;
         }
 
         [HttpPost("request")]
-        public IActionResult Post([FromBody]FriendRequestDto friendRequestDto)
+        public IActionResult Post([FromBody] FriendRequestDto friendRequestDto)
         {
             if (ModelState.IsValid)
             {
-                friendRepository.CreateFriendRequest(friendRequestDto.FromPlayer, friendRequestDto.ToPlayer);
-                friendRepository.SaveChanges();
+                try
+                {
+                    //TODO: What error is thrown while user is not found
+                    var friendRequest = friendDomain.CreateFriendRequest(friendRequestDto.FromPlayer,
+                        friendRequestDto.ToPlayer);
 
-                return Ok(); // Created
+                    return Created(this.Request.Path, friendRequest);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogExceptions(e, this);
+                    return this.HandleErrors(e);
+                }
             }
 
-            return BadRequest(ModelState);
+            return BadRequest(new ErrorDto(ModelState));
         }
     }
 }

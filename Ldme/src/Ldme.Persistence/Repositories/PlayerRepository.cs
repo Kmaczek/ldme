@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ldme.Abstract.Interfaces;
 using Ldme.DB.Setup;
+using Ldme.Models.Exceptions;
 using Ldme.Models.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,10 +19,18 @@ namespace Ldme.Persistence.Repositories
 
         public Player GetPlayer(int id)
         {
-            return ldmeContext.Players
+            var player = ldmeContext.Players
                 .Include(q => q.QuestsCreated)
                 .Include(q => q.QuestsOwned)
                 .First(x => x.Id == id);
+
+            //trying out this, dont know if throwin exceptions this early is good
+            if (player == null)
+            {
+                throw new ResourceNotFoundException("Could not found");
+            }
+
+            return player;
         }
 
         public Player GetPlayerByEmail(string email)

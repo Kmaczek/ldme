@@ -35,9 +35,9 @@ namespace Ldme.Persistence.Repositories
             request.Status = FriendRequestStatus.Rejected;
         }
 
-        public void CreateFriendRequest(int fromPlayerId, int toPlayerId)
+        public FriendRequest CreateFriendRequest(int fromPlayerId, int toPlayerId)
         {
-            var newFriendRequest = new FriendRequest()
+            var newFriendRequest = new FriendRequest
             {
                 RequestedById = fromPlayerId,
                 RequestTargetId = toPlayerId,
@@ -45,6 +45,8 @@ namespace Ldme.Persistence.Repositories
             };
 
             ldmeContext.FriendRequests.Add(newFriendRequest);
+
+            return newFriendRequest;
         }
 
         public FriendRequest GetFriendRequest(int friendRequestId)

@@ -252,3 +252,5 @@ paket-files/
 *.sln.iml
 lib
 /Ldme/src/Ldme.DB/TemporaryDbContextFactory.cs
+/Ldme/Ldme.Database/Ldme.Database.jfm
+/Ldme/Ldme.Database/Ldme.Database.dbmdl

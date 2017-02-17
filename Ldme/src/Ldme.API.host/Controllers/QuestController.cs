@@ -1,6 +1,7 @@
 ﻿using System;
 using AutoMapper;
 using Ldme.Abstract.Interfaces;
+using Ldme.API.host.RequestHandling;
 using Ldme.Logic.Domains;
 using Ldme.Models.Dtos;
 using Ldme.Models.Models;
@@ -17,7 +18,8 @@ namespace Ldme.API.host.Controllers
         private readonly QuestDomain questDomain;
         private readonly ILogger<QuestController> _logger;
 
-        public QuestController(IQuestRepository questRepository, IRepetitionRepository repRepository, ILogger<QuestController> log, QuestDomain questDomain)
+        public QuestController(IQuestRepository questRepository, IRepetitionRepository repRepository,
+            ILogger<QuestController> log, QuestDomain questDomain)
         {
             this.questRepository = questRepository;
             this.repRepository = repRepository;
@@ -26,19 +28,27 @@ namespace Ldme.API.host.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]QuestDto questData)
+        public IActionResult Post([FromBody] QuestDto questData)
         {
             if (ModelState.IsValid)
             {
-                _logger.LogDebug("Trying to create quest");
-                var questModel = Mapper.Map<Quest>(questData);
-                questRepository.CreateQuest(questModel);
-                questRepository.SaveChanges();
+                try
+                {
+                    _logger.LogDebug("Trying to create quest");
+                    var questModel = Mapper.Map<Quest>(questData);
+                    questRepository.CreateQuest(questModel);
+                    questRepository.SaveChanges();
 
-                return Ok();
+                    return Ok();
+                }
+                catch (Exception e)
+                {
+                    _logger.LogExceptions(e, this);
+                    return this.HandleErrors(e);
+                }
             }
 
-            return BadRequest(ModelState);
+            return BadRequest(new ErrorDto(ModelState));
         }
 
         [HttpPost("{id}/complete")]
@@ -54,12 +64,12 @@ namespace Ldme.API.host.Controllers
                 }
                 catch (Exception e)
                 {
-                    _logger.LogError(e.ToString());
-                    return BadRequest();
+                    _logger.LogExceptions(e, this);
+                    return this.HandleErrors(e);
                 }
             }
 
-            return BadRequest(ModelState);
+            return BadRequest(new ErrorDto(ModelState));
         }
 
         [HttpGet("createdby/{id}")]
@@ -75,12 +85,12 @@ namespace Ldme.API.host.Controllers
                 }
                 catch (Exception e)
                 {
-                    _logger.LogError(e.ToString());
-                    return BadRequest();
+                    _logger.LogExceptions(e, this);
+                    return this.HandleErrors(e);
                 }
             }
 
-            return BadRequest(ModelState);
+            return BadRequest(new ErrorDto(ModelState));
         }
 
         [HttpGet("ownedby/{id}")]
@@ -96,12 +106,12 @@ namespace Ldme.API.host.Controllers
                 }
                 catch (Exception e)
                 {
-                    _logger.LogError(e.ToString());
-                    return BadRequest();
+                    _logger.LogExceptions(e, this);
+                    return this.HandleErrors(e);
                 }
             }
 
-            return BadRequest(ModelState);
+            return BadRequest(new ErrorDto(ModelState));
         }
     }
 }

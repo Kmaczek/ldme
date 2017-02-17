@@ -125,6 +125,7 @@ namespace Ldme.API.host
             services.AddTransient<QuestDomain>();
             services.AddTransient<PlayerDomain>();
             services.AddTransient<RewardDomain>();
+            services.AddTransient<FriendDomain>();
 
             services.AddScoped<IPlayerRepository, PlayerRepository>();
             services.AddScoped<IUserRepository, UserRepository>();

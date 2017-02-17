@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Ldme.Abstract.Interfaces;
+using Ldme.Models.Exceptions;
 using Ldme.Models.Models;
 using Microsoft.Extensions.Logging;
 

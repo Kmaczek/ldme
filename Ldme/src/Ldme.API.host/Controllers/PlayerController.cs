@@ -1,4 +1,5 @@
 ﻿using System;
+using Ldme.API.host.RequestHandling;
 using Microsoft.AspNetCore.Mvc;
 using Ldme.Logic.Domains;
 using Ldme.Models.Models;
@@ -29,8 +30,8 @@ namespace Ldme.API.host.Controllers
             }
             catch (Exception e)
             {
-                _logger.LogInformation(e.ToString());
-                return Json(new {Message = "Server error, couldnt find player.", Error = e.Message});
+                _logger.LogExceptions(e, this);
+                return this.HandleErrors(e);
             }
         }
 
@@ -44,22 +45,30 @@ namespace Ldme.API.host.Controllers
             }
             catch (Exception e)
             {
-                _logger.LogError($"Cannot find players with specified query. {e.Message}, {e.StackTrace}");
-                return BadRequest();
+                _logger.LogExceptions(e, this);
+                return this.HandleErrors(e);
             }
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody]Player playerModel)
+        public IActionResult Post([FromBody] Player playerModel)
         {
+            //TODO: Change this to PlayerDto and apply anotations on properties
             if (ModelState.IsValid)
             {
-                playerDomain.AddPlayer(playerModel);
-
-                return Ok();
+                try
+                {
+                    var player = playerDomain.AddPlayer(playerModel);
+                    return Created(this.Request.Path, player);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogExceptions(e, this);
+                    return this.HandleErrors(e);
+                }
             }
 
-            return BadRequest(ModelState);
+            return BadRequest(new ErrorDto(ModelState));
         }
     }
 }

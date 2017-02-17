@@ -12,7 +12,7 @@ namespace Ldme.Abstract.Interfaces
         void SaveChanges();
         void AcceptFriendRequest(int friendRequestId);
         void RejectFriendRequest(int friendRequestId);
-        void CreateFriendRequest(int fromPlayerId, int toPlayerId);
+        FriendRequest CreateFriendRequest(int fromPlayerId, int toPlayerId);
         FriendRequest GetFriendRequest(int friendRequestId);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using Ldme.Abstract.Interfaces;
+using Ldme.API.host.RequestHandling;
 using Ldme.Logic.Domains;
+using Ldme.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -9,7 +11,6 @@ namespace Ldme.API.host.Controllers
     [Route("api/[controller]")]
     public class RewardController: Controller
     {
-        //private readonly IFriendRepository friendRepository;
         private readonly ILogger<FriendController> _logger;
         private readonly RewardDomain rewardDomain;
 
@@ -32,12 +33,12 @@ namespace Ldme.API.host.Controllers
                 }
                 catch (Exception e)
                 {
-                    _logger.LogError(e.ToString());
-                    return BadRequest();
+                    _logger.LogExceptions(e, this);
+                    return this.HandleErrors(e);
                 }
             }
 
-            return BadRequest(ModelState);
+            return BadRequest(new ErrorDto(ModelState));
         }
 
         [HttpPost("{id}/claim")]
@@ -53,12 +54,12 @@ namespace Ldme.API.host.Controllers
                 }
                 catch (Exception e)
                 {
-                    _logger.LogError(e.ToString());
-                    return BadRequest(e.Message);
+                    _logger.LogExceptions(e, this);
+                    return this.HandleErrors(e);
                 }
             }
 
-            return BadRequest(ModelState);
+            return BadRequest(new ErrorDto(ModelState));
         }
 
         [HttpPost("{id}/deactivate")]
@@ -74,12 +75,12 @@ namespace Ldme.API.host.Controllers
                 }
                 catch (Exception e)
                 {
-                    _logger.LogError(e.ToString());
-                    return BadRequest(e.Message);
+                    _logger.LogExceptions(e, this);
+                    return this.HandleErrors(e);
                 }
             }
 
-            return BadRequest(ModelState);
+            return BadRequest(new ErrorDto(ModelState));
         }
     }
 }

@@ -37,8 +37,8 @@ namespace Ldme.API.host.Controllers
                 return new JsonResult(_userRepository.GetUsers());
             }
             catch (Exception e)
-            { 
-                _logger.LogError($"Cannot get users from database. {e.Message}");
+            {
+                _logger.LogExceptions(e, this);
                 return this.HandleErrors(e);
             }
         }
@@ -65,7 +65,7 @@ namespace Ldme.API.host.Controllers
             }
             catch (Exception e)
             {
-                _logger.LogError($"Cannot get user from database. {e.Message}");
+                _logger.LogExceptions(e, this);
                 return this.HandleErrors(e);
             }
         }
@@ -89,7 +89,7 @@ namespace Ldme.API.host.Controllers
                 }
                 catch (Exception e)
                 {
-                    _logger.LogError(LdmeLogEvents.Unknown, e, $"Logging in of user {loginData.Email ?? "UNKNOWN"} failed.");
+                    _logger.LogExceptions(e, this);
                     return this.HandleErrors(e);
                 }
             }
@@ -114,7 +114,7 @@ namespace Ldme.API.host.Controllers
                 }
                 catch (Exception e)
                 {
-                    _logger.LogInformation(LdmeLogEvents.Unknown, e, "Couldnt register user.");
+                    _logger.LogExceptions(e, this);
                     return this.HandleErrors(e);
                 }
             }

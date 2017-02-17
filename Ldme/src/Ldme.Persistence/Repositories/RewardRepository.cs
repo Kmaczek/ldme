@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ldme.Abstract.Interfaces;
 using Ldme.DB.Setup;
+using Ldme.Models.Exceptions;
 using Ldme.Models.Models;
 
 namespace Ldme.Persistence.Repositories
@@ -34,7 +35,12 @@ namespace Ldme.Persistence.Repositories
 
         public Reward GetReward(int id)
         {
-            return _context.Rewards.Single(x => x.Id == id);
+            var reward = _context.Rewards.Single(x => x.Id == id);
+            if (reward == null)
+            {
+                throw new ResourceNotFoundException($"Cannot find Reward with id: {id}");
+            }
+            return reward;
         }
 
         public IEnumerable<Reward> GetRewards(int playerId)

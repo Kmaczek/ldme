@@ -37,10 +37,12 @@ namespace Ldme.Logic.Domains
             return playersVM;
         }
 
-        public void AddPlayer(Player playerModel)
+        public Player AddPlayer(Player playerModel)
         {
             playerRepository.AddPlayer(playerModel);
             playerRepository.SaveChanges();
+
+            return playerModel;
         }
     }
 }

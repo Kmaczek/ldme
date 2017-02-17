@@ -4,6 +4,7 @@ using System.Linq;
 using Ldme.Abstract.Interfaces;
 using Ldme.DB.Setup;
 using Ldme.Models.Dtos;
+using Ldme.Models.Exceptions;
 using Ldme.Models.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -79,10 +80,17 @@ namespace ldme.Persistence.Repositories
 
         public Quest GetQuest(int id)
         {
-            return ldmeContext.Quests
+            var quest = ldmeContext.Quests
                 .Include(q => q.QuestOwner)
                 .Include(q => q.QuestCreator)
                 .Single(x => x.Id == id);
+
+            if (quest == null)
+            {
+                throw new ResourceNotFoundException($"Could not found Quest with id: {id}");
+            }
+
+            return quest;
         }
 
         public IEnumerable<Quest> GetCreatedBy(int playerId)
