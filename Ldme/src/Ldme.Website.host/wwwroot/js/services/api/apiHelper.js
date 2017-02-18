@@ -9,7 +9,7 @@
             var errors = '';
             angular.forEach(response.data,
             function (value, key) {
-                errors += '- ' + value.code + "<br>";
+                errors += '- ' + (value.description || value.code) + "<br>";
             });
             toastr.error('Request failed: <br>' + errors);
         }
@@ -42,10 +42,20 @@
             return action(params, body, success, fail).$promise;
         }
 
+        function getDefaultErrors(response) {
+            var errors = '';
+            angular.forEach(response.data,
+            function (value, key) {
+                errors += '- ' + (value.description || value.code) + "<br>";
+            });
+
+            return errors;
+        }
+
         return {
             requestWrapperGET: callWrapperGET,
-            requestWrapperPOST: callWrapperPOST
+            requestWrapperPOST: callWrapperPOST,
+            getDefaultErrors: getDefaultErrors
         }
     }]);
-
 }());
