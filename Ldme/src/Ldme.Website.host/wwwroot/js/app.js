@@ -96,7 +96,7 @@
     }
 
     var run = function (appState, playerInstance) {
-        if (appState.isLoggedIn) {
+        if (appState.isLoggedIn()) {
             playerInstance.fetchPlayerData(appState.getPlayerId()).then(function (result) {
                 // poor for now, dont want to develop it util I will need it. Doesnt do anything right now,
                 // coz I use playerInstance.isPlayerDataFetched to check if this service has fetched data
