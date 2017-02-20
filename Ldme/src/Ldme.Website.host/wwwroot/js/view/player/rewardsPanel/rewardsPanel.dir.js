@@ -1,17 +1,17 @@
 ﻿(function () {
     "use strict";
 
-    angular.module('ldme').directive('rewardsPanel', ['rewardApi', 'playerInstance', 'toastr',
-        function (rewardApi, playerInstance, toastr) {
+    angular.module('ldme').directive('rewardsPanel', ['rewardApi', 'playerInstance', '$state', 'toastr',
+        function (rewardApi, playerInstance, $state, toastr) {
 
             function linkFunc(scope, element, attrs) {
 
-                scope.claimReward = function (questId) {
+                scope.claimReward = function (rewardId) {
                     function onSuccess(result) {
                         playerInstance.fetchPlayerData();
                     }
 
-                    rewardApi.ClaimReward(questId, onSuccess);
+                    rewardApi.Claim(rewardId, onSuccess);
                 }
 
                 scope.deactivate = function (questId) {
@@ -20,6 +20,14 @@
                     }
 
                     rewardApi.Deactivate(questId, onSuccess);
+                }
+
+                scope.addReward = function() {
+                    if ($state.current.name === 'addReward') {
+                        $state.go('profile');
+                    } else {
+                        $state.go('addReward');
+                    }
                 }
             }
 

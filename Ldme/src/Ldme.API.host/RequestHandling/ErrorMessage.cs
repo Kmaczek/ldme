@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ldme.Logic.Validation;
+using Ldme.Logic.Validation.ErrorModels;
 using Ldme.Models;
+using Ldme.Models.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Ldme.API.host.RequestHandling
 {
-    public class ErrorDto : IEnumerable<ErrorModel>
+    public class ErrorDto : IEnumerable<IErrorModel>
     {
-        private readonly List<ErrorModel> Errors = new List<ErrorModel>();
+        private readonly List<IErrorModel> Errors = new List<IErrorModel>();
 
         public ErrorDto(params ErrorModel[] errors)
         {
@@ -50,7 +53,12 @@ namespace Ldme.API.host.RequestHandling
             Errors.Add(new ErrorModel(key.Message, key.Code));
         }
 
-        public IEnumerator<ErrorModel> GetEnumerator()
+        public ErrorDto(IDomainResult result)
+        {
+            Errors.AddRange(result.Errors);
+        }
+
+        public IEnumerator<IErrorModel> GetEnumerator()
         {
             return Errors.GetEnumerator();
         }

@@ -163,6 +163,7 @@ namespace Ldme.API.host
                 .ForMember(q => q.QuestOwnerId, m => m.MapFrom(qd => qd.ToPlayer))
                 .ForMember(q => q.DeadlineDate, m => m.MapFrom(qd => qd.EndTime))
                 .ReverseMap();
+                cfg.CreateMap<Reward, CreateRewardDto>().ReverseMap();
             });
 
             seed.EnsureSeedData().Wait();

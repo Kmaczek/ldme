@@ -83,7 +83,7 @@
                     toastr.error('Cannot get player rewards');
                 }
 
-                return rewardApi.GetRewards(playerId, onSuccess, onFail);
+                return rewardApi.GetAll(playerId, onSuccess, onFail);
             }
 
             return {

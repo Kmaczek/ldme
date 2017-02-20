@@ -36,11 +36,11 @@
         });
 
         function createQuest(params, questModel, onSuccess, onFail) {
-            return apiHelper.requestWrapperPOST(quest.save, params, questModel, onSuccess, onFail);
+            return apiHelper.requestWrapperWithBody(quest.save, params, questModel, onSuccess, onFail);
         }
 
         function completeQuest(params, questCompletionModel, onSuccess, onFail) {
-            return apiHelper.requestWrapperPOST(quest.complete, params, questCompletionModel, onSuccess, onFail);
+            return apiHelper.requestWrapperWithBody(quest.complete, params, questCompletionModel, onSuccess, onFail);
         }
 
         function getCreatedByPlayer(id, onSuccess, onFail) {

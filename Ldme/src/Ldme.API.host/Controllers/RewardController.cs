@@ -3,6 +3,7 @@ using Ldme.Abstract.Interfaces;
 using Ldme.API.host.RequestHandling;
 using Ldme.Logic.Domains;
 using Ldme.Models;
+using Ldme.Models.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -30,6 +31,32 @@ namespace Ldme.API.host.Controllers
                     _logger.LogDebug($"Trying to get quests created by player: {id}");
                     var playerRewards = rewardDomain.GetRewards(id);
                     return Json(playerRewards);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogExceptions(e, this);
+                    return this.HandleErrors(e);
+                }
+            }
+
+            return BadRequest(new ErrorDto(ModelState));
+        }
+
+        [HttpPost]
+        public IActionResult AddReward([FromBody]CreateRewardDto createReward)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _logger.LogDebug($"Creating reward");
+                    var result = rewardDomain.CreateReward(createReward);
+                    if (result.Invalid)
+                    {
+                        return BadRequest(new ErrorDto(result));
+                    }
+
+                    return Created(this.Request.Path, result.Entity);
                 }
                 catch (Exception e)
                 {

@@ -2,7 +2,7 @@
 
 namespace Ldme.Models.Exceptions
 {
-    public class ResourceNotFoundException : Exception
+    public class ResourceNotFoundException : LdmeException
     {
         public ResourceNotFoundException(string message) : base(message)
         {

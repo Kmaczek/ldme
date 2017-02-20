@@ -65,6 +65,19 @@
                         closeState: 'profile'
                     }
                 })
+            .state('addReward',
+                {
+                    parent: 'player',
+                    url: '/player/addReward',
+                    views: {
+                        'lpanel@root': {
+                            templateUrl: 'js/view/addReward/addReward.tmpl.html'
+                        }
+                    },
+                    data: {
+                        closeState: 'profile'
+                    }
+                })
             .state('friends',
                 {
                     parent: 'root',

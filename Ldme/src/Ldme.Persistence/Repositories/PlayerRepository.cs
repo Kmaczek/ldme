@@ -22,13 +22,7 @@ namespace Ldme.Persistence.Repositories
             var player = ldmeContext.Players
                 .Include(q => q.QuestsCreated)
                 .Include(q => q.QuestsOwned)
-                .First(x => x.Id == id);
-
-            //trying out this, dont know if throwin exceptions this early is good
-            if (player == null)
-            {
-                throw new ResourceNotFoundException("Could not found");
-            }
+                .FirstOrDefault(x => x.Id == id);
 
             return player;
         }

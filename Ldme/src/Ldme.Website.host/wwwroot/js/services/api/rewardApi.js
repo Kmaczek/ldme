@@ -26,14 +26,17 @@
                 params: {
                     id: '@id'
                 }
+            },
+            add: {
+                method: 'POST'
             }
         });
 
-        function getRewards(id, onSuccess, onFail) {
+        function getAll(id, onSuccess, onFail) {
             return apiHelper.requestWrapperGET(reward.getRewardsForPlayer, { id: id }, onSuccess, onFail);
         }
 
-        function claimReward(id, onSuccess, onFail) {
+        function claim(id, onSuccess, onFail) {
             return apiHelper.requestWrapperGET(reward.claim, { id: id }, onSuccess, onFail);
         }
 
@@ -41,10 +44,15 @@
             return apiHelper.requestWrapperGET(reward.deactivate, { id: id }, onSuccess, onFail);
         }
 
+        function add(rewardModel, onSuccess, onFail) {
+            return apiHelper.requestWrapperWithBody(reward.add, null, rewardModel, onSuccess, onFail);
+        }
+
         return {
-            GetRewards: getRewards,
-            ClaimReward: claimReward,
-            Deactivate: deactivate
+            GetAll: getAll,
+            Claim: claim,
+            Deactivate: deactivate,
+            Add: add
         }
     }]);
 }())

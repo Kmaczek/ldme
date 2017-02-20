@@ -27,7 +27,15 @@ namespace Ldme.Logic.Domains
 
         public PlayerVM GetPlayer(int id)
         {
-            return new PlayerVM(playerRepository.GetPlayer(id), questDomain.GetQuestsForPlayer(id));
+            var player = playerRepository.GetPlayer(id);
+            if (player == null)
+            {
+                return null;
+            }
+
+            var quests = questDomain.GetQuestsForPlayer(id);
+
+            return new PlayerVM(player, quests);
         }
 
         public IEnumerable<PlayerSearchDto> SearchPlayers(string query)

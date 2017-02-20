@@ -9,6 +9,7 @@ namespace Ldme.API.host.RequestHandling
     {
         public static IActionResult HandleErrors(this Controller ctrl, Exception exception)
         {
+            //TODO: if DEV then throw detailed exceptions
             if (exception is ResourceNotFoundException)
             {
                 return ctrl.StatusCode(StatusCodes.Status404NotFound, new ErrorDto(exception.Message));

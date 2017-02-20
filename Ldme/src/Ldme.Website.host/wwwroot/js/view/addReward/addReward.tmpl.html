@@ -1,0 +1,39 @@
+﻿<div class="add-quest" ng-controller="addRewardCtrl as arc">
+    <div class="formMsg">
+        <div ng-if="arc.formMsg.length">
+            <div ng-repeat="msg in arc.formMsg"><span class="label label-warning">{{msg}}</span></div>
+        </div>
+    </div>
+
+    <form name="rewardForm" novalidate>
+        <form-input class="" form-obj="rewardForm" field-name="name" errors-url="js/view/addQuest/errors/nameErrors.html">
+            <input class="text input-sm" type="text" ng-model="arc.rewardModel.description" name="name" placeholder="Description" ng-minlength="3" ng-required="rewardForm.name.$dirty===true" />
+        </form-input>
+        <ul ng-messages="rewardForm.name.$error" class="val-msgs">
+            <li ng-messages-include="js/view/addReward/errors/nameErrors.html"></li>
+        </ul>
+
+        <form-input form-obj="rewardForm" field-name="goldReward" label="Gold Cost">
+            <input class="numeric input-sm" ng-model="arc.rewardModel.goldPrice" name="goldReward" type="number" max="100" />
+            <span class="glyphicon glyphicon-triangle-top ldme-hand-pointer ldme-green"
+                  aria-hidden="true"
+                  tooltip-placement="bottom"
+                  uib-tooltip="Gold given after quest is done"></span>
+        </form-input>
+
+        <form-input form-obj="rewardForm" field-name="honorReward" label="Honor Cost">
+            <input class="numeric input-sm" ng-model="arc.rewardModel.honorPrice" name="honorReward" type="number" max="100" />
+            <span class="glyphicon glyphicon-triangle-top ldme-hand-pointer ldme-green"
+                  aria-hidden="true"
+                  tooltip-placement="bottom"
+                  uib-tooltip="Honor given after quest is done"></span>
+        </form-input>
+
+        <br />
+        <div>
+            <button class="btn btn-success btn-xs" ng-click="arc.addReward()">Create</button>
+            <button class="btn btn-default btn-xs" ng-click="arc.clearForm()">Clear</button>
+        </div>
+    </form>
+
+</div>

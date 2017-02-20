@@ -43,6 +43,13 @@ namespace Ldme.Persistence.Repositories
             return reward;
         }
 
+        public Reward CreateReward(Reward reward)
+        {
+            _context.Rewards.Add(reward);
+
+            return reward;
+        }
+
         public IEnumerable<Reward> GetRewards(int playerId)
         {
             return _context.Rewards.Where(x => x.RewardCreatorId == playerId && x.Deactivated == null).ToList();

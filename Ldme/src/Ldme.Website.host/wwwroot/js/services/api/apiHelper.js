@@ -26,7 +26,7 @@
             return action(params, success, fail).$promise;
         }
 
-        function callWrapperPOST(action, params, body, onSuccess, onFail) {
+        function callWrapperWithBody(action, params, body, onSuccess, onFail) {
             var success = defaultOnSuccess;
             var fail = defaultOnFail;
             var param = {};
@@ -54,7 +54,7 @@
 
         return {
             requestWrapperGET: callWrapperGET,
-            requestWrapperPOST: callWrapperPOST,
+            requestWrapperWithBody: callWrapperWithBody,
             getDefaultErrors: getDefaultErrors
         }
     }]);

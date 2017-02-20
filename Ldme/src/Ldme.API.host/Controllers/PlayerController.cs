@@ -26,6 +26,11 @@ namespace Ldme.API.host.Controllers
             try
             {
                 var player = playerDomain.GetPlayer(id);
+                if (player == null)
+                {
+                    return this.BadRequest(new ErrorDto($"Couldnt find player with id: {id}"));
+                }
+
                 return Json(player);
             }
             catch (Exception e)
