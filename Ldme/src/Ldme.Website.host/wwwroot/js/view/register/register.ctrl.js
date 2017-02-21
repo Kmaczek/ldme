@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('ldme').controller('registerCtrl', ['$scope', 'userApi', function ($scope, userApi, toastr, $state) {
+    angular.module('ldme').controller('registerCtrl', function ($scope, userApi, toastr, $state) {
 
         $scope.register = function() {
             if ($scope.password === $scope.passwordRepeat) {
@@ -13,6 +13,6 @@
             }
 
         };
-    }]);
+    });
 
 }());

@@ -6,6 +6,7 @@
     "Ldme.Common": "1.0.0-*",
     "Ldme.DB": "1.0.0-*",
     "Ldme.Models": "1.0.0-*",
+    "Microsoft.EntityFrameworkCore": "1.1.0",
     "NETStandard.Library": "1.6.1"
   },
 

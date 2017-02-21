@@ -1,8 +1,8 @@
 ﻿(function () {
     "use strict";
 
-    angular.module('ldme').factory('playerInstance', ['$resource', 'ldmeConfig', 'playerApi', 'questApi', 'rewardApi', 'toastr',
-        function ($resource, ldmeConfig, playerApi, questApi, rewardApi, toastr) {
+    angular.module('ldme').factory('playerInstance',
+        function ($resource, ldmeConfig, playerApi, questApi, rewardApi, friendsApi, toastr) {
             var playerData = {
                 name: '',
                 honor: 0,
@@ -10,7 +10,8 @@
                 id: 0,
                 questsCreated: new Array(),
                 questsOwned: new Array(),
-                rewards: new Array()
+                rewards: new Array(),
+                friends: new Array()
             };
 
             function fetchPlayerData(id) {
@@ -25,11 +26,12 @@
                     playerData.honor = result.honor;
                     playerData.gold = result.gold;
                     playerData.id = result.id;
-                    copyQuests(playerData.questsCreated, result.questsCreated);
-                    copyQuests(playerData.questsOwned, result.questsOwned);
+                    copyToArray(playerData.questsCreated, result.questsCreated, QuestModel);
+                    copyToArray(playerData.questsOwned, result.questsOwned, QuestModel);
                 }
 
-                fetchRewards(playerId);
+                getRewards(playerId);
+                getFriends(playerId);
 
                 return playerApi.GetPlayer(playerId, onSuccess);
             }
@@ -41,7 +43,7 @@
             function updateQuests(typeToUpdate) {
                 function onSuccessWrap(array) {
                     function onSuccess(result) {
-                        copyQuests(array, result);
+                        copyToArray(array, result, QuestModel);
                     }
 
                     return onSuccess;
@@ -60,30 +62,35 @@
                 return playerData.id > 0;
             }
 
-            function copyQuests(array, result) {
+            function copyToArray(array, result, model) {
                 array.length = 0;
                 angular.forEach(result, function (value) {
-                    array.push(QuestModel.FromResponse(value));
+                    array.push(model.FromResponse(value));
                 });
             }
 
-            function copyReward(array, result) {
-                array.length = 0;
-                angular.forEach(result, function (value) {
-                    array.push(RewardModel.FromResponse(value));
-                });
-            }
-
-            function fetchRewards(playerId) {
+            function getRewards(playerId) {
                 function onSuccess(result) {
-                    copyReward(playerData.rewards, result);
+                    copyToArray(playerData.rewards, result, RewardModel);
                 }
 
                 function onFail(result) {
-                    toastr.error('Cannot get player rewards');
+                    toastr.error('Can not get player rewards');
                 }
 
                 return rewardApi.GetAll(playerId, onSuccess, onFail);
+            }
+
+            function getFriends(playerId) {
+                function onSuccess(result) {
+                    copyToArray(playerData.friends, result, FriendModel);
+                }
+
+                function onFail(result) {
+                    toastr.error('Can not get players friends');
+                }
+
+                return friendsApi.GetAll(playerId, onSuccess, onFail);
             }
 
             return {
@@ -92,5 +99,5 @@
                 updateQuests: updateQuests,
                 isPlayerDataFetched: isPlayerDataFetched
             }
-        }]);
+        });
 }())

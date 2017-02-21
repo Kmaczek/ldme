@@ -1,10 +1,23 @@
 ﻿(function () {
     "use strict";
 
-    angular.module('ldme').controller('friendsCtrl', ['playerInstance', 'playerApi', function (playerInstance, playerApi) {
+    angular.module('ldme').controller('friendsCtrl', function ($scope, playerInstance, playerApi) {
         var ctrl = this;
         this.searchInitialized = false;
         this.searchSuccessfull = false;
+        this.currentFriends = [];
+
+        (function () {
+            var playerLoaded = $scope.$watch(function () {
+                return playerInstance.isPlayerDataFetched();
+            },
+            function (newVal) {
+                if (newVal === true) {
+                    ctrl.currentFriends = playerInstance.getPlayerData().friends;
+                    playerLoaded();
+                }
+            });
+        })();
 
         ctrl.findFriends = function (query) {
             ctrl.searchInitialized = true;
@@ -18,5 +31,5 @@
             }
             playerApi.FindPlayers(query, onSuccess, onFail);
         }
-    }]);
+    });
 }())

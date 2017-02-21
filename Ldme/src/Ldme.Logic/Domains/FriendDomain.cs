@@ -1,5 +1,8 @@
-﻿using Ldme.Abstract.Interfaces;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Ldme.Abstract.Interfaces;
 using Ldme.Models.Models;
+using Ldme.Models.ViewModels;
 using Microsoft.Extensions.Logging;
 
 namespace Ldme.Logic.Domains
@@ -21,6 +24,17 @@ namespace Ldme.Logic.Domains
             friendRepository.SaveChanges();
 
             return request;
+        }
+
+        public IEnumerable<FriendVM> GetFriends(int playerId)
+        {
+            var friends = friendRepository.GetFriends(playerId).Select(x => new FriendVM
+            {
+                Id = x.Id,
+                Name = x.Name
+            });
+
+            return friends;
         }
     }
 }

@@ -42,5 +42,25 @@ namespace Ldme.API.host.Controllers
 
             return BadRequest(new ErrorDto(ModelState));
         }
+
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var friends = friendDomain.GetFriends(id);
+                    return Json(friends);
+                }
+                catch (Exception e)
+                {
+                    _logger.LogExceptions(e, this);
+                    return this.HandleErrors(e);
+                }
+            }
+
+            return BadRequest(new ErrorDto(ModelState));
+        }
     }
 }

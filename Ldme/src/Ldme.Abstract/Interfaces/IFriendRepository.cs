@@ -14,5 +14,6 @@ namespace Ldme.Abstract.Interfaces
         void RejectFriendRequest(int friendRequestId);
         FriendRequest CreateFriendRequest(int fromPlayerId, int toPlayerId);
         FriendRequest GetFriendRequest(int friendRequestId);
+        IEnumerable<Player> GetFriends(int playerId);
     }
 }
