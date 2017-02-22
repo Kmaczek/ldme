@@ -10,13 +10,18 @@
         }
 
         this.logIn = function() {
-            function onSuccesffullLogin(response) {
+            function onSuccessfullLogin(response) {
                 appState.logIn();
                 appState.setPlayerData(response);
                 $state.go('profile');
             }
 
-            ctrl.lockLogin = userApi.Login(this.email, this.password, onSuccesffullLogin);
+            function onFailedLogin(response) {
+                ctrl.password = '';
+                userApi.defaultOnFail(response);
+            }
+
+            ctrl.lockLogin = userApi.Login(this.email, this.password, onSuccessfullLogin, onFailedLogin);
         };
 
         this.logOut = function() {

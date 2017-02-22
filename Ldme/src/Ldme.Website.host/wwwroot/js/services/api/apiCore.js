@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('ldme').factory('apiHelper', ['toastr', function (toastr) {
+    angular.module('ldme').factory('apiCore', ['toastr', function (toastr) {
 
         function defaultOnSuccess(response) {
 
@@ -55,7 +55,8 @@
         return {
             requestWrapperGET: callWrapperGET,
             requestWrapperWithBody: callWrapperWithBody,
-            getDefaultErrors: getDefaultErrors
+            getDefaultErrors: getDefaultErrors,
+            defaultOnFail: defaultOnFail
         }
     }]);
 }());

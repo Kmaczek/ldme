@@ -1,6 +1,6 @@
 ﻿(function () {
-    angular.module('ldme').factory('questApi', ['$resource', 'ldmeConfig', 'apiHelper', function ($resource, ldmeConfig, apiHelper) {
-
+    angular.module('ldme').factory('questApi', function ($resource, ldmeConfig, apiCore) {
+        var questApi = angular.extend({}, apiCore);
         var apiUrl = ldmeConfig.apiUrl + '/quest';
 
         var quest = $resource(apiUrl, null,
@@ -36,26 +36,26 @@
         });
 
         function createQuest(params, questModel, onSuccess, onFail) {
-            return apiHelper.requestWrapperWithBody(quest.save, params, questModel, onSuccess, onFail);
+            return questApi.requestWrapperWithBody(quest.save, params, questModel, onSuccess, onFail);
         }
 
         function completeQuest(params, questCompletionModel, onSuccess, onFail) {
-            return apiHelper.requestWrapperWithBody(quest.complete, params, questCompletionModel, onSuccess, onFail);
+            return questApi.requestWrapperWithBody(quest.complete, params, questCompletionModel, onSuccess, onFail);
         }
 
         function getCreatedByPlayer(id, onSuccess, onFail) {
-            return apiHelper.requestWrapperGET(quest.getCreatedBy, { id: id }, onSuccess, onFail);
+            return questApi.requestWrapperGET(quest.getCreatedBy, { id: id }, onSuccess, onFail);
         }
 
         function getOwnedByPlayer(id, onSuccess, onFail) {
-            return apiHelper.requestWrapperGET(quest.getOwnedBy, { id: id }, onSuccess, onFail);
+            return questApi.requestWrapperGET(quest.getOwnedBy, { id: id }, onSuccess, onFail);
         }
 
-        return {
-            CreateQuest: createQuest,
-            CompleteQuest: completeQuest,
-            GetCreatedByPlayer: getCreatedByPlayer,
-            GetOwnedByPlayer: getOwnedByPlayer
-        }
-    }]);
+        questApi.CreateQuest = createQuest;
+        questApi.CompleteQuest = completeQuest;
+        questApi.GetCreatedByPlayer = getCreatedByPlayer;
+        questApi.GetOwnedByPlayer = getOwnedByPlayer;
+
+        return questApi;
+    });
 }())

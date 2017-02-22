@@ -1,6 +1,6 @@
 ﻿(function () {
-    angular.module('ldme').factory('friendsApi', function ($resource, ldmeConfig, apiHelper) {
-
+    angular.module('ldme').factory('friendsApi', function ($resource, ldmeConfig, apiCore) {
+        var friensApi = angular.extend({}, apiCore);
         var apiUrl = ldmeConfig.apiUrl + '/friend';
 
         var friends = $resource(apiUrl, null,
@@ -15,12 +15,12 @@
         });
 
         function getAll(id, onSuccess, onFail) {
-            return apiHelper.requestWrapperGET(friends.getAll, { id: id }, onSuccess, onFail);
+            return friensApi.requestWrapperGET(friends.getAll, { id: id }, onSuccess, onFail);
         }
 
-        return {
-            GetAll: getAll
-        }
+        friensApi.GetAll = getAll;
+
+        return friensApi;
     });
 
 }())

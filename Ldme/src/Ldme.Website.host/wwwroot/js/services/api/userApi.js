@@ -1,6 +1,6 @@
 ﻿(function () {
-    angular.module('ldme').factory('userApi', ['$resource', 'toastr', 'ldmeConfig', 'apiHelper', function ($resource, toastr, ldmeConfig, apiHelper) {
-
+    angular.module('ldme').factory('userApi', function ($resource, toastr, ldmeConfig, apiCore) {
+        var userApi = angular.extend({}, apiCore);
         var apiUrl = ldmeConfig.apiUrl + "/user";
 
         var user = $resource(apiUrl, null,
@@ -18,17 +18,17 @@
         });
 
         function login(email, password, onSuccess, onFail) {
-            return apiHelper.requestWrapperWithBody(user.login, null, { email: email, password: password }, onSuccess, onFail);
+            return userApi.requestWrapperWithBody(user.login, null, { email: email, password: password }, onSuccess, onFail);
         }
 
         function register(email, password, onSuccess, onFail) {
-            return apiHelper.requestWrapperWithBody(user.register, null, { email: email, password: password }, onSuccess, onFail);
+            return userApi.requestWrapperWithBody(user.register, null, { email: email, password: password }, onSuccess, onFail);
         }
 
-        return {
-            Login: login,
-            Register: register
-        };
-    }]);
+        userApi.Login = login;
+        userApi.Register = register;
+
+        return userApi;
+    });
 
 }());

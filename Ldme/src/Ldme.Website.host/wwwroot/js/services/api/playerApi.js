@@ -1,6 +1,6 @@
 ﻿(function () {
-    angular.module('ldme').factory('playerApi', ['$resource', 'ldmeConfig', 'apiHelper', function ($resource, ldmeConfig, apiHelper) {
-
+    angular.module('ldme').factory('playerApi', function ($resource, ldmeConfig, apiCore) {
+        var playerApi = angular.extend({}, apiCore);
         var apiUrl = ldmeConfig.apiUrl + '/player';
 
         var player = $resource(apiUrl, null,
@@ -20,17 +20,17 @@
         });
 
         function getPlayerData(id, onSuccess, onFail) {
-            return apiHelper.requestWrapperGET(player.get, { id: id }, onSuccess, onFail);
+            return playerApi.requestWrapperGET(player.get, { id: id }, onSuccess, onFail);
         }
 
         function findPlayers(query, onSuccess, onFail) {
-            return apiHelper.requestWrapperGET(player.search, { query: query }, onSuccess, onFail);
+            return playerApi.requestWrapperGET(player.search, { query: query }, onSuccess, onFail);
         }
 
-        return {
-            GetPlayer: getPlayerData,
-            FindPlayers: findPlayers
-        }
-    }]);
+        playerApi.GetPlayer = getPlayerData;
+        playerApi.FindPlayers = findPlayers;
+
+        return playerApi;
+    });
 
 }())
