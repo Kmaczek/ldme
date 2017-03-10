@@ -32,7 +32,7 @@
             return state.playerId;
         }
 
-        function setPlayerData(response) {
+        function setUserData(response) {
             state.email = response.email;
             state.userId = response.id;
             state.playerId = response.playerId;
@@ -67,7 +67,7 @@
             logOut: logOut,
             getEmail: getEmail,
             getPlayerId: getPlayerId,
-            setPlayerData: setPlayerData,
+            setUserData: setUserData,
             dependencies: dependencies,
             dependencyFinishedLoading: dependencyFinishedLoading,
 

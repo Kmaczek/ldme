@@ -12,7 +12,8 @@
         this.logIn = function() {
             function onSuccessfullLogin(response) {
                 appState.logIn();
-                appState.setPlayerData(response);
+                appState.setUserData(response);
+                playerInstance.fetchPlayerData(appState.getPlayerId());
                 $state.go('profile');
             }
 
