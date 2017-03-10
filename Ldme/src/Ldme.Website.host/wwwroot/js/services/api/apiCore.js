@@ -42,11 +42,11 @@
             return action(params, body, success, fail).$promise;
         }
 
-        function getDefaultErrors(response) {
+        function getDefaultErrors(response, unformatted) {
             var errors = '';
             angular.forEach(response.data,
             function (value, key) {
-                errors += '- ' + (value.description || value.code) + "<br>";
+                errors += '- ' + (value.description || value.code) + (unformatted ? '': '<br>');
             });
 
             return errors;
